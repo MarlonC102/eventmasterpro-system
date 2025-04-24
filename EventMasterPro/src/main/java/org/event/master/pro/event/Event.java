@@ -1,4 +1,4 @@
-package org.example;
+package org.event.master.pro.event;
 
 import java.sql.Time;
 import java.util.Date;

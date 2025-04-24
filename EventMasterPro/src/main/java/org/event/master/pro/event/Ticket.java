@@ -1,4 +1,6 @@
-package org.example;
+package org.event.master.pro.event;
+
+import org.event.master.pro.Customer;
 
 public class Ticket {
     private int id;

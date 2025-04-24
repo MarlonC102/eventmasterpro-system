@@ -1,4 +1,4 @@
-package org.example;
+package org.event.master.pro.finance;
 
 import java.time.LocalDateTime;
 

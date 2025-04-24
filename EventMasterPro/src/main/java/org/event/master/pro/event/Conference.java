@@ -1,7 +1,8 @@
-package org.example;
+package org.event.master.pro.event;
 
-public class Festival extends Event{
-    private String space;
+public class Conference extends Event{
+    private String speaker;
+    private String conferenceTopic;
     private int day;
 
     @Override
