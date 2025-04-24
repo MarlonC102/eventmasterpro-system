@@ -1,4 +1,6 @@
-package org.example;
+package org.event.master.pro.finance;
+
+import org.event.master.pro.event.Event;
 
 import java.util.List;
 
