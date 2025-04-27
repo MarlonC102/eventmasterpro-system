@@ -1,6 +1,7 @@
 package org.event.master.pro.event;
 
 import org.event.master.pro.enums.TicketStatus;
+import org.event.master.pro.person.Customer;
 
 import java.util.List;
 
