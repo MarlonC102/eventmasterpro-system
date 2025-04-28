@@ -25,7 +25,6 @@ public class Festival extends Event {
         this.numberOfStage = numberOfStage;
     }
 
-
     public Set<String> getStage() {
         return stage;
     }
@@ -94,19 +93,15 @@ public class Festival extends Event {
     @Override
     public void consultEvent(Event festival) {
         if (festival != null) {
-            printMessage(festival.getName());
+            printMessage(String.format("""
+                ----- Festival -----
+                Event Name: %s
+                Date: %s
+                """,festival.getName(),festival.getDateEvent()));
         } else {
             printMessage("No festivals to show.");
         }
     }
-
-    @Override
-
-
-    public Event changeStatusEvent(Event event) {
-        return super.changeStatusEvent(event);
-    }
-
 
     public Event consultSpecificEvent(List<Event> concerts) {
         String data = strigsInput("Enter the name of concert");
@@ -126,28 +121,27 @@ public class Festival extends Event {
     @Override
     public Location selectLocation(List<Location> locations) {
         String locationEvent = null;
-        boolean find;
         do {
-            locationEvent = strigsInput("Choose a location for the event:");
+            locationEvent = strigsInput("Enter the name of the location to select it: ");
             if (Location.consultSpecificLocation(locationEvent, locations) != null) {
                 return Location.consultSpecificLocation(locationEvent, locations);
             } else {
-                find = false;
+                printMessage("Location not found. Please try again.");
             }
-        } while (find != true);
-        return null;
+        } while (true);
     }
 
     public Set<String> setStages(int numberOfStages) {
         Set<String> selectedStages = new HashSet<>();
         int i = 0;
         while (i < numberOfStages) {
-            printMessage("-------------Select stages-------------\n" +
-                    "1. Food Court (Area with food trucks, restaurants, and snack bars.)\n" +
-                    "2. Recreational Zone (Space for games, sports, relaxation activities, inflatables.)\n" +
-                    "3. Merchandising Zone (Official stores for t-shirts, posters, souvenirs.)\n" +
-                    "4. VIP Zone (Exclusive area for VIP pass holders.)\n" +
-                    "\n--------------------------------------------");
+            printMessage("""
+                    -------------Select stages-------------
+                    1. Food Court (Area with food trucks, restaurants, and snack bars.)
+                    2. Recreational Zone (Space for games, sports, relaxation activities, inflatables.)
+                    3. Merchandising Zone (Official stores for t-shirts, posters, souvenirs.)
+                    4. VIP Zone (Exclusive area for VIP pass holders.)
+                    --------------------------------------------""");
 
             int op = intInput("Select an option");
             switch (op) {

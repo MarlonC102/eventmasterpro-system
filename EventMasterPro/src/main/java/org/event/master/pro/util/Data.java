@@ -6,6 +6,7 @@ import org.event.master.pro.person.Customer;
 import org.event.master.pro.person.Organizer;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class Data {
             "admin"
     );
 
-    public static List<Location> locations = List.of(
+    public static List<Location> locations = new ArrayList<>(List.of(
             new Location(
                     "Movistar Arena",
                     "Cra. 30 # 63-53, Bogotá",
@@ -82,8 +83,8 @@ public class Data {
                     2000000,
                     "Bogotá"
             )
-    );
-    public static List<Event> events = List.of(
+    ));
+    public static List<Event> events = new ArrayList<>(List.of(
             new Conference(
                     "Andrés Oppenheimer",
                     "El futuro del trabajo en América Latina",
@@ -129,5 +130,5 @@ public class Data {
                     "+18",
                     30000
             )
-    );
+    ));
 }

@@ -179,6 +179,6 @@ public class Location {
                 "\nAddress: " + address +
                 "\nCapacity: " + capacity +
                 "\nAvailability: " + available +
-                "\nPrice=" + price;
+                "\nPrice: " + price;
     }
 }

@@ -27,16 +27,18 @@ public class Customer extends Account{
             printMessage("No events available to show.");
         }
     }
-    public void viewEventSummary(Event event){
-        printMessage(String.format("""
+    public void viewEventSummary(List<Event> events){
+        /*printMessage(String.format("""
                 Event
                 Event Name: %s
                 Date: %s
                 Location: %s
                 Description: %s
                 """,event.getName(),event.getDateEvent(),event.getLocation(),event.getDescription()));
-    }
-    public void seeTicketsAvailability(Event event){
+    */}
+
+
+    public void seeTicketsAvailability(List<Event> events){
 
     }
 }

@@ -15,7 +15,7 @@ public class Menu {
     public static void showMenu(String title, String optionsText, Consumer<Integer> action) {
         int selectedOption;
         do {
-            selectedOption = intInput(String.format("%n%s%n%s",title,optionsText));
+            selectedOption = intInput(String.format("%s%n%s",title,optionsText));
             action.accept(selectedOption);
         } while (selectedOption != 0);
     }
@@ -33,7 +33,9 @@ public class Menu {
                         String documenNumbert = strigsInput("Enter your document number: ");
                         String password = strigsInput("Enter your password: ");
                         account.login(password, documenNumbert);
-                        if(account.getRol().equals("organizer")){
+                        if (account.getRol().equals("customer")){
+                            customerMenu();
+                        }else if(account.getRol().equals("organizer")){
                             organizerMenu();
                         }
                     }
@@ -69,6 +71,33 @@ public class Menu {
             }
         );
     }
+    public static void customerMenu() {
+        if(customer.isLoggedIn()) {
+            showMenu(
+                    "------ Customer menu ------",
+                    """
+                            1). Buy ticket
+                            2). List event
+                            3). See Tickets Availability
+                            4). View Event Summary
+                            0). Log out
+                            Select an option: """,
+                    option -> {
+                        switch (option) {
+                            case 1 -> customer.buyTicket();
+                            case 2 -> customer.listEvent(events);
+                            case 3 -> customer.seeTicketsAvailability(events);
+                            case 4 -> customer.viewEventSummary(events);
+                            case 0 -> {
+                                customer.logout();
+                                printMessage("Leaving...");
+                            }
+                            default -> printMessage("Invalid option.");
+                        }
+                    }
+            );
+        }
+    }
     public static void organizerMenu() {
         if(organizer.isLoggedIn()) {
             showMenu(
@@ -89,9 +118,9 @@ public class Menu {
                             case 2 -> organizer.listEvent(events);
                             case 3 -> organizer.editEvent(events,locations);
                             case 4 -> organizer.cancelEvent(events);
-                            case 5 -> organizer.consultFinances();
-                            case 6 -> organizer.seeTicketsAvailability();
-                            case 7 -> organizer.viewEventSummary(events.get(1));
+                            case 5 -> printMessage("this option is not available at the moment");
+                            case 6 -> printMessage("this option is not available at the moment");
+                            case 7 -> organizer.viewEventSummary(events);
                             case 0 -> {
                                 organizer.logout();
                                 printMessage("Leaving...");
@@ -102,4 +131,5 @@ public class Menu {
             );
         }
     }
+
 }

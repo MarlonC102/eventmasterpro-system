@@ -1,7 +1,5 @@
 package org.event.master.pro.event;
 
-import org.event.master.pro.enums.EventStatus;
-
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
@@ -89,7 +87,11 @@ public class Concert extends Event {
 
     public void consultEvent(Event concert) {
         if (concert != null) {
-            printMessage(concert.getName());
+            printMessage(String.format("""
+                ----- Concert -----
+                Event Name: %s
+                Date: %s
+                """,concert.getName(),concert.getDateEvent()));
         } else {
             printMessage("No concerts to show.");
         }
@@ -118,21 +120,14 @@ public class Concert extends Event {
     @Override
     public Location selectLocation(List<Location> locations) {
         String locationEvent = null;
-        boolean find;
         do {
-            locationEvent = strigsInput("Choose a location for the event:");
+            locationEvent = strigsInput("Enter the name of the location to select it: ");
             if (Location.consultSpecificLocation(locationEvent, locations) != null) {
                 return Location.consultSpecificLocation(locationEvent, locations);
             } else {
-                find = false;
+                printMessage("Location not found. Please try again.");
             }
-        } while (find != true);
-        return null;
-    }
-
-    @Override
-    public Event changeStatusEvent(Event event) {
-        return super.changeStatusEvent(event);
+        } while (true);
     }
 
     @Override

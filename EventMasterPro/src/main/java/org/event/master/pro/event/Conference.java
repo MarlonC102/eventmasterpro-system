@@ -84,15 +84,13 @@ public class Conference extends Event {
         return this;
     }
 
-    @Override
-    public Event changeStatusEvent(Event event) {
-        return super.changeStatusEvent(event);
-    }
-
-
     public void consultEvent(Event conference) {
         if (conference != null) {
-            printMessage(conference.getName());
+            printMessage(String.format("""
+                ----- Conference -----
+                Event Name: %s
+                Date: %s
+                """,conference.getName(),conference.getDateEvent()));
         } else {
             printMessage("No concerts to show.");
         }

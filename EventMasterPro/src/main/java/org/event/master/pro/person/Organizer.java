@@ -1,8 +1,11 @@
 package org.event.master.pro.person;
 
 import org.event.master.pro.event.*;
+import org.event.master.pro.util.Data;
+
 import java.util.List;
 
+import static org.event.master.pro.util.Data.events;
 import static org.event.master.pro.util.Util.*;
 
 public class Organizer extends Account{
@@ -21,7 +24,7 @@ public class Organizer extends Account{
     public void setStatus(boolean status) {
         this.status = status;
     }
-    public Event createEvent(List<Location> loc){
+    public void createEvent(List<Location> loc){
         printMessage("Create New Event");
         int typeOption = intInput("""
                 Select event type: 
@@ -31,53 +34,65 @@ public class Organizer extends Account{
         switch (typeOption){
             case 1:
                 Festival festival = new Festival();
-                festival.createEvent(loc);
-                return festival;
+                events.add(festival.createEvent(loc));
+                break;
             case 2:
                 Concert concert = new Concert();
-                concert.createEvent(loc);
-                return concert;
+                events.add(concert.createEvent(loc));
+                break;
             case 3:
                 Conference conference = new Conference();
-                conference.createEvent(loc);
-                return conference;
+                events.add(conference.createEvent(loc));
+                break;
             default:
                 printMessage("Invalid event type selected.");
-                return null;
+                break;
         }
     }
-    public Event editEvent(List<Event> events,List<Location> locations){
-        String nameToUpdate = strigsInput("Enter the name of the concert to update: ");
-        for (Event event : events) {
-            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
-                event.updateEvent(locations);
-                return event;
+    public void editEvent(List<Event> events,List<Location> locations){
+        boolean eventFound = false;
+        String nameToUpdate = strigsInput("Enter the name of the event to update: ");
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getName().equalsIgnoreCase(nameToUpdate)) {
+                Data.events.set(i,events.get(i).updateEvent(locations));
+                eventFound=true;
+                break;
             }
         }
-        printMessage("Festival not found");
-        return null;
+        if (!eventFound) {
+            printMessage("Event not found");
+        }
     }
-    public Event cancelEvent(List<Event> events){
-        String nameToUpdate = strigsInput("Enter the name of the concert to update: ");
-        for (Event event : events) {
-            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
-                event.changeStatusEvent(event);
-                return event;
+    public void cancelEvent(List<Event> events){
+        boolean eventFound = false;
+        String nameToUpdate = strigsInput("Enter the name of the event to update: ");
+        for (int i = 0; i < events.size(); i++) {
+            if (events.get(i).getName().equalsIgnoreCase(nameToUpdate)) {
+                Data.events.set(i,events.get(i).changeStatusEvent(events.get(i)));
             }
         }
-        printMessage("Festival not found");
-        return null;
+        if (!eventFound) {
+            printMessage("Event not found");
+        }
     }
     public void consultFinances(){}
     public void seeTicketsAvailability(){}
-    public void viewEventSummary(Event event){
-        printMessage(String.format("""
-                ----- Event -----
-                Event Name: %s
-                Date: %s
-                Location: %s
-                Description: %s
-                """,event.getName(),event.getDateEvent(),event.getLocation(),event.getDescription()));
+    public void viewEventSummary(List<Event> events){
+        String nameToUpdate = strigsInput("Enter the name of the event you wish to search for:");
+        for (Event event : events) {
+            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
+                printMessage(String.format("""
+                        ----- Event -----
+                        Event Name: %s
+                        Description: %s
+                        Date: %s
+                        Location: %s
+                        Participants: %s
+                        Status: %s
+                        """, event.getName(), event.getDescription(), event.getDateEvent(), event.getLocation(), event.getParticipantsNumbers(), event.getStatusEvent()));
+            }
+        }
+        printMessage("Event not found");
     }
     public void listEvent(List<Event> events){
         printMessage("----- List of events -----");
