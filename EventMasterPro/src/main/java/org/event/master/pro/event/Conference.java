@@ -48,7 +48,6 @@ public class Conference extends Event {
     @Override
     public Conference createEvent(List<Location> loc) {
         Conference conference = new Conference();
-        printMessage("\n--- Create Conference ---");
         conference.setName(strigsInput("Enter conference name: "));
         conference.setDescription(strigsInput("Enter description: "));
         conference.setStatusEvent("Created");
@@ -67,43 +66,33 @@ public class Conference extends Event {
     }
 
     @Override
-    public Conference updateEvent(List<Event> events, List<Location> locations) {
-        String nameToUpdate = strigsInput("Enter the name of the conference to update: ");
-        for (Event event : events) {
-            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
-                printMessage("Conference found. Enter new values:");
-                this.setDescription(strigsInput("Enter new description: "));
-                this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
-                this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
-                this.setLocation(selectLocation(locations));
-                this.setDuration(intInput("Enter new duration (hours): "));
-                this.setSponsor(strigsInput("Enter new sponsor: "));
-                this.setClassification(strigsInput("Enter new classification: "));
-                this.setParticipantsNumbers(intInput("Enter new number of participants: "));
-                this.setDay(intInput("Enter new number of days: "));
-                this.setSpeaker(strigsInput("Enter new speaker name: "));
-                this.setConferenceTopic(strigsInput("Enter new conference topic: "));
-                Ticket.setMaxTickets(this.getParticipantsNumbers());
-                printMessage("Conference updated successfully!");
-                return this;
-            }
-        }
-        printMessage("Conference not found.");
-        return null;
+    public Conference updateEvent(List<Location> locations) {
+        printMessage("Conference found. Enter new values:");
+        this.setDescription(strigsInput("Enter new description: "));
+        this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
+        this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
+        this.setLocation(selectLocation(locations));
+        this.setDuration(intInput("Enter new duration (hours): "));
+        this.setSponsor(strigsInput("Enter new sponsor: "));
+        this.setClassification(strigsInput("Enter new classification: "));
+        this.setParticipantsNumbers(intInput("Enter new number of participants: "));
+        this.setDay(intInput("Enter new number of days: "));
+        this.setSpeaker(strigsInput("Enter new speaker name: "));
+        this.setConferenceTopic(strigsInput("Enter new conference topic: "));
+        Ticket.setMaxTickets(this.getParticipantsNumbers());
+        printMessage("Conference updated successfully!");
+        return this;
     }
 
     @Override
-    public Event changeStatusEvent(List<Event> events) {
-        return super.changeStatusEvent(events);
+    public Event changeStatusEvent(Event event) {
+        return super.changeStatusEvent(event);
     }
 
 
-    public void consultEvent(List<Event> festival) {
-        if (festival != null && !festival.isEmpty()) {
-            printMessage("----- List of Concerts -----");
-            for (Event festivals : festival) {
-                printMessage(festivals.getName());
-            }
+    public void consultEvent(Event conference) {
+        if (conference != null) {
+            printMessage(conference.getName());
         } else {
             printMessage("No concerts to show.");
         }

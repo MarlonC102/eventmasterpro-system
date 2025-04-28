@@ -1,8 +1,9 @@
 package org.event.master.pro.person;
 
-public class Admin extends Person{
-    public Admin(String documentType, String documenNumbert, String name, String mail, String phone, boolean status) {
-        super(documentType, documenNumbert, name, mail, phone);
+public class Admin extends Account{
+
+    public Admin(String documentType, String documenNumbert, String name, String mail, String phone, String password, String rol) {
+        super(documentType, documenNumbert, name, mail, phone, password, rol);
     }
 
     public void createEventFinance(){}

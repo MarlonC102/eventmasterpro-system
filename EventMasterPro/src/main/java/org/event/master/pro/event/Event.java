@@ -148,9 +148,9 @@ public abstract class Event {
 
     public abstract Event createEvent(List<Location> loc);
 
-    public abstract Event updateEvent(List<Event> events, List<Location> locations);
+    public abstract Event updateEvent(List<Location> locations);
 
-    public abstract void consultEvent(List<Event> event);
+    public abstract void consultEvent(Event event);
 
     public abstract Event consultSpecificEvent(List<Event> event);
 
@@ -200,68 +200,64 @@ public abstract class Event {
 
 
 
-    public Event changeStatusEvent(List<Event> events) {
+    public Event changeStatusEvent(Event event) {
         int newStatusEvent;
-        String nameToUpdate = strigsInput("Enter the name of the concert to update: ");
-        for (Event event : events) {
-            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
-                printMessage("-------------Select status-------------\n" +
-                        "1. Created\n" +
-                        "2. Published\n" +
-                        "3. In Progress\n" +
-                        "4. Rescheduled\n" +
-                        "5. Finished\n" +
-                        "6. Cancelled \n" +
-                        "7. Exit" +
-                        "--------------------------------------------");
-                newStatusEvent = intInput("Enter the new status");
+        printMessage("""
+                -------------Select status-------------
+                1. Created
+                2. Published
+                3. In Progress
+                4. Rescheduled
+                5. Finished
+                6. Cancelled
+                7. Exit
+                --------------------------------------------""");
+        newStatusEvent = intInput("Enter the new status");
 
-                if (event.getStatusEvent().equalsIgnoreCase(EventStatus.CANCELLED.getEventStatus()) ||
-                        event.getStatusEvent().equalsIgnoreCase(EventStatus.FINISHED.getEventStatus())) {
-                    printMessage("Cannot change the status, the event is already 'Canceled' or 'Finished'.");
-                    return event;
-                }
-                if (event.getStatusEvent().equalsIgnoreCase(EventStatus.PUBLISHED.getEventStatus()) && (newStatusEvent == 1 || newStatusEvent == 2)) {
-                    printMessage("Cannot change an event from 'Published' to 'Created' or 'Published'.");
-                    return event;
-                }
-                if (event.getStatusEvent().equalsIgnoreCase(EventStatus.IN_PROGRESS.getEventStatus())
-                        && (newStatusEvent == 1 || newStatusEvent == 2 || newStatusEvent == 3)) {
-                    printMessage("You can only change an event from 'In Progress' to 'Rescheduled', 'Finished' or 'Cancelled'.");
-                    return event;
-                }
-                if (event.getStatusEvent().equalsIgnoreCase(EventStatus.RESCHEDULED.getEventStatus()) && (newStatusEvent == 1 || newStatusEvent == 4)) {
-                    printMessage("Cannot change an event from 'Rescheduled' to 'Created' or 'Rescheduled'");
-                    return event;
-                }
+        if (event.getStatusEvent().equalsIgnoreCase(EventStatus.CANCELLED.getEventStatus()) ||
+                event.getStatusEvent().equalsIgnoreCase(EventStatus.FINISHED.getEventStatus())) {
+            printMessage("Cannot change the status, the event is already 'Canceled' or 'Finished'.");
+            return event;
+        }
+        if (event.getStatusEvent().equalsIgnoreCase(EventStatus.PUBLISHED.getEventStatus()) && (newStatusEvent == 1 || newStatusEvent == 2)) {
+            printMessage("Cannot change an event from 'Published' to 'Created' or 'Published'.");
+            return event;
+        }
+        if (event.getStatusEvent().equalsIgnoreCase(EventStatus.IN_PROGRESS.getEventStatus())
+                && (newStatusEvent == 1 || newStatusEvent == 2 || newStatusEvent == 3)) {
+            printMessage("You can only change an event from 'In Progress' to 'Rescheduled', 'Finished' or 'Cancelled'.");
+            return event;
+        }
+        if (event.getStatusEvent().equalsIgnoreCase(EventStatus.RESCHEDULED.getEventStatus()) && (newStatusEvent == 1 || newStatusEvent == 4)) {
+            printMessage("Cannot change an event from 'Rescheduled' to 'Created' or 'Rescheduled'");
+            return event;
+        }
 
-                switch (newStatusEvent) {
-                    case 1:
-                        event.setStatusEvent(EventStatus.CREATED.getEventStatus());
-                        break;
-                    case 2:
-                        event.setStatusEvent(EventStatus.PUBLISHED.getEventStatus());
-                        break;
-                    case 3:
-                        event.setStatusEvent(EventStatus.IN_PROGRESS.getEventStatus());
-                        break;
-                    case 4:
-                        event.setStatusEvent(EventStatus.RESCHEDULED.getEventStatus());
-                        break;
-                    case 5:
-                        event.setStatusEvent(EventStatus.FINISHED.getEventStatus());
-                        break;
-                    case 6:
-                        event.setStatusEvent(EventStatus.CANCELLED.getEventStatus());
-                        break;
-                    case 7:
-                        printMessage("Status has not been changed");
-                        break;
-                    default:
-                        printMessage("Wrong status!");
-                        break;
-                }
-            }
+        switch (newStatusEvent) {
+            case 1:
+                event.setStatusEvent(EventStatus.CREATED.getEventStatus());
+                break;
+            case 2:
+                event.setStatusEvent(EventStatus.PUBLISHED.getEventStatus());
+                break;
+            case 3:
+                event.setStatusEvent(EventStatus.IN_PROGRESS.getEventStatus());
+                break;
+            case 4:
+                event.setStatusEvent(EventStatus.RESCHEDULED.getEventStatus());
+                break;
+            case 5:
+                event.setStatusEvent(EventStatus.FINISHED.getEventStatus());
+                break;
+            case 6:
+                event.setStatusEvent(EventStatus.CANCELLED.getEventStatus());
+                break;
+            case 7:
+                printMessage("Status has not been changed");
+                break;
+            default:
+                printMessage("Wrong status!");
+                break;
         }
         return this;
     }

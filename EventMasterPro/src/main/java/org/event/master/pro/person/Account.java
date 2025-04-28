@@ -8,6 +8,14 @@ public class Account extends Person{
     private String rol;
     private boolean isLoggedIn;
 
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     public Account(String documentType, String documenNumbert, String name, String mail, String phone, String password, String rol) {
         super(documentType, documenNumbert, name, mail, phone);
         this.password = password;

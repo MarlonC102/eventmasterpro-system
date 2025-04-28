@@ -104,23 +104,19 @@ public class Ticket {
         maxTickets = participants;
     }
 
-    public Ticket createEntry(Customer customer, Event event, String zone, int seatNumber) {
+    public Ticket createEntry(Event event, String zone, int seatNumber) {
         if (event.getCurrentParticipants() < event.getParticipantsNumbers()) {
             Ticket ticket = new Ticket();
-            ticket.setBuyer(customer);
             ticket.setEvent(event);
             ticket.setZone(zone);
             ticket.setSeatNumber(seatNumber);
-            ticket.setStatus(TicketStatus.SOLD.getEventStatus());
+            ticket.setStatus(TicketStatus.AVAILABLE.getEventStatus());
             event.incrementCurrentParticipants();
-            event.getTicketsSold().add(ticket);
-            System.out.println("Ticket purchased for " + customer.getName());
             return ticket;
         } else {
             System.out.println("No more tickets available for this event.");
         }
         return null;
-
     }
 
     public static Ticket findTicketById(List<Ticket> ticketsSold, int id) {
@@ -134,13 +130,14 @@ public class Ticket {
 
     public void changeStatus() {
         do {
-            printMessage("-------------Select an option-------------\n" +
-                    "1. Book ticket\n" +
-                    "2. Pay ticket\n" +
-                    "3. Request refund\n" +
-                    "4. Cancel ticket\n" +
-                    "5. Exit\n" +
-                    "--------------------------------------------");
+            printMessage("""
+                    -------------Select an option-------------
+                    1. Book ticket
+                    2. Pay ticket
+                    3. Request refund
+                    4. Cancel ticket
+                    5. Exit
+                    --------------------------------------------""");
 
             int op = intInput("Select an option");
 

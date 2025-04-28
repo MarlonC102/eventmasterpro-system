@@ -22,8 +22,8 @@ public class Util {
         return Integer.parseInt(teclado.nextLine());
     }
 
-    public static boolean booleanInput(boolean message) {
-        System.out.print(message);
+    public static boolean booleanInput(String message) {
+        printMessage(message);
         return Boolean.parseBoolean(teclado.nextLine());
     }
 
@@ -33,16 +33,16 @@ public class Util {
     }
 
     public static Time inputTime(String message) {
-        System.out.print(message);
+        printMessage(message);
         return java.sql.Time.valueOf(teclado.nextLine() + ":00");
     }
 
     public static Date inputDate(String message) {
-        System.out.print(message);
+        printMessage(message);
         try {
             return new java.text.SimpleDateFormat("yyyy-MM-dd").parse(teclado.nextLine());
         } catch (Exception e) {
-            System.out.println("Invalid date. Using today's date.");
+            printMessage(message);
             return new java.util.Date();
         }
     }

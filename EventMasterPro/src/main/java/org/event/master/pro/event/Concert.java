@@ -50,7 +50,6 @@ public class Concert extends Event {
     @Override
     public Concert createEvent(List<Location> loc) {
         Concert newConcert = new Concert();
-        printMessage("\n--- Create Concert ---");
         newConcert.setName(strigsInput("Enter event name: "));
         newConcert.setDescription(strigsInput("Enter description: "));
         newConcert.setStatusEvent("Created");
@@ -70,38 +69,27 @@ public class Concert extends Event {
     }
 
     @Override
-    public Concert updateEvent(List<Event> events, List<Location> locations) {
-        String nameToUpdate = strigsInput("Enter the name of the concert to update: ");
-        for (Event concert : events) {
-            if (concert.getName().equalsIgnoreCase(nameToUpdate)) {
-                printMessage("Concert found. Enter new values:");
-                this.setDescription(strigsInput("Enter new description: "));
-                this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
-                this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
-                this.setLocation(selectLocation(locations));
-                this.setDuration(intInput("Enter new duration (hours): "));
-                this.setSponsor(strigsInput("Enter new sponsor: "));
-                this.setClassification(strigsInput("Enter new classification: "));
-                this.setParticipantsNumbers(intInput("Enter new number of participants: "));
-                this.setArtist(strigsInput("Enter new main artist: "));
-                this.setInvitedArtist(strigsInput("Enter new invited artist (if any): "));
-                this.setGenre(strigsInput("Enter new music genre: "));
-                Ticket.setMaxTickets(this.getParticipantsNumbers());
-                printMessage("Concert updated successfully!");
-                return this;
-            }
-        }
-
-        printMessage("Concert not found.");
-        return null;
+    public Concert updateEvent(List<Location> locations) {
+        printMessage("Concert found. Enter new values:");
+        this.setDescription(strigsInput("Enter new description: "));
+        this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
+        this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
+        this.setLocation(selectLocation(locations));
+        this.setDuration(intInput("Enter new duration (hours): "));
+        this.setSponsor(strigsInput("Enter new sponsor: "));
+        this.setClassification(strigsInput("Enter new classification: "));
+        this.setParticipantsNumbers(intInput("Enter new number of participants: "));
+        this.setArtist(strigsInput("Enter new main artist: "));
+        this.setInvitedArtist(strigsInput("Enter new invited artist (if any): "));
+        this.setGenre(strigsInput("Enter new music genre: "));
+        Ticket.setMaxTickets(this.getParticipantsNumbers());
+        printMessage("Concert updated successfully!");
+        return this;
     }
 
-    public void consultEvent(List<Event> concerts) {
-        if (concerts != null && !concerts.isEmpty()) {
-            printMessage("----- List of Concerts -----");
-            for (Event concert : concerts) {
-                printMessage(concert.getName());
-            }
+    public void consultEvent(Event concert) {
+        if (concert != null) {
+            printMessage(concert.getName());
         } else {
             printMessage("No concerts to show.");
         }
@@ -143,8 +131,8 @@ public class Concert extends Event {
     }
 
     @Override
-    public Event changeStatusEvent(List<Event> events) {
-        return super.changeStatusEvent(events);
+    public Event changeStatusEvent(Event event) {
+        return super.changeStatusEvent(event);
     }
 
     @Override
