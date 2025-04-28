@@ -181,4 +181,10 @@ public class Location {
                 "\nAvailability: " + available +
                 "\nPrice: " + price;
     }
+    public String customerInfo() {
+        return idLocation + ". " +
+                name +
+                "\nCity: " + city +
+                "\nAddress: " + address;
+    }
 }

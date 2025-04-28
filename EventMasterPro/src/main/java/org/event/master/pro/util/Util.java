@@ -1,7 +1,10 @@
 package org.event.master.pro.util;
 
+import org.event.master.pro.event.Event;
+
 import java.util.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Scanner;
 
 public class Util {
@@ -47,5 +50,14 @@ public class Util {
         }
     }
 
-
+    public static Event searchEvent(List<Event> events){
+        String nameToUpdate = strigsInput("Enter the name of the event you wish to search for:");
+        for (Event event : events) {
+            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
+                return event;
+            }
+        }
+        printMessage("Event not found");
+        return null;
+    }
 }

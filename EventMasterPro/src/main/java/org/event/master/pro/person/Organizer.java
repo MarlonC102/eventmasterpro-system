@@ -34,15 +34,21 @@ public class Organizer extends Account{
         switch (typeOption){
             case 1:
                 Festival festival = new Festival();
-                events.add(festival.createEvent(loc));
+                festival = festival.createEvent(loc);
+                createEntries(festival);
+                events.add(festival);
                 break;
             case 2:
                 Concert concert = new Concert();
-                events.add(concert.createEvent(loc));
+                concert = concert.createEvent(loc);
+                createEntries(concert);
+                events.add(concert);
                 break;
             case 3:
                 Conference conference = new Conference();
-                events.add(conference.createEvent(loc));
+                conference = conference.createEvent(loc);
+                createEntries(conference);
+                events.add(conference);
                 break;
             default:
                 printMessage("Invalid event type selected.");
@@ -78,26 +84,45 @@ public class Organizer extends Account{
     public void consultFinances(){}
     public void seeTicketsAvailability(){}
     public void viewEventSummary(List<Event> events){
-        String nameToUpdate = strigsInput("Enter the name of the event you wish to search for:");
-        for (Event event : events) {
-            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
-                printMessage(String.format("""
-                        ----- Event -----
-                        Event Name: %s
-                        Description: %s
-                        Date: %s
-                        Location: %s
-                        Participants: %s
-                        Status: %s
-                        """, event.getName(), event.getDescription(), event.getDateEvent(), event.getLocation(), event.getParticipantsNumbers(), event.getStatusEvent()));
-            }
+        Event event = searchEvent(events);
+        if (event != null){
+            printMessage(String.format("""
+                ----- Event -----
+                Event Name: %s
+                Description: %s
+                Date: %s
+                Location: %s
+                Participants: %s
+                Status: %s
+                """, event.getName(), event.getDescription(), event.getDateEvent(), event.getLocation(), event.getParticipantsNumbers(), event.getStatusEvent()));
         }
-        printMessage("Event not found");
     }
+
     public void listEvent(List<Event> events){
         printMessage("----- List of events -----");
         for(Event event :events){
             event.consultEvent(event);
         }
     }
+    public void createEntries(Event event){
+        Ticket ticket = new Ticket();
+        int count = 0;
+        int countParticipantsNumbers = event.getParticipantsNumbers();
+        while (countParticipantsNumbers>0) {
+            printMessage("----- Create Ticket -----");
+            String zone = strigsInput("Enter the zone to be created: ");
+            double price = doubleInput("Enter the price of this zone: ");
+            do {
+                count = intInput("Enter the quantity of tickets: ");
+                if (count > countParticipantsNumbers) {
+                    printMessage("The quantity exceeds the number of participants remaining (" + countParticipantsNumbers + "). Please try again.");
+                } else if (count <= 0) {
+                    printMessage("You must enter a quantity greater than 0.");
+                }
+            } while (count > countParticipantsNumbers || count <= 0);
+            event.setTickets(ticket.createEntry(event, zone, count, price));
+            countParticipantsNumbers -= count;
+        }
+    }
+
 }

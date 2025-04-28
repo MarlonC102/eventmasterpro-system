@@ -29,8 +29,7 @@ public class Data {
             "300-1234567",
             "customerPass123",
             "customer",
-            28,
-            "Cliente regular, sin incidentes."
+            28
     );
     public static Admin admin = new Admin(
             "Cédula de Ciudadanía",

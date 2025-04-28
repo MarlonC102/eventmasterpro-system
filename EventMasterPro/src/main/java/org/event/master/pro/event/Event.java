@@ -25,7 +25,7 @@ public abstract class Event {
     private int participantsNumbers;
     private int currentParticipants;
     private static int id = 1;
-    private List<Ticket> ticketsSold = new ArrayList<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Event() {
         idEvent = id++;
@@ -46,6 +46,9 @@ public abstract class Event {
 
     }
 
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
     public int getIdEvent() {
         return idEvent;
     }
@@ -194,8 +197,8 @@ public abstract class Event {
         }
     }
 
-    public List<Ticket> getTicketsSold() {
-        return ticketsSold;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
 
