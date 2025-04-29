@@ -13,16 +13,18 @@ public class Festival extends Event {
     private Set<String> stage = new HashSet<>();
     int numberOfStage;
     private int day;
+    private List<Ticket> ticket;
 
     public Festival() {
 
     }
 
-    public Festival(Set<String> stage, int numberOfStage, int day, String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers) {
+    public Festival(Set<String> stage, int numberOfStage, int day, String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, List<Ticket> ticket) {
         super(name, description, dateEvent, timeEvent, statusEvent, location, duration, sponsor, classification, participantsNumbers);
         this.stage = stage;
         this.day = day;
         this.numberOfStage = numberOfStage;
+        this.ticket = ticket;
     }
 
     public Set<String> getStage() {

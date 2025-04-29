@@ -83,6 +83,31 @@ public class Data {
                     "Bogotá"
             )
     ));
+
+    public static List<Ticket> tickets = new ArrayList<>((List.of(
+            new Ticket(
+                    150.00,
+                    "Available",
+                    "",
+                    5,
+                    "Zona VIP"
+            ),
+            new Ticket(
+                    120.00,
+                    "Available",
+                    "",
+                    2,
+                    "Zona General"
+            ),
+            new Ticket(
+                    120.00,
+                    "Sold",
+                    "events.get(1)",
+                    2,
+                    "Zona General"
+            )
+    )));
+
     public static List<Event> events = new ArrayList<>(List.of(
             new Conference(
                     "Andrés Oppenheimer",
@@ -92,12 +117,13 @@ public class Data {
                     "Tendencias laborales y automatización en América Latina",
                     new Date(2025 - 1900, 5, 12),
                     new Time(20, 0, 0),
-                    "Created",
+                    "Published",
                     locations.get(0),
                     2,
                     "Universidad de los Andes",
                     "All Ages",
-                    800
+                    800,
+                    List.of(tickets.get(0))
             ),
             new Concert(
                     "Festival Joropo",
@@ -112,7 +138,9 @@ public class Data {
                     12000,
                     "Reynaldo Armas",
                     "Cholo Valderrama",
-                    "Folclor Llanero"
+                    "Folclor Llanero",
+                    List.of(tickets.get(1))
+
             ),
             new Festival(
                     Set.of("Tarima Principal", "Tarima Alternativa"),
@@ -127,7 +155,10 @@ public class Data {
                     8,
                     "Páramo Presenta",
                     "+18",
-                    30000
+                    30000,
+                    List.of(tickets.get(2))
             )
     ));
+
+
 }

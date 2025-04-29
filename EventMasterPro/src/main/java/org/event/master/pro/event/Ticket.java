@@ -13,7 +13,7 @@ public class Ticket {
     private int idTicket;
     private double price;
     private String status;
-    private Event event;
+    private String event;
     private Customer buyer;
     private int seatNumber;
     private String zone;
@@ -24,7 +24,7 @@ public class Ticket {
         this.status = TicketStatus.AVAILABLE.getEventStatus();
     }
 
-    public Ticket(double price, String status, Event event, int seatNumber, String zone) {
+    public Ticket(double price, String status, String event, int seatNumber, String zone) {
         this.idTicket = id++;
         this.price = price;
         this.status = status;
@@ -53,11 +53,11 @@ public class Ticket {
         this.status = status;
     }
 
-    public Event getEvent() {
+    public String getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
+    public void setEvent(String event) {
         this.event = event;
     }
 
@@ -97,7 +97,7 @@ public class Ticket {
         List<Ticket> tickets = new ArrayList<>();
         Ticket ticket;
         for (int i = 0; i < count; i++) {
-            ticket = new Ticket(price,TicketStatus.AVAILABLE.getEventStatus(),event,(i+1),zone);
+            ticket = new Ticket(price,TicketStatus.AVAILABLE.getEventStatus(),event.getName(),(i+1),zone);
             tickets.add(ticket);
         }
         return tickets;
@@ -167,7 +167,7 @@ public class Ticket {
     }
 
 
-    public void queryEntry() {
+    public void queryTicket() {
     }
 
 

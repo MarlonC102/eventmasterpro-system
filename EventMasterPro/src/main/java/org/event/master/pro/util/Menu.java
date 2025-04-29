@@ -64,7 +64,7 @@ public class Menu {
                 switch (option) {
                     case 1 -> login(customer);
                     case 2 -> login(organizer);
-                    case 3 -> login(admin);
+                    case 3 -> printMessage("this option is not available at the moment");
                     case 0 -> printMessage("Leaving...");
                     default -> printMessage("Invalid option.");
                 }
@@ -72,7 +72,7 @@ public class Menu {
         );
     }
     public static void customerMenu() {
-        //if(customer.isLoggedIn()) {
+        if(customer.isLoggedIn()) {
             showMenu(
                     "------ Customer menu ------",
                     """
@@ -84,9 +84,9 @@ public class Menu {
                             Select an option: """,
                     option -> {
                         switch (option) {
-                            case 1 -> customer.buyTicket(events);
+                            case 1 -> printMessage("this option is not available at the moment");
                             case 2 -> customer.listEvent(events);
-                            case 3 -> customer.seeTicketsAvailability(events);
+                            case 3 -> printMessage("this option is not available at the moment");
                             case 4 -> customer.viewEventSummary(events);
                             case 0 -> {
                                 customer.logout();
@@ -96,10 +96,10 @@ public class Menu {
                         }
                     }
             );
-        //}
+        }
     }
     public static void organizerMenu() {
-        //if(organizer.isLoggedIn()) {
+        if(organizer.isLoggedIn()) {
             showMenu(
                     "------ Organizer menu ------",
                     """
@@ -129,7 +129,7 @@ public class Menu {
                         }
                     }
             );
-        //}
+        }
     }
 
 }

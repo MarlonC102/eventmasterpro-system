@@ -10,15 +10,18 @@ public class Concert extends Event {
     private String artist;
     private String invitedArtist;
     private String genre;
+    private List<Ticket> ticket;
 
     public Concert() {
     }
 
-    public Concert(String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, String artist, String invitedArtist, String genre) {
+    public Concert(String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, String artist, String invitedArtist, String genre, List<Ticket> ticket) {
         super(name, description, dateEvent, timeEvent, statusEvent, location, duration, sponsor, classification, participantsNumbers);
         this.artist = artist;
         this.invitedArtist = invitedArtist;
         this.genre = genre;
+        this.ticket = ticket;
+
     }
 
     public String getArtist() {
