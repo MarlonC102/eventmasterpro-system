@@ -13,18 +13,19 @@ public class Festival extends Event {
     private Set<String> stage = new HashSet<>();
     int numberOfStage;
     private int day;
+    private List<Ticket> ticket;
 
     public Festival() {
 
     }
 
-    public Festival(Set<String> stage, int numberOfStage, int day, String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers) {
+    public Festival(Set<String> stage, int numberOfStage, int day, String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, List<Ticket> ticket) {
         super(name, description, dateEvent, timeEvent, statusEvent, location, duration, sponsor, classification, participantsNumbers);
         this.stage = stage;
         this.day = day;
         this.numberOfStage = numberOfStage;
+        this.ticket = ticket;
     }
-
 
     public Set<String> getStage() {
         return stage;
@@ -52,7 +53,6 @@ public class Festival extends Event {
 
     public Festival createEvent(List<Location> loc) {
         Festival festival = new Festival();
-        printMessage("\n--- Create Festival ---");
         festival.setName(strigsInput("Enter festival name: "));
         festival.setDescription(strigsInput("Enter description: "));
         festival.setStatusEvent("Created");
@@ -72,50 +72,38 @@ public class Festival extends Event {
         return festival;
     }
 
-    public Festival updateEvent(List<Event> events, List<Location> locations) {
-        String nameToUpdate = strigsInput("Enter the name of the concert to update: ");
-        for (Event concert : events) {
-            if (concert.getName().equalsIgnoreCase(nameToUpdate)) {
-                printMessage("Concert found. Enter new values:");
-                this.setDescription(strigsInput("Enter new description: "));
-                this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
-                this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
-                this.setLocation(selectLocation(locations));
-                this.setDuration(intInput("Enter new duration (hours): "));
-                this.setSponsor(strigsInput("Enter new sponsor: "));
-                this.setClassification(strigsInput("Enter new classification: "));
-                this.setParticipantsNumbers(valideQuorum(this.getLocation()));
-                this.setDay(intInput("Enter the number of days the festival lasts: "));
-                numberOfStage = intInput("Enter number of stages: ");
-                this.setNumberOfStage(numberOfStage);
-                this.setStage(this.setStages(numberOfStage));
-                this.setDay(intInput("Enter the days"));
-                Ticket.setMaxTickets(this.getParticipantsNumbers());
-                printMessage("Festival updated successfully!");
-                return this;
-            }
-        }
-        printMessage("Festival not found");
-        return null;
+    public Festival updateEvent(List<Location> locations) {
+        printMessage("Concert found. Enter new values:");
+        this.setDescription(strigsInput("Enter new description: "));
+        this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
+        this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
+        this.setLocation(selectLocation(locations));
+        this.setDuration(intInput("Enter new duration (hours): "));
+        this.setSponsor(strigsInput("Enter new sponsor: "));
+        this.setClassification(strigsInput("Enter new classification: "));
+        this.setParticipantsNumbers(valideQuorum(this.getLocation()));
+        this.setDay(intInput("Enter the number of days the festival lasts: "));
+        numberOfStage = intInput("Enter number of stages: ");
+        this.setNumberOfStage(numberOfStage);
+        this.setStage(this.setStages(numberOfStage));
+        this.setDay(intInput("Enter the days"));
+        Ticket.setMaxTickets(this.getParticipantsNumbers());
+        printMessage("Festival updated successfully!");
+        return this;
     }
 
     @Override
-    public void consultEvent(List<Event> festival) {
-        if (festival != null && !festival.isEmpty()) {
-            printMessage("----- List of Festivals -----");
-            for (Event festivals : festival) {
-                printMessage(festivals.getName());
-            }
+    public void consultEvent(Event festival) {
+        if (festival != null) {
+            printMessage(String.format("""
+                ----- Festival -----
+                Event Name: %s
+                Date: %s
+                """,festival.getName(),festival.getDateEvent()));
         } else {
             printMessage("No festivals to show.");
         }
     }
-
-    @Override
-    public Event changeStatusEvent(List<Event> events) {
-        return super.changeStatusEvent(events);
-    }
-
 
     public Event consultSpecificEvent(List<Event> concerts) {
         String data = strigsInput("Enter the name of concert");
@@ -135,28 +123,27 @@ public class Festival extends Event {
     @Override
     public Location selectLocation(List<Location> locations) {
         String locationEvent = null;
-        boolean find;
         do {
-            locationEvent = strigsInput("Choose a location for the event:");
+            locationEvent = strigsInput("Enter the name of the location to select it: ");
             if (Location.consultSpecificLocation(locationEvent, locations) != null) {
                 return Location.consultSpecificLocation(locationEvent, locations);
             } else {
-                find = false;
+                printMessage("Location not found. Please try again.");
             }
-        } while (find != true);
-        return null;
+        } while (true);
     }
 
     public Set<String> setStages(int numberOfStages) {
         Set<String> selectedStages = new HashSet<>();
         int i = 0;
         while (i < numberOfStages) {
-            printMessage("-------------Select stages-------------\n" +
-                    "1. Food Court (Area with food trucks, restaurants, and snack bars.)\n" +
-                    "2. Recreational Zone (Space for games, sports, relaxation activities, inflatables.)\n" +
-                    "3. Merchandising Zone (Official stores for t-shirts, posters, souvenirs.)\n" +
-                    "4. VIP Zone (Exclusive area for VIP pass holders.)\n" +
-                    "\n--------------------------------------------");
+            printMessage("""
+                    -------------Select stages-------------
+                    1. Food Court (Area with food trucks, restaurants, and snack bars.)
+                    2. Recreational Zone (Space for games, sports, relaxation activities, inflatables.)
+                    3. Merchandising Zone (Official stores for t-shirts, posters, souvenirs.)
+                    4. VIP Zone (Exclusive area for VIP pass holders.)
+                    --------------------------------------------""");
 
             int op = intInput("Select an option");
             switch (op) {

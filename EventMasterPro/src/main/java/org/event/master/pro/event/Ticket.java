@@ -1,7 +1,9 @@
 package org.event.master.pro.event;
 
 import org.event.master.pro.enums.TicketStatus;
+import org.event.master.pro.person.Customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.event.master.pro.util.Util.intInput;
@@ -9,42 +11,30 @@ import static org.event.master.pro.util.Util.printMessage;
 
 public class Ticket {
     private int idTicket;
-    private String eventType;
     private double price;
     private String status;
-    private Event event;
+    private String event;
     private Customer buyer;
     private int seatNumber;
     private String zone;
     private static int maxTickets;
-    private static int id = 1;
+    private static int id = 0;
 
     public Ticket() {
-        this.idTicket = id++;
         this.status = TicketStatus.AVAILABLE.getEventStatus();
     }
 
-    public Ticket(String eventType, double price, String status, Event event, Customer buyer, int seatNumber, String zone) {
+    public Ticket(double price, String status, String event, int seatNumber, String zone) {
         this.idTicket = id++;
-        this.eventType = eventType;
         this.price = price;
         this.status = status;
         this.event = event;
-        this.buyer = buyer;
         this.seatNumber = seatNumber;
         this.zone = zone;
     }
 
     public int getIdTicket() {
         return idTicket;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
     }
 
     public double getPrice() {
@@ -63,11 +53,11 @@ public class Ticket {
         this.status = status;
     }
 
-    public Event getEvent() {
+    public String getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
+    public void setEvent(String event) {
         this.event = event;
     }
 
@@ -103,23 +93,14 @@ public class Ticket {
         maxTickets = participants;
     }
 
-    public Ticket createEntry(Customer customer, Event event, String zone, int seatNumber) {
-        if (event.getCurrentParticipants() < event.getParticipantsNumbers()) {
-            Ticket ticket = new Ticket();
-            ticket.setBuyer(customer);
-            ticket.setEvent(event);
-            ticket.setZone(zone);
-            ticket.setSeatNumber(seatNumber);
-            ticket.setStatus(TicketStatus.SOLD.getEventStatus());
-            event.incrementCurrentParticipants();
-            event.getTicketsSold().add(ticket);
-            System.out.println("Ticket purchased for " + customer.getName());
-            return ticket;
-        } else {
-            System.out.println("No more tickets available for this event.");
+    public List<Ticket> createEntry(Event event, String zone, int count,double price) {
+        List<Ticket> tickets = new ArrayList<>();
+        Ticket ticket;
+        for (int i = 0; i < count; i++) {
+            ticket = new Ticket(price,TicketStatus.AVAILABLE.getEventStatus(),event.getName(),(i+1),zone);
+            tickets.add(ticket);
         }
-        return null;
-
+        return tickets;
     }
 
     public static Ticket findTicketById(List<Ticket> ticketsSold, int id) {
@@ -133,13 +114,14 @@ public class Ticket {
 
     public void changeStatus() {
         do {
-            printMessage("-------------Select an option-------------\n" +
-                    "1. Book ticket\n" +
-                    "2. Pay ticket\n" +
-                    "3. Request refund\n" +
-                    "4. Cancel ticket\n" +
-                    "5. Exit\n" +
-                    "--------------------------------------------");
+            printMessage("""
+                    -------------Select an option-------------
+                    1. Book ticket
+                    2. Pay ticket
+                    3. Request refund
+                    4. Cancel ticket
+                    5. Exit
+                    --------------------------------------------""");
 
             int op = intInput("Select an option");
 
@@ -185,12 +167,19 @@ public class Ticket {
     }
 
 
-    public void queryEntry() {
+    public void queryTicket() {
     }
 
 
     public void availability() {
     }
 
-
+    @Override
+    public String toString() {
+        return String.format("""
+                Ticket
+                Price: %s
+                Seat number: %s
+                Zone: %s""",price,seatNumber,zone);
+    }
 }

@@ -11,14 +11,16 @@ public class Conference extends Event {
     private String speaker;
     private String conferenceTopic;
     private int day;
+    private List<Ticket> ticket;
 
     public Conference(){}
 
-    public Conference(String speaker, String conferenceTopic, int day, String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers) {
+    public Conference(String speaker, String conferenceTopic, int day, String name, String description, Date dateEvent, Time timeEvent, String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, List<Ticket> ticket) {
         super(name, description, dateEvent, timeEvent, statusEvent, location, duration, sponsor, classification, participantsNumbers);
         this.speaker = speaker;
         this.conferenceTopic = conferenceTopic;
         this.day = day;
+        this.ticket = ticket;
     }
 
     public String getSpeaker() {
@@ -48,7 +50,6 @@ public class Conference extends Event {
     @Override
     public Conference createEvent(List<Location> loc) {
         Conference conference = new Conference();
-        printMessage("\n--- Create Conference ---");
         conference.setName(strigsInput("Enter conference name: "));
         conference.setDescription(strigsInput("Enter description: "));
         conference.setStatusEvent("Created");
@@ -67,43 +68,31 @@ public class Conference extends Event {
     }
 
     @Override
-    public Conference updateEvent(List<Event> events, List<Location> locations) {
-        String nameToUpdate = strigsInput("Enter the name of the conference to update: ");
-        for (Event event : events) {
-            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
-                printMessage("Conference found. Enter new values:");
-                this.setDescription(strigsInput("Enter new description: "));
-                this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
-                this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
-                this.setLocation(selectLocation(locations));
-                this.setDuration(intInput("Enter new duration (hours): "));
-                this.setSponsor(strigsInput("Enter new sponsor: "));
-                this.setClassification(strigsInput("Enter new classification: "));
-                this.setParticipantsNumbers(intInput("Enter new number of participants: "));
-                this.setDay(intInput("Enter new number of days: "));
-                this.setSpeaker(strigsInput("Enter new speaker name: "));
-                this.setConferenceTopic(strigsInput("Enter new conference topic: "));
-                Ticket.setMaxTickets(this.getParticipantsNumbers());
-                printMessage("Conference updated successfully!");
-                return this;
-            }
-        }
-        printMessage("Conference not found.");
-        return null;
+    public Conference updateEvent(List<Location> locations) {
+        printMessage("Conference found. Enter new values:");
+        this.setDescription(strigsInput("Enter new description: "));
+        this.setDateEvent(inputDate("Enter new date (yyyy-MM-dd): "));
+        this.setTimeEvent(inputTime("Enter new time (HH:mm): "));
+        this.setLocation(selectLocation(locations));
+        this.setDuration(intInput("Enter new duration (hours): "));
+        this.setSponsor(strigsInput("Enter new sponsor: "));
+        this.setClassification(strigsInput("Enter new classification: "));
+        this.setParticipantsNumbers(intInput("Enter new number of participants: "));
+        this.setDay(intInput("Enter new number of days: "));
+        this.setSpeaker(strigsInput("Enter new speaker name: "));
+        this.setConferenceTopic(strigsInput("Enter new conference topic: "));
+        Ticket.setMaxTickets(this.getParticipantsNumbers());
+        printMessage("Conference updated successfully!");
+        return this;
     }
 
-    @Override
-    public Event changeStatusEvent(List<Event> events) {
-        return super.changeStatusEvent(events);
-    }
-
-
-    public void consultEvent(List<Event> festival) {
-        if (festival != null && !festival.isEmpty()) {
-            printMessage("----- List of Concerts -----");
-            for (Event festivals : festival) {
-                printMessage(festivals.getName());
-            }
+    public void consultEvent(Event conference) {
+        if (conference != null) {
+            printMessage(String.format("""
+                ----- Conference -----
+                Event Name: %s
+                Date: %s
+                """,conference.getName(),conference.getDateEvent()));
         } else {
             printMessage("No concerts to show.");
         }

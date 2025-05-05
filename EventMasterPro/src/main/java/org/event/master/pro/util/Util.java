@@ -1,7 +1,10 @@
 package org.event.master.pro.util;
 
+import org.event.master.pro.event.Event;
+
 import java.util.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Scanner;
 
 public class Util {
@@ -22,8 +25,8 @@ public class Util {
         return Integer.parseInt(teclado.nextLine());
     }
 
-    public static boolean booleanInput(boolean message) {
-        System.out.print(message);
+    public static boolean booleanInput(String message) {
+        printMessage(message);
         return Boolean.parseBoolean(teclado.nextLine());
     }
 
@@ -33,19 +36,28 @@ public class Util {
     }
 
     public static Time inputTime(String message) {
-        System.out.print(message);
+        printMessage(message);
         return java.sql.Time.valueOf(teclado.nextLine() + ":00");
     }
 
     public static Date inputDate(String message) {
-        System.out.print(message);
+        printMessage(message);
         try {
             return new java.text.SimpleDateFormat("yyyy-MM-dd").parse(teclado.nextLine());
         } catch (Exception e) {
-            System.out.println("Invalid date. Using today's date.");
+            printMessage(message);
             return new java.util.Date();
         }
     }
 
-
+    public static Event searchEvent(List<Event> events){
+        String nameToUpdate = strigsInput("Enter the name of the event you wish to search for:");
+        for (Event event : events) {
+            if (event.getName().equalsIgnoreCase(nameToUpdate)) {
+                return event;
+            }
+        }
+        printMessage("Event not found");
+        return null;
+    }
 }
