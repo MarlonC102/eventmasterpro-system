@@ -46,9 +46,9 @@ public class Concert extends Event {
     public void setGenre(String genre) {
         this.genre = genre;
     }
-
+ /*
     @Override
-    public Concert createEvent(List<Location> loc) {
+   public Concert createEvent(List<Location> loc) {
         Concert newConcert = new Concert();
         printMessage("\n--- Create Concert ---");
         newConcert.setName(strigsInput("Enter event name: "));
@@ -107,7 +107,7 @@ public class Concert extends Event {
         }
     }
 
-    public Event consultSpecificEvent(List<Event> concerts){
+    /*public Event consultSpecificEvent(List<Event> concerts){
         String data = strigsInput("Enter the name of concert");
         if (concerts != null) {
             for (Event concert : concerts) {
@@ -121,13 +121,13 @@ public class Concert extends Event {
         }
         return null;
     }
-
+*/
     //@Override
     //public void generateTicket() {
     //}
 
 
-    @Override
+    /*@Override
     public Location selectLocation(List<Location> locations) {
         String locationEvent = null;
         boolean find;
@@ -163,6 +163,6 @@ public class Concert extends Event {
                 "Main artist: " + artist + "\n" +
                 "Guest artists: " + invitedArtist + "\n" +
                 "Location\n" + getLocation();
-    }
+    }*/
 
 }

@@ -146,7 +146,7 @@ public abstract class Event {
         return currentParticipants;
     }
 
-    public abstract Event createEvent(List<Location> loc);
+   /* public abstract Event createEvent(List<Location> loc);
 
     public abstract Event updateEvent(List<Event> events, List<Location> locations);
 
@@ -166,7 +166,7 @@ public abstract class Event {
     }
 */
 
-    public Location selectLocation(List<Location> locations) {
+    /*public Location selectLocation(List<Location> locations) {
         String locationEvent = null;
         boolean find;
         do {
@@ -178,7 +178,7 @@ public abstract class Event {
             }
         } while (find != true);
         return null;
-    }
+    }*/
 
     public int valideQuorum(Location locations) {
         participantsNumbers = intInput("Enter the maximum number of people that you expect to attend the event");

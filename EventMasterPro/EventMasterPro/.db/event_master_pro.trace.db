@@ -1,0 +1,386 @@
+2025-05-04 19:59:42.507089-05:00 jdbc[6]: null
+org.h2.message.DbException: La conexión no fue cerrada por la aplicación y esta siendo limpiada (garbage collected)
+The connection was not closed by the application and is garbage collected [90018-232]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.jdbc.JdbcConnection.closeOld(JdbcConnection.java:217)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:134)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:291)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:811)
+	at org.h2.server.web.WebApp.login(WebApp.java:1038)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebThread.process(WebThread.java:154)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: La conexión no fue cerrada por la aplicación y esta siendo limpiada (garbage collected)
+The connection was not closed by the application and is garbage collected [90018-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 13 more
+2025-05-05 00:51:20.867501-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parametro "#4" no está fijado
+Parameter "#4" is not set; SQL statement:
+INSERT INTO location (name, address, capacity, type, status_location, price_location, person_id) VALUES (?, ?, ?, ?, ?, ?, ?) [90012-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:97)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:201)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:129)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:213)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:172)
+	at org.event.master.pro.event.Location.createLocation(Location.java:112)
+	at org.event.master.pro.Main.main(Main.java:16)
+2025-05-05 00:53:23.252106-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor Invalido "7" para el parametro "parameterIndex"
+Invalid value "7" for parameter "parameterIndex" [90008-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.getInvalidValueException(DbException.java:298)
+	at org.h2.jdbc.JdbcPreparedStatement.setParameter(JdbcPreparedStatement.java:1396)
+	at org.h2.jdbc.JdbcPreparedStatement.setInt(JdbcPreparedStatement.java:369)
+	at org.event.master.pro.event.Location.createLocation(Location.java:110)
+	at org.event.master.pro.Main.main(Main.java:16)
+2025-05-05 00:56:41.306279-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor Invalido "7" para el parametro "parameterIndex"
+Invalid value "7" for parameter "parameterIndex" [90008-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.getInvalidValueException(DbException.java:298)
+	at org.h2.jdbc.JdbcPreparedStatement.setParameter(JdbcPreparedStatement.java:1396)
+	at org.h2.jdbc.JdbcPreparedStatement.setInt(JdbcPreparedStatement.java:369)
+	at org.event.master.pro.event.Location.createLocation(Location.java:110)
+	at org.event.master.pro.Main.main(Main.java:16)
+2025-05-05 01:01:40.070921-05:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "([*]1, 'pass123', 'admin'),\000d\000a(2, 'pass456', 'customer'),\000d\000a(3, 'orgpass', 'organizer'),\000d\000a(4, 'contpass', 'counter')"; se esperaba "(, SELECT, TABLE, VALUES"
+Syntax error in SQL statement "([*]1, 'pass123', 'admin'),\000d\000a(2, 'pass456', 'customer'),\000d\000a(3, 'orgpass', 'organizer'),\000d\000a(4, 'contpass', 'counter')"; expected "(, SELECT, TABLE, VALUES"; SQL statement:
+(1, 'pass123', 'admin'),
+(2, 'pass456', 'customer'),
+(3, 'orgpass', 'organizer'),
+(4, 'contpass', 'counter') [42001-232]
+2025-05-05 01:28:34.182810-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Parametro "#1" no está fijado
+Parameter "#1" is not set; SQL statement:
+SELECT * FROM location WHERE name LIKE ? [90012-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:97)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:201)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:221)
+	at org.h2.command.Command.executeQuery(Command.java:196)
+	at org.h2.jdbc.JdbcPreparedStatement.executeQuery(JdbcPreparedStatement.java:130)
+	at org.event.master.pro.event.Location.consultSpecificLocation(Location.java:142)
+	at org.event.master.pro.Main.main(Main.java:18)
+2025-05-05 01:34:19.315889-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor Invalido "1" para el parametro "parameterIndex"
+Invalid value "1" for parameter "parameterIndex" [90008-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:658)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.getInvalidValueException(DbException.java:298)
+	at org.h2.jdbc.JdbcPreparedStatement.setParameter(JdbcPreparedStatement.java:1396)
+	at org.h2.jdbc.JdbcPreparedStatement.setString(JdbcPreparedStatement.java:388)
+	at org.event.master.pro.event.Location.consultSpecificLocation(Location.java:143)
+	at org.event.master.pro.Main.main(Main.java:18)
+2025-05-05 09:31:19.017197-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "city" no encontrada
+Column "city" not found [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3492)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:301)
+	at org.event.master.pro.event.Location.consultSpecificLocation(Location.java:150)
+	at org.event.master.pro.Main.main(Main.java:18)
+2025-05-05 09:55:56.071520-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LOCATION" not found (this database is empty); SQL statement:
+SELECT * FROM location [42104-232]
+2025-05-05 09:57:29.138631-05:00 database: wrong user or password; user: "EVENT_MASTER_PRO"
+org.h2.message.DbException: Nombre de usuario ó password incorrecto
+Wrong user name or password [28000-232]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Engine.openSession(Engine.java:154)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:344)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:291)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:811)
+	at org.h2.server.web.WebApp.login(WebApp.java:1038)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebThread.process(WebThread.java:154)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Nombre de usuario ó password incorrecto
+Wrong user name or password [28000-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 16 more
+2025-05-05 09:57:32.869260-05:00 database: wrong user or password; user: "EVENT_MASTER_PRO"
+org.h2.message.DbException: Nombre de usuario ó password incorrecto
+Wrong user name or password [28000-232]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Engine.openSession(Engine.java:154)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:344)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:291)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:811)
+	at org.h2.server.web.WebApp.login(WebApp.java:1038)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebThread.process(WebThread.java:154)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Nombre de usuario ó password incorrecto
+Wrong user name or password [28000-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 16 more
+2025-05-05 09:57:47.693323-05:00 database: wrong user or password; user: "EVENT_MASTER_PRO"
+org.h2.message.DbException: Nombre de usuario ó password incorrecto
+Wrong user name or password [28000-232]
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.engine.Engine.openSession(Engine.java:154)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:344)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:291)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:811)
+	at org.h2.server.web.WebApp.login(WebApp.java:1038)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebThread.process(WebThread.java:154)
+	at org.h2.server.web.WebThread.run(WebThread.java:103)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Nombre de usuario ó password incorrecto
+Wrong user name or password [28000-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 16 more
+2025-05-05 09:58:00.511162-05:00 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * FROM ACCOUNT CUSTOMER [*]PERSON"
+Syntax error in SQL statement "SELECT * FROM ACCOUNT CUSTOMER [*]PERSON"; SQL statement:
+SELECT * FROM ACCOUNT CUSTOMER PERSON [42000-232]
+2025-05-05 10:02:43.370205-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "-- Person\000aINSERT [*]IGNORE INTO person (document_type, document_number, name, email, phone_number) VALUES\000a('CC', '100000001', 'Ana LÃ³pez', 'ana@example.com', '3001112233'),\000a('CC', '100000002', 'Carlos GÃ³mez', 'carlos@example.com', '3002223344'),\000a('CC', '100000003', 'Laura Organizadora', 'laura@events.com', '3101234567'),\000a('CC', '100000004', 'Mario Contador', 'mario@finanzas.com', '3117654321')"; se esperaba "INTO"
+Syntax error in SQL statement "-- Person\000aINSERT [*]IGNORE INTO person (document_type, document_number, name, email, phone_number) VALUES\000a('CC', '100000001', 'Ana LÃ³pez', 'ana@example.com', '3001112233'),\000a('CC', '100000002', 'Carlos GÃ³mez', 'carlos@example.com', '3002223344'),\000a('CC', '100000003', 'Laura Organizadora', 'laura@events.com', '3101234567'),\000a('CC', '100000004', 'Mario Contador', 'mario@finanzas.com', '3117654321')"; expected "INTO"; SQL statement:
+-- Person
+INSERT IGNORE INTO person (document_type, document_number, name, email, phone_number) VALUES
+('CC', '100000001', 'Ana LÃ³pez', 'ana@example.com', '3001112233'),
+('CC', '100000002', 'Carlos GÃ³mez', 'carlos@example.com', '3002223344'),
+('CC', '100000003', 'Laura Organizadora', 'laura@events.com', '3101234567'),
+('CC', '100000004', 'Mario Contador', 'mario@finanzas.com', '3117654321') [42001-232]
+2025-05-05 10:04:41.311095-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "ID_PERSON" contiene valores nulos
+Column "ID_PERSON" contains null values; SQL statement:
+-- Person
+MERGE INTO person (document_type, document_number, name, email, phone_number) VALUES
+('CC', '100000001', 'Ana LÃ³pez', 'ana@example.com', '3001112233'),
+('CC', '100000002', 'Carlos GÃ³mez', 'carlos@example.com', '3002223344'),
+('CC', '100000003', 'Laura Organizadora', 'laura@events.com', '3101234567'),
+('CC', '100000004', 'Mario Contador', 'mario@finanzas.com', '31 [90081-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.dml.Merge.merge(Merge.java:173)
+	at org.h2.command.dml.Merge.update(Merge.java:111)
+	at org.h2.command.dml.DataChangeStatement.update(DataChangeStatement.java:74)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at org.event.master.pro.util.Database.upDatabase(Database.java:37)
+	at org.event.master.pro.Main.main(Main.java:13)
+2025-05-05 10:05:44.315663-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "ID_PERSONA" no encontrada
+Column "ID_PERSONA" not found; SQL statement:
+-- Person
+MERGE INTO person (id_persona, document_type, document_number, name, email, phone_number) VALUES
+(1, 'CC', '100000001', 'Ana LÃ³pez', 'ana@example.com', '3001112233'),
+(2, 'CC', '100000002', 'Carlos GÃ³mez', 'carlos@example.com', '3002223344'),
+(3, 'CC', '100000003', 'Laura Organizadora', 'laura@events.com', '3101234567'),
+(4, 'CC', '100000004', 'Mario Contador', 'mario@finanzas.com', '3117654321') [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.parseColumn(Parser.java:1171)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1156)
+	at org.h2.command.Parser.parseMergeInto(Parser.java:1436)
+	at org.h2.command.Parser.parseMerge(Parser.java:1422)
+	at org.h2.command.Parser.parsePrepared(Parser.java:703)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at org.event.master.pro.util.Database.upDatabase(Database.java:37)
+	at org.event.master.pro.Main.main(Main.java:13)
+2025-05-05 10:06:24.573760-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "ID_ACCOUNT" contiene valores nulos
+Column "ID_ACCOUNT" contains null values; SQL statement:
+
+
+-- Account
+MERGE INTO account (person_id, password, role) VALUES
+(1, 'pass123', 'admin'),
+(2, 'pass456', 'customer'),
+(3, 'orgpass', 'organizer'),
+(4, 'contpass [90081-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.dml.Merge.merge(Merge.java:173)
+	at org.h2.command.dml.Merge.update(Merge.java:111)
+	at org.h2.command.dml.DataChangeStatement.update(DataChangeStatement.java:74)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at org.event.master.pro.util.Database.upDatabase(Database.java:37)
+	at org.event.master.pro.Main.main(Main.java:13)
+2025-05-05 10:09:52.365916-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "\000a\000a-- Organizer\000aINSERT [*]IGNORE INTO organizer (person_id)\000aKEY (person_id)\000aVALUES\000a(1),\000a(3)"; se esperaba "INTO"
+Syntax error in SQL statement "\000a\000a-- Organizer\000aINSERT [*]IGNORE INTO organizer (person_id)\000aKEY (person_id)\000aVALUES\000a(1),\000a(3)"; expected "INTO"; SQL statement:
+
+
+-- Organizer
+INSERT IGNORE INTO organizer (person_id)
+KEY (person_id)
+VALUES
+(1),
+(3) [42001-232]
+2025-05-05 10:10:08.795926-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "TYPE" no encontrada
+Column "TYPE" not found; SQL statement:
+
+
+-- Location
+MERGE INTO location (name, address, capacity, city, type, status_location, price_location, person_id)
+KEY (name, city)
+VALUES
+('Movistar Arena', 'Cra. 30 # 63-53', 10000,'MedellÃ­n', 'Auditorio', TRUE, 5000.00, 1) [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.parseColumn(Parser.java:1171)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1156)
+	at org.h2.command.Parser.parseMergeInto(Parser.java:1436)
+	at org.h2.command.Parser.parseMerge(Parser.java:1422)
+	at org.h2.command.Parser.parsePrepared(Parser.java:703)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at org.event.master.pro.util.Database.upDatabase(Database.java:37)
+	at org.event.master.pro.Main.main(Main.java:13)
+2025-05-05 10:10:57.985243-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "TYPE" no encontrada
+Column "TYPE" not found; SQL statement:
+
+
+-- Location
+MERGE INTO location (name, address, capacity, city, type, status_location, price_location, person_id)
+KEY (name, city)
+VALUES
+('Movistar Arena', 'Cra. 30 # 63-53', 10000,'MedellÃ­n', 'Auditorio', TRUE, 5000.00, 1) [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.command.Parser.parseColumn(Parser.java:1171)
+	at org.h2.command.Parser.parseColumnList(Parser.java:1156)
+	at org.h2.command.Parser.parseMergeInto(Parser.java:1436)
+	at org.h2.command.Parser.parseMerge(Parser.java:1422)
+	at org.h2.command.Parser.parsePrepared(Parser.java:703)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.tools.RunScript.execute(RunScript.java:169)
+	at org.event.master.pro.util.Database.upDatabase(Database.java:37)
+	at org.event.master.pro.Main.main(Main.java:13)
+2025-05-05 10:10:58.135302-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "LOCATION" not found (this database is empty); SQL statement:
+INSERT INTO location (name, address, capacity, city, status_location, price_location, person_id) VALUES (?, ?, ?, ?, ?, ?, ?) [42104-232]
+2025-05-05 10:15:23.245897-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO location (name, address, capacity, city, type, status_location, price_location, person_id) VALUES (?, ?, ?, ?, ?, ?, ?) [21002-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:294)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:315)
+	at org.event.master.pro.event.Location.createLocation(Location.java:108)
+	at org.event.master.pro.Main.main(Main.java:16)
+2025-05-05 10:16:59.809689-05:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: La cantidad de columnas no coincide
+Column count does not match; SQL statement:
+INSERT INTO location (name, address, capacity, city, type, status_location, price_location, person_id) VALUES (?, ?, ?, ?, ?, ?, ?) [21002-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.command.dml.Insert.doPrepare(Insert.java:294)
+	at org.h2.command.dml.DataChangeStatement.prepare(DataChangeStatement.java:37)
+	at org.h2.command.Parser.prepareCommand(Parser.java:489)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:315)
+	at org.event.master.pro.event.Location.createLocation(Location.java:108)
+	at org.event.master.pro.Main.main(Main.java:16)

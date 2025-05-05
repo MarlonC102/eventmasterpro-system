@@ -45,7 +45,7 @@ public class Conference extends Event {
         this.day = day;
     }
 
-    @Override
+   /* @Override
     public Conference createEvent(List<Location> loc) {
         Conference conference = new Conference();
         printMessage("\n--- Create Conference ---");
@@ -128,8 +128,8 @@ public class Conference extends Event {
     public void generateTicket() {
     }*/
 
-    @Override
+    /*@Override
     public Location selectLocation(List<Location> locations){
         return null;
-    }
+    }*/
 }

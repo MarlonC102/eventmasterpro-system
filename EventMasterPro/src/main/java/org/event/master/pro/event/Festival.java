@@ -50,7 +50,7 @@ public class Festival extends Event {
         this.numberOfStage = numberOfStage;
     }
 
-    public Festival createEvent(List<Location> loc) {
+    /*public Festival createEvent(List<Location> loc) {
         Festival festival = new Festival();
         printMessage("\n--- Create Festival ---");
         festival.setName(strigsInput("Enter festival name: "));
@@ -99,6 +99,7 @@ public class Festival extends Event {
         return null;
     }
 
+<<<<<<< Updated upstream
     @Override
     public void consultEvent(List<Event> festival) {
         if (festival != null && !festival.isEmpty()) {
@@ -106,6 +107,16 @@ public class Festival extends Event {
             for (Event festivals : festival) {
                 printMessage(festivals.getName());
             }
+=======
+    //@Override
+    public void consultEvent(Event festival) {
+        if (festival != null) {
+            printMessage(String.format("""
+                ----- Festival -----
+                Event Name: %s
+                Date: %s
+                """,festival.getName(),festival.getDateEvent()));
+>>>>>>> Stashed changes
         } else {
             printMessage("No festivals to show.");
         }
@@ -132,7 +143,7 @@ public class Festival extends Event {
         return null;
     }
 
-    @Override
+    /*@Override
     public Location selectLocation(List<Location> locations) {
         String locationEvent = null;
         boolean find;
@@ -182,7 +193,7 @@ public class Festival extends Event {
             }
         }
         return selectedStages;
-    }
+    }*/
 
 }
 
