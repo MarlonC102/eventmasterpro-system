@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation("com.h2database:h2:2.3.232")
+    implementation 'io.github.vincenzopalazzo:material-ui-swing:1.1.2'
+    implementation 'com.formdev:flatlaf:3.6'
+    implementation 'org.json:json:20240303'
+    implementation("com.github.lgooddatepicker:LGoodDatePicker:11.2.1")
+}
+
+test {
+    useJUnitPlatform()
+}
+
+application {
+    mainClass = 'org.event.master.pro.Main'
+}
