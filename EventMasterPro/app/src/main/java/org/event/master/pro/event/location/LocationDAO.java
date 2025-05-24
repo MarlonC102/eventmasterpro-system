@@ -38,7 +38,7 @@ public class LocationDAO {
                 return false;
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new IllegalArgumentException("Can't create event: " + e.getMessage());
+            throw new IllegalArgumentException("SQL Error: " + e.getMessage());
         }
 
     }
@@ -61,21 +61,20 @@ public class LocationDAO {
                 boolean availability = rs.getBoolean("availability");
                 double price = rs.getDouble("price_location");
                 String consideration = rs.getString("consideration");
-                String idLocation = rs.getString("id_location");
+                int idLocation = rs.getInt("id_location");
                 Location l = new Location(name, address, city, department, type, capacity, availability, price, consideration, idLocation);
                 location.add(l);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         } return location;
     }
 
-    public List<Location> viewLocationDetail(String id){
+    public static Location viewLocationDetail(String id){
         String sql = Select.SELECT_SPECIFIC_LOCATION.getQuery();
-        List<Location> location = new ArrayList<Location>();
-       try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
-           stmt.setString(1, id);
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+            stmt.setString(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString("name");
@@ -87,15 +86,40 @@ public class LocationDAO {
                 double price = rs.getDouble("price_location");
                 String consideration = rs.getString("consideration");
                 boolean availability = rs.getBoolean("availability");
-                String idLocation = rs.getString("id_location");
-                Location l = new Location(name, address, city, department, type, capacity, availability, price, consideration, idLocation);
-                location.add(l);
+                int idLocation = rs.getInt("id_location");
+                return new Location(name, address, city, department, type, capacity, availability, price, consideration, idLocation);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
-        } return location;
+            throw new RuntimeException("SQL Error: " + e.getMessage());
+        } return null;
     }
+    
+        public static Location viewLocationDetail(int id){
+        String sql = Select.SELECT_SPECIFIC_LOCATION.getQuery();
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                int capacity = rs.getInt("capacity");
+                String city = rs.getString("city");
+                String department = rs.getString("department");
+                String type = rs.getString("type_location");
+                double price = rs.getDouble("price_location");
+                String consideration = rs.getString("consideration");
+                boolean availability = rs.getBoolean("availability");
+                int idLocation = rs.getInt("id_location");
+                return new Location(name, address, city, department, type, capacity, availability, price, consideration, idLocation);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("SQL Error: " + e.getMessage());
+        } return null;
+    }
+    
+    
 
     public void editLocation(List<Location> location, String id){
         String sql = Update.UPDATE_LOCATION.getQuery();
@@ -114,7 +138,7 @@ public class LocationDAO {
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
     }
 
@@ -133,7 +157,7 @@ public class LocationDAO {
             stmt.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
     }
 
@@ -147,7 +171,7 @@ public class LocationDAO {
             }
         } catch (SQLException e) {  
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
         return locationActive;
     }

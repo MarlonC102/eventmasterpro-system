@@ -5,7 +5,8 @@ public enum Select {
     CONSULT_DOCUMENT_NUMBER("SELECT document_number FROM person WHERE document_number = ?"),
     COUNT_ACTIVE_SPEAKER("SELECT COUNT(A.id_artist) AS total_speaker FROM artist A INNER JOIN person B  ON A.person_id = B.id_person WHERE B.status_person = TRUE AND A.type_person = FALSE"),
     COUNT_ACTIVE_ARTIST("SELECT COUNT(A.id_artist) AS total_artist FROM artist A INNER JOIN person B  ON A.person_id = B.id_person WHERE B.status_person = TRUE AND A.type_person = TRUE"),
-    SELECT_SPECIFIC_ARTIST("SELECT * FROM artist A INNER JOIN person B ON A.person_id = B.id_person WHERE B.document_number = ?"),
+    SELECT_SPECIFIC_ARTIST_BY_DOC("SELECT * FROM artist A INNER JOIN person B ON A.person_id = B.id_person WHERE B.document_number = ? AND A.type_person = ?"),
+    SELECT_SPECIFIC_ARTIST("SELECT * FROM artist A INNER JOIN person B ON A.person_id = B.id_person WHERE A.id_artist = ? AND A.type_person = ?"),
     //SELECT_PERSON_BY_EMAIL("SELECT * FROM person WHERE email = ?"),
     //SELECT_CUSTOMER_BY_BIRTH_YEAR("SELECT * FROM customer WHERE birth_date >= ?"),
     //SELECT_ARTIST_BY_GENRE("SELECT * FROM artist WHERE genre_topic LIKE ? AND type_person = TRUE"),
@@ -59,7 +60,16 @@ public enum Select {
         "ORDER BY e.date_event DESC"),
     SELECT_TICKET_BY_EVENT("SELECT id_ticket, price, seat_number, zone, description, status FROM ticket WHERE event_id = ?"),
     SELECT_REVENUE("SELECT id_revenue, description, amount, date, source FROM revenue WHERE finance_id = ?"),
-    SELECT_EXPENSE("SELECT id_expense, description, amount, date, category FROM expense WHERE finance_id = ?")
+    SELECT_EXPENSE("SELECT id_expense, description, amount, date, category FROM expense WHERE finance_id = ?"),
+    SELECT_TICKET("SELECT * FROM ticket WHERE id_ticket = ? AND status = ?"),
+    ATTENDANCE("SELECT COUNT(*) FROM ticket WHERE event_id = ? AND status = ?"),
+    SELECT_EVENT("SELECT e.id_event AS id_event, e.name AS name, e.date_event AS date_event, e.description AS description, e.participants_number as participants_number, e.status_event AS status_event, l.type_location AS type_location, l.name AS location_name, l.id_location FROM event e JOIN location l ON e.location_id = l.id_location  WHERE status_event = ?"),
+    //SELECT_EVENT("SELECT e.id_event AS id_event, e.name AS name, e.date_event AS date_event, e.description AS description, e.participants_number as participants_number, e.status_event AS status_event, l.type_location AS type_location, l.name AS location_name, l.id_location FROM event e JOIN location l ON e.location_id = l.id_location  WHERE status_event NOT IN ('Cancelled', 'Finished')"),
+    SELECT_INVITED_ARTIST("SELECT a.id_artist, a.genre_topic, a.requirements, a.price_artist, a.availability, a.type_person, a.person_id" +
+                     "FROM artist a INNER JOIN event_invited_artist eia ON a.id_artist = eia.artist_id" +
+                     "WHERE eia.event_id = ?"),
+    //    SELECT_INVITED_ARTIST("SELECT a.* FROM event_invited_artist eia JOIN artist a ON a.id_artist = eia.artist_id WHERE eia.event_id = ?")
+    SELECT_EVENT_SPECIFIC("SELECT e.*, c.genre_topic, a.*, l.* FROM event e JOIN concert c ON e.id_event = c.event_id JOIN artist a ON e.principal_artist_id = a.id_artist JOIN location l ON e.location_id = l.id_location WHERE e.id_event = ?");
     ;
     private final String query;
 

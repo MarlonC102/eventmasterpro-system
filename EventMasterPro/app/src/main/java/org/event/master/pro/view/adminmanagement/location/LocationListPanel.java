@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package org.event.master.pro.view.adminmanagement;
+package org.event.master.pro.view.adminmanagement.location;
 
 import java.util.List;
 import javax.swing.JFrame;
@@ -11,7 +11,9 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.event.master.pro.event.location.Location;
 import org.event.master.pro.event.location.LocationDAO;
+import org.event.master.pro.person.account.Account;
 import static org.event.master.pro.util.ShowPanelUtil.*;
+import org.event.master.pro.util.UIUtil;
 
 /**
  *
@@ -19,8 +21,8 @@ import static org.event.master.pro.util.ShowPanelUtil.*;
  */
 public class LocationListPanel extends javax.swing.JPanel {
     private final JFrame container;
-    Location location = new Location();
     LocationDAO ldao = new LocationDAO();
+    Account account = new Account();
     private static String id;
     /**
      * Creates new form LocationListPanel
@@ -97,6 +99,7 @@ public class LocationListPanel extends javax.swing.JPanel {
         locationTable.getColumnModel().getColumn(8).setMinWidth(0);
         locationTable.getColumnModel().getColumn(8).setMaxWidth(0);
         locationTable.getColumnModel().getColumn(8).setPreferredWidth(0);
+        //UIUtil.hideButtons(account.getRol(), locationTable);
     }
     
      //Eventos para los botones Edit y Delete ya que fueron elementos añadidos manualmente a la tabla

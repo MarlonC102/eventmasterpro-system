@@ -3,21 +3,25 @@ package org.event.master.pro.util;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import org.event.master.pro.event.Event.Event;
 import org.event.master.pro.view.adminmanagement.AdminHomePanel;
-import org.event.master.pro.view.adminmanagement.ArtistListPanel;
-import org.event.master.pro.view.adminmanagement.ArtistEditPanel;
-import org.event.master.pro.view.adminmanagement.ArtistCreatePanel;
-import org.event.master.pro.view.adminmanagement.ArtistConsultPanel;
-import org.event.master.pro.view.adminmanagement.LocationConsultPanel;
-import org.event.master.pro.view.adminmanagement.LocationCreatePanel;
-import org.event.master.pro.view.adminmanagement.LocationEditPanel;
-import org.event.master.pro.view.adminmanagement.LocationListPanel;
-import org.event.master.pro.view.adminmanagement.SpeakerEditPanel;
-import org.event.master.pro.view.adminmanagement.SpeakerCreatePanel;
-import org.event.master.pro.view.adminmanagement.SpeakerListPanel;
+import org.event.master.pro.view.adminmanagement.artist.ArtistListPanel;
+import org.event.master.pro.view.adminmanagement.artist.ArtistEditPanel;
+import org.event.master.pro.view.adminmanagement.artist.ArtistCreatePanel;
+import org.event.master.pro.view.adminmanagement.artist.ArtistConsultPanel;
+import org.event.master.pro.view.adminmanagement.location.LocationConsultPanel;
+import org.event.master.pro.view.adminmanagement.location.LocationCreatePanel;
+import org.event.master.pro.view.adminmanagement.location.LocationEditPanel;
+import org.event.master.pro.view.adminmanagement.location.LocationListPanel;
+import org.event.master.pro.view.adminmanagement.speaker.SpeakerConsultPanel;
+import org.event.master.pro.view.adminmanagement.speaker.SpeakerEditPanel;
+import org.event.master.pro.view.adminmanagement.speaker.SpeakerCreatePanel;
+import org.event.master.pro.view.adminmanagement.speaker.SpeakerListPanel;
 import org.event.master.pro.view.organizermanagement.event.TicketCreatePanel;
 import org.event.master.pro.view.organizermanagement.event.CreateEventPanel;
 import org.event.master.pro.view.organizermanagement.OrganizerHomePanel;
+import org.event.master.pro.view.organizermanagement.event.ConsultEventPanel;
+import org.event.master.pro.view.organizermanagement.event.ListEventPanel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -91,7 +95,7 @@ public class ShowPanelUtil {
     }
     
     public static void showSeeSpeakerPanel(JFrame container, String document){
-        switchToPanel(container, new ArtistConsultPanel(container, document));
+        switchToPanel(container, new SpeakerConsultPanel(container, document));
     }
     
     //Panels for location
@@ -117,13 +121,15 @@ public class ShowPanelUtil {
         switchToPanel(container,new CreateEventPanel(container));
     }
     public static void showListEventPanel(JFrame container){
-        //switchToPanel(container, new TicketCreatePanel(container));
+        switchToPanel(container, new ListEventPanel(container));
     }
     public static void showEditEventPanel(JFrame container){
         //switchToPanel(container, new TicketCreatePanel(container));
     }
-    public static void showSeeEventPanel(JFrame container){
-        //switchToPanel(container, new TicketCreatePanel(container));
+    public static void showSeeEventPanel(JFrame container, Event event){
+        switchToPanel(container, new ConsultEventPanel(container, event));
     }
+    
+    
     
 }

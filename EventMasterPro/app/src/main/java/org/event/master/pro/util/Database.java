@@ -18,8 +18,8 @@ public class Database {
     public static void upDatabase() {
         try {
             Files.deleteIfExists(Paths.get("./.db/event_master_pro.mv.db"));
-            //Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8085").start();
-            Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082").start();
+            Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8085").start();
+            //Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082").start();
             printMessage("H2 console started at http://localhost:8085");
             try (Connection connection = getConnection()) {
                 InputStream input = Database.class.getClassLoader().getResourceAsStream("sql/init_schema.sql");

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package org.event.master.pro.view.adminmanagement;
+package org.event.master.pro.view.adminmanagement.speaker;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -31,6 +31,7 @@ public class SpeakerEditPanel extends javax.swing.JPanel {
         this.container = container;
         this.doc = document;
         propertiePlaceHolder();
+        artistData();
     }
 
     /**
@@ -203,7 +204,6 @@ public class SpeakerEditPanel extends javax.swing.JPanel {
     
     public void artistData(){
         List<Speaker> speakerToEdit = sdao.viewSpeakerDetail(doc);
-        double aPrice;
         for (Speaker a : speakerToEdit) {
             speakerDocumentNumber.setText(a.getDocumenNumber());
             speakerDocumentNumber.setEnabled(false);

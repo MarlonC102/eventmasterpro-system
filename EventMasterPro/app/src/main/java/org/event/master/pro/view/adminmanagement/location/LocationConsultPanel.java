@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package org.event.master.pro.view.adminmanagement;
+package org.event.master.pro.view.adminmanagement.location;
 
 import java.awt.Color;
 import java.util.List;
@@ -203,8 +203,7 @@ public class LocationConsultPanel extends javax.swing.JPanel {
     }
     
     public void locationData(){
-        List<Location> locationToEdit = ldao.viewLocationDetail(id);
-        for (Location l : locationToEdit) {
+        Location l = ldao.viewLocationDetail(id);
             locationName.setText(l.getName());
             locationType.setSelectedItem(l.getType());
             locationAddress.setText(l.getAddress());
@@ -213,7 +212,7 @@ public class LocationConsultPanel extends javax.swing.JPanel {
             locationDepartment.setSelectedItem(l.getDepartment());
             locationCity.setSelectedItem(l.getCity());
             additionalConsideration.setText(l.getConsideration());
-        }
+        
     }
     
     public void selectCity(){

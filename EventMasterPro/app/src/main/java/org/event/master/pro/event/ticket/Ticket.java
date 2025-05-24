@@ -7,8 +7,6 @@ import org.event.master.pro.person.customer.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.event.master.pro.util.Util.intInput;
-import static org.event.master.pro.util.Util.printMessage;
 
 public class Ticket {
     private int idTicket;
@@ -27,7 +25,7 @@ public class Ticket {
         //this.status = TicketStatus.AVAILABLE.getEventStatus();
     }
 
-    public Ticket(double price, TicketStatus tatus, String event, int seatNumber, String zone) {
+    public Ticket(double price, TicketStatus status, String event, int seatNumber, String zone) {
         this.price = price;
         this.status = status;
         this.event = event;
@@ -40,7 +38,7 @@ public class Ticket {
         this.seatNumber = seatNumber;
         this.zone = zone;
         this.description = description;
-        
+        this.status = TicketStatus.AVAILABLE;
     }
 
     public int getIdTicket() {

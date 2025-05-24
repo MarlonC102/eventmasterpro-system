@@ -4,22 +4,25 @@
  */
 package org.event.master.pro.event.Concert;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.event.master.pro.event.Event.Event;
+import org.event.master.pro.event.Event.EventDAO;
+import static org.event.master.pro.event.Event.EventDAO.*;
 import org.event.master.pro.event.location.Location;
 import org.event.master.pro.event.location.LocationDAO;
 import org.event.master.pro.event.ticket.Ticket;
 import org.event.master.pro.event.ticket.TicketDAO;
 import org.event.master.pro.person.account.Account;
+import org.event.master.pro.person.artist.Artist;
+import org.event.master.pro.person.artist.ArtistDAO;
 import org.event.master.pro.util.Database;
 import org.event.master.pro.util.sql.Insert;
 import org.event.master.pro.util.sql.Select;
@@ -37,15 +40,16 @@ public class ConcertDAO {
             stmt.setString(1, concert.getName());
                 stmt.setString(2, concert.getDescription());
                 stmt.setTimestamp(3, Timestamp.valueOf(concert.getDateTimeEvent()));
-                stmt.setString(4, concert.getLocation().getIdLocation());
+                stmt.setInt(4, concert.getLocation().getIdLocation());
                 stmt.setInt(5, concert.getDuration());
                 stmt.setString(6, concert.getSponsor());
                 stmt.setString(7, concert.getType());
                 stmt.setString(8, concert.getClassification());
                 stmt.setInt(9, concert.getParticipantsNumbers());
-                stmt.setString(10, concert.getArtist().getIdArtist());
-                stmt.setString(11, "3");
+                stmt.setInt(10, concert.getArtist().getIdArtist());
+                stmt.setString(11, Account.getId());
                 stmt.executeUpdate();
+                System.out.println(stmt);
             
             
 
@@ -56,10 +60,10 @@ public class ConcertDAO {
                 concertId = rs.getInt(1);
             }
             String sqlInvited = Insert.INSERT_INVITED.getQuery();
-            for (String idArtist : concert.getInvitedArtist()) {
+            for (Artist artist : concert.getInvitedArtist()) {
                 PreparedStatement stmtInvited = Database.connection().prepareStatement(sqlInvited);
                 stmtInvited.setInt(1, concertId);
-                stmtInvited.setString(2, idArtist);
+                stmtInvited.setInt(2, artist.getIdArtist());
                 System.out.println(stmtInvited);
                 stmtInvited.executeUpdate();
             }
@@ -79,21 +83,106 @@ public class ConcertDAO {
             stmt.setString(1, "concert");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+                int eventId = rs.getInt("e.id_event");
                 String name = rs.getString("event_name");
                 LocalDateTime date = rs.getTimestamp("e.date_event").toLocalDateTime();
                 String address = rs.getString("l.address");
                 String type = rs.getString("type_location");
                 String description = rs.getString("e.description");
                 String invitedArtist = rs.getString("invited_artist");
-                List<String> invitedArtistList = Arrays.asList(invitedArtist.split(",\\s*"));
-                Location location = new Location(rs.getString("location_name"),rs.getString("l.id_location").toString());
+                List<Artist> invitedArtistList = new ArtistDAO().getInvitedArtistsByEvent(eventId);
+                Location location = new Location(rs.getString("location_name"),rs.getInt("l.id_location"));
                 Concert c = new Concert(name, description, date, type, location, invitedArtistList);
                 concert.add(c);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }return concert;
         
     }
+      
+      public List<Concert> getAllEventNotCancelledOrFinished() throws SQLException {
+        String sql = Select.SELECT_EVENT.getQuery();
+        List<Concert> concerts = new ArrayList<>();
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+                ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Concert concert = new Concert();
+                concert.setIdEvent(rs.getInt("id_event"));
+                concert.setName(rs.getString("name"));
+                concert.setDescription(rs.getString("description"));
+                concert.setDateTimeEvent(rs.getTimestamp("date_event").toLocalDateTime());
+                concert.setStatusEvent(rs.getString("status_event"));
+                concert.setClassification(rs.getString("classification"));
+                concert.setSponsor(rs.getString("sponsor"));
+                concert.setParticipantsNumbers(rs.getInt("participants_numbers"));
+                concert.setDuration(rs.getInt("duration"));
+                
+                int locationId = rs.getInt("location_id");
+                Location location = LocationDAO.viewLocationDetail(locationId);
+                concert.setLocation(location);
+
+                int artistId = rs.getInt("artist_id");
+                Artist mainArtist = ArtistDAO.viewArtistDetail(artistId);
+                concert.setArtist(mainArtist);
+
+                List<Artist> invited = ArtistDAO.getInvitedArtistsByEvent(concert.getIdEvent());
+                concert.setInvitedArtist(invited);
+                // event.setFinance(financeDAO.getFinanceByEventId(event.getId()));
+
+                concerts.add(concert);
+            }
+        }
+        return concerts;
+    }
+      
+    public Concert consultConcertById(int idEvent) throws SQLException{
+        String sql = Select.SELECT_EVENT_SPECIFIC.getQuery();
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+        stmt.setInt(1, idEvent);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            Location location = new Location(
+                rs.getString("l.name"),
+                rs.getString("l.address"),
+                rs.getString("l.city"),
+                rs.getString("l.department"),
+                rs.getString("l.type_location"),
+                rs.getInt("l.capacity"),
+                rs.getBoolean("l.availability"),
+                rs.getDouble("l.price_location"),
+                rs.getString("l.consideration"),
+                rs.getInt("l.id_location")
+            );
+
+            Artist mainArtist = new Artist(
+                rs.getInt("a.id_artist"),
+                rs.getDouble("a.price_artist"),
+                rs.getString("a.name")
+            );
+
+            Concert concert = new Concert(
+                rs.getString("name"),
+                rs.getString("description"),
+                rs.getTimestamp("date_event").toLocalDateTime(),
+                location,
+                rs.getInt("duration"),
+                rs.getString("sponsor"),
+                rs.getString("classification"),
+                rs.getInt("participants_number"),
+                mainArtist,
+                EventDAO.getInvitedArtists(idEvent),
+                rs.getString("type")
+            );
+            concert.setIdEvent(idEvent);
+            concert.setGenre(rs.getString("genre_topic"));
+            concert.setTickets(EventDAO.getTicketsByEventId(idEvent));
+
+            return concert;
+        }
+    }
+    return null;
+    }  
+      
 }

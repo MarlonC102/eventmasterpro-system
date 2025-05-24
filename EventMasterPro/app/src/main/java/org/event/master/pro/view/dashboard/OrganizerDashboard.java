@@ -161,7 +161,7 @@ public class OrganizerDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_showAllLocationItemActionPerformed
 
     private void showAllEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllEventActionPerformed
-        // TODO add your handling code here:
+        showListEventPanel(this);
     }//GEN-LAST:event_showAllEventActionPerformed
 
     private void createEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEventActionPerformed

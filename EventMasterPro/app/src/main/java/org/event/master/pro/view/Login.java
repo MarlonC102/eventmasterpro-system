@@ -180,7 +180,7 @@ public class Login extends javax.swing.JPanel {
             case "customer" -> {
             }
             case "organizer" -> {
-                //OrganizerDashboard();
+                OrganizerDashboard.openDashboard();
             }
             case "counter" -> {
             }

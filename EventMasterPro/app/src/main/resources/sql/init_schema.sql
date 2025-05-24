@@ -50,13 +50,14 @@ CREATE TABLE IF NOT EXISTS location (
     person_id INT NOT NULL,
     FOREIGN KEY (person_id) REFERENCES person(id_person)
 );
-
+--ALTER TABLE event ALTER COLUMN status_event SET DEFAULT 'Created';
+--UPDATE event SET status_event = 'Created' WHERE status_event = 'created';
 CREATE TABLE IF NOT EXISTS event (
     id_event INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(1000) NOT NULL,
     date_event DATETIME NOT NULL,
-    status_event VARCHAR(20) DEFAULT 'created',
+    status_event VARCHAR(20) DEFAULT 'Created',
     location_id INT NOT NULL,
     duration TINYINT NOT NULL,
     sponsor VARCHAR(255) NOT NULL,

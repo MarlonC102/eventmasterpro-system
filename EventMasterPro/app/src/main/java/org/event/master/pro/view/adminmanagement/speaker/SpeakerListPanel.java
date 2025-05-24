@@ -2,17 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package org.event.master.pro.view.adminmanagement;
+package org.event.master.pro.view.adminmanagement.speaker;
 
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
+import org.event.master.pro.person.account.Account;
 import org.event.master.pro.person.speaker.Speaker;
 import org.event.master.pro.person.speaker.SpeakerDAO;
-import org.event.master.pro.util.Util;
+import org.event.master.pro.util.FormatUtil;
 import static org.event.master.pro.util.ShowPanelUtil.*;
+import org.event.master.pro.util.UIUtil;
 
 
 /**
@@ -22,6 +24,7 @@ import static org.event.master.pro.util.ShowPanelUtil.*;
 public class SpeakerListPanel extends javax.swing.JPanel {
     SpeakerDAO speaker = new SpeakerDAO();
     private final JFrame container;
+    Account account = new Account();
     /**
      * Creates new form SpeakerListPanel
      */
@@ -92,8 +95,9 @@ public class SpeakerListPanel extends javax.swing.JPanel {
         DefaultTableModel modelTableArtist = (DefaultTableModel) speakerTable.getModel();
         for (Speaker s : speakers) {
             Object document = s.getDocumenNumber();
-            modelTableArtist.addRow(new Object[]{document, s.getName(), s.getSpeciality(), Util.formatNumbers(s.getPrice()) , s.isAvailability(), "See", "Edit","Delete"});
+            modelTableArtist.addRow(new Object[]{document, s.getName(), s.getSpeciality(), FormatUtil.formatNumber(s.getPrice()) , s.isAvailability(), "See", "Edit","Delete"});
         }
+        //UIUtil.hideButtons(account.getRol(), speakerTable);
         buttonsEvent();
     }
     

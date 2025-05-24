@@ -11,10 +11,11 @@ import java.util.Date;
 import java.util.List;
 import org.event.master.pro.event.location.Location;
 import org.event.master.pro.event.ticket.Ticket;
+import org.event.master.pro.person.artist.Artist;
 
 import static org.event.master.pro.util.Util.*;
 
-public abstract class Event{
+public class Event{
     private int idEvent;
     private static String id;
     private String name;
@@ -28,6 +29,7 @@ public abstract class Event{
     private String classification;
     private int participantsNumbers;
     private int currentParticipants;
+    private Artist mainArtist;
     private List<Ticket> tickets = new ArrayList<>();
 
     public Event() {
@@ -39,6 +41,16 @@ public abstract class Event{
         this.dateTimeEvent = dateTimeEvent;
         this.type = type;
         this.location = location;
+    }
+    
+        public Event(int idEvent, String name, String description, LocalDateTime dateTimeEvent, String type, Location location, int participantsNumbers){
+        this.name = name;
+        this.description = description;
+        this.dateTimeEvent = dateTimeEvent;
+        this.type = type;
+        this.location = location;
+        this.idEvent = idEvent;
+        this.participantsNumbers = participantsNumbers;
     }
 
     public Event(String name, String description, LocalDateTime dateTimeEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, String type) {
@@ -147,6 +159,7 @@ public abstract class Event{
     public void setType(String type) {
         this.type = type;
     }
+    
     
     
 }

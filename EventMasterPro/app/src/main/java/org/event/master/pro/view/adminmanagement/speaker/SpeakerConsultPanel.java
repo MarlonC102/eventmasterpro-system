@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package org.event.master.pro.view.adminmanagement;
+package org.event.master.pro.view.adminmanagement.speaker;
 
 import java.awt.Color;
 import java.util.List;
@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import org.event.master.pro.person.speaker.Speaker;
 import org.event.master.pro.person.speaker.SpeakerDAO;
 import org.event.master.pro.util.FormatUtil;
+import static org.event.master.pro.util.ShowPanelUtil.showListSpeakerPanel;
 import org.event.master.pro.util.UIUtil;
 
 /**
@@ -56,7 +57,7 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         artistEmail = new javax.swing.JTextField();
         artistPhoneNumber = new javax.swing.JTextField();
-        artistiListButton = new javax.swing.JButton();
+        artistListButton = new javax.swing.JButton();
 
         jLabel2.setText("Document Number");
 
@@ -76,10 +77,10 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
 
         jLabel8.setText("Phone Number");
 
-        artistiListButton.setText("Ok");
-        artistiListButton.addActionListener(new java.awt.event.ActionListener() {
+        artistListButton.setText("Ok");
+        artistListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                artistiListButtonActionPerformed(evt);
+                artistListButtonActionPerformed(evt);
             }
         });
 
@@ -94,7 +95,7 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(216, 216, 216)
-                        .addComponent(artistiListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(artistListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,15 +152,15 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(artistiListButton)
+                .addComponent(artistListButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void artistiListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistiListButtonActionPerformed
-        
-        //SpeakerList.showSpeakerList();
-    }//GEN-LAST:event_artistiListButtonActionPerformed
+    private void artistListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistListButtonActionPerformed
+        System.out.println("yendo a "+container.getName());
+        showListSpeakerPanel(container);
+    }//GEN-LAST:event_artistListButtonActionPerformed
 
     
     public void propertiePlaceHolder(){
@@ -187,11 +188,11 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField artistEmail;
+    private javax.swing.JButton artistListButton;
     private javax.swing.JTextField artistMusicalGenre;
     private javax.swing.JTextField artistName;
     private javax.swing.JTextField artistPhoneNumber;
     private javax.swing.JTextArea artistRequirements;
-    private javax.swing.JButton artistiListButton;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

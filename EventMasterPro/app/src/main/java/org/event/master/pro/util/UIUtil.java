@@ -8,10 +8,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.Enumeration;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
+import org.event.master.pro.person.account.Account;
 
 /**
  *
@@ -45,6 +48,17 @@ public class UIUtil {
 
     public static void propertiesText(JComboBox<String> field, Color textColor) {
         field.setEnabled(false);
+    }
+    
+    public static void hideButtons(String account, JTable table){
+        if (!account.equals("admin")) {
+            table.getColumnModel().getColumn(6).setMinWidth(0);
+            table.getColumnModel().getColumn(6).setMaxWidth(0);
+            table.getColumnModel().getColumn(6).setPreferredWidth(0);
+            table.getColumnModel().getColumn(7).setMinWidth(0);
+            table.getColumnModel().getColumn(7).setMaxWidth(0);
+            table.getColumnModel().getColumn(7).setPreferredWidth(0);
+        }
     }
     
 }

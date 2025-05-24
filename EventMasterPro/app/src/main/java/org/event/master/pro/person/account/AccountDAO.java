@@ -29,14 +29,14 @@ public class AccountDAO {
                     account.setRol(rs.getString("role"));
                     account.setIsLoggedIn(true);
                     account.setName(rs.getString("name"));
-                    account.setId(rs.getString("id_person"));
+                    Account.id = rs.getString("id_person");
                 }else {
                     Account.setIsLoggedIn(false);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
         /*if (isStatus()){
             if (documenNumbert.equals(getDocumenNumbert()) && password.equals(this.password)){

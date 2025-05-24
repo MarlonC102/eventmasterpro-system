@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
 import org.event.master.pro.util.Database;
 import org.event.master.pro.util.sql.Insert;
 import org.event.master.pro.util.sql.Select;
@@ -52,21 +51,22 @@ public class ArtistDAO {
                 String documentType = rs.getString("document_type");
                 String documentNumber = rs.getString("document_number");
                 boolean availability = rs.getBoolean("availability");
-                String idArtist = rs.getString("id_artist");
+                int idArtist = rs.getInt("id_artist");
                 Artist a = new Artist(documentType, documentNumber, name, genre, price, availability, idArtist);
                 artist.add(a);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         } return artist;
     } 
     
     public List<Artist> viewArtistDetail(String document){
-        String sql = Select.SELECT_SPECIFIC_ARTIST.getQuery();
+        String sql = Select.SELECT_SPECIFIC_ARTIST_BY_DOC.getQuery();
         List<Artist> artist = new ArrayList<Artist>();
        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
            stmt.setString(1, document);
+           stmt.setBoolean(2, true);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String documentNumber = rs.getString("document_number");
@@ -83,8 +83,32 @@ public class ArtistDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         } return artist;
+    }
+    
+        public static Artist viewArtistDetail(int id){
+        String sql = Select.SELECT_SPECIFIC_ARTIST.getQuery();
+       try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+           stmt.setInt(1, id);
+           stmt.setBoolean(2, true);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String documentNumber = rs.getString("document_number");
+                String name = rs.getString("name");
+                String musicalGenre = rs.getString("genre_topic");
+                double price = rs.getDouble("price_artist");
+                String email = rs.getString("email");
+                String phoneNumber = rs.getString("phone_number");
+                String requirements = rs.getString("requirements");
+                DecimalFormat formatter = new DecimalFormat("#,###.##");
+                boolean availability = rs.getBoolean("availability");
+                return new Artist(documentNumber, name, email, phoneNumber,requirements, price, musicalGenre,availability);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("SQL Error: " + e.getMessage());
+        } return null;
     }
     
     
@@ -107,11 +131,11 @@ public class ArtistDAO {
             stmt2.executeUpdate();
             } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
     }
     
@@ -123,7 +147,7 @@ public class ArtistDAO {
             stmt.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
     }
     
@@ -162,5 +186,29 @@ public class ArtistDAO {
         } return message;
     } 
 
+   public static List<Artist> getInvitedArtistsByEvent(int eventId) throws SQLException {
+        List<Artist> invitedArtists = new ArrayList<>();
+        String sql = Select.SELECT_INVITED_ARTIST.getQuery();
+
+        try (Connection conn = Database.connection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, eventId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Artist artist = new Artist();
+                artist.setIdArtist(rs.getInt("id_artist"));
+                artist.setGenre(rs.getString("genre_topic"));
+                artist.setRequirements(rs.getString("requirements"));
+                artist.setPrice(rs.getDouble("price_artist"));
+                artist.setAvailability(rs.getBoolean("availability"));
+                artist.setType(rs.getBoolean("type_person"));
+                invitedArtists.add(artist);
+            }
+        }
+        return invitedArtists;
+    }
+    
     
 }

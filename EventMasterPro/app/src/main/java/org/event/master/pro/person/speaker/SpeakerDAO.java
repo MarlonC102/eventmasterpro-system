@@ -34,7 +34,8 @@ public class SpeakerDAO {
                 double price = rs.getDouble("price_artist");
                 String documentNumber = rs.getString("document_number");
                 boolean availability = rs.getBoolean("availability");
-                Speaker s = new Speaker(documentNumber, name, price, availability, speciality);
+                int idSpeaker = rs.getInt("id_artist");
+                Speaker s = new Speaker(documentNumber, name, price, availability, speciality, idSpeaker);
                 speaker.add(s);
             }
         } catch (SQLException e) {
@@ -59,10 +60,11 @@ public class SpeakerDAO {
     }
     
     public List<Speaker> viewSpeakerDetail(String document){
-        String sql = Select.SELECT_SPECIFIC_ARTIST.getQuery();
+        String sql = Select.SELECT_SPECIFIC_ARTIST_BY_DOC.getQuery();
         List<Speaker> speaker = new ArrayList<Speaker>();
        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
            stmt.setString(1, document);
+           stmt.setBoolean(2, false);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String documentNumber = rs.getString("document_number");
@@ -83,6 +85,30 @@ public class SpeakerDAO {
         } return speaker;
     }
     
+    
+    public static Speaker viewSpeakerDetail(int id){
+        String sql = Select.SELECT_SPECIFIC_ARTIST.getQuery();
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+           stmt.setInt(1, id);
+           stmt.setBoolean(2, false);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String documentNumber = rs.getString("document_number");
+                String name = rs.getString("name");
+                String musicalGenre = rs.getString("genre_topic");
+                double price = rs.getDouble("price_artist");
+                String email = rs.getString("email");
+                String phoneNumber = rs.getString("phone_number");
+                String requirements = rs.getString("requirements");
+                DecimalFormat formatter = new DecimalFormat("#,###.##");
+                boolean availability = rs.getBoolean("availability");
+                return new Speaker(documentNumber, name, email, phoneNumber,requirements, price, musicalGenre,availability);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("SQL Error: " + e.getMessage());
+        } return null;
+    }
     
     public void editSpeaker(List<Speaker> speaker){
         String sql = Update.UPDATE_ARTIST_P1.getQuery();
@@ -110,6 +136,10 @@ public class SpeakerDAO {
             throw new RuntimeException("Error SQL: " + e.getMessage());
         }
     }
+    
+    
+    
+
     
     public void changeStatusSpeaker(String document){
         String sql = Update.CHANGE_STATUS_ARTIST.getQuery();

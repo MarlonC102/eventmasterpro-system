@@ -3,14 +3,13 @@ package org.event.master.pro.person.account;
 import org.event.master.pro.person.person.Person;
 
 import static org.event.master.pro.util.Util.printMessage;
-import static org.event.master.pro.util.Util.teclado;
 
 public class Account extends Person {
     private String password;
     private static String rol;
     private static boolean isLoggedIn;
     private String name;
-    private static String id;
+    static String id;
 
     public static String getRol() {
         return rol;
@@ -60,12 +59,7 @@ public class Account extends Person {
 
     public static void setId(String id) {
         Account.id = id;
-    }
-    
-   
-
-    
-    
+    }    
 
     public static void logout() {
         if (isLoggedIn) {
@@ -73,7 +67,7 @@ public class Account extends Person {
         }
     }
 
-    public void resetPassword(String documenNumbert) {
+    /*public void resetPassword(String documenNumbert) {
         if (isStatus()) {
             if (documenNumbert.equals(getDocumenNumber())) {
                 printMessage("New password:");
@@ -84,7 +78,7 @@ public class Account extends Person {
         } else {
             printMessage("The account is inactive.");
         }
-    }
+    }*/
 
     
 }

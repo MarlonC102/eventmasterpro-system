@@ -33,7 +33,7 @@ public class CreateEventPanel extends JPanel {
     Concert conter = new Concert();
     ArtistUI artistUI = new ArtistUI();
     LocationUI location = new LocationUI();
-    HashSet<String> invited = new HashSet<String>();
+    List<Artist> invited = new ArrayList<Artist>();
     private List<Location> locationList;
     private List<Artist> eventArtists;
     private List<Artist> eventArtistsI;
@@ -333,10 +333,9 @@ public class CreateEventPanel extends JPanel {
         selectedLocation = (Location) eventLocation.getSelectedItem();
         selecttPrincipalArtist = (Artist) principalArtist.getSelectedItem();
         //tickets = 
-        
-        try {
+        try {        
             cdao.saveConcert(new Concert(name, descriptionEvent, dateTime, selectedLocation,  duration,  sponsorEvent, classificationEvent,  quorumEvent,  selecttPrincipalArtist, invited, typeEvent),
-                             tickets);
+                    tickets);
             
             //price = Double.parseDouble(locationPrice.getText());
             /*boolean message = concert.registerConcert(nameEvent, address, city, department, type, consideration, capacity, price);
@@ -377,7 +376,7 @@ public class CreateEventPanel extends JPanel {
     private void addInvitedArtistButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInvitedArtistButtonActionPerformed
              Artist selected = (Artist) invitedArtist.getSelectedItem();
             if (selected != null) {
-                invited.add(selected.getIdArtist());
+                invited.add(selected);
             }
     }//GEN-LAST:event_addInvitedArtistButtonActionPerformed
 
@@ -415,6 +414,7 @@ public class CreateEventPanel extends JPanel {
             }
         });
     }
+    
     
     public void newPanel() {
         String selectedType = eventType.getSelectedItem().toString();

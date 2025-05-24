@@ -18,7 +18,11 @@ public enum Update {
     CHANGE_STATUS_LOCATION("UPDATE location SET status_location = ? WHERE id_location = ?"),
     CHANGE_STATIS_TICKET("UPDATE ticket SET status = ? WHERE id_ticket = ?"),
     SELL_TICKET("UPDATE ticket SET status = 'SOLD' WHERE id_ticket = ?"),
-    ADD_MOVEMENTS("UPDATE finance SET income_total = ?, expenses_total = ?, balance = ? WHERE id_finance = ?");
+    ADD_MOVEMENTS("UPDATE finance SET income_total = ?, expenses_total = ?, balance = ? WHERE id_finance = ?"),
+    CHANGE_STATUS_TICKET("UPDATE ticket SET status = ? WHERE id_ticket = ?"),
+    TICKET_USED("UPDATE ticket SET status = ? WHERE id_ticket = ?"),
+    UPDATE_EVENT_STATUS("UPDATE event SET status_event = ? WHERE id_event = ?"),
+    CANCEL_FINANCE_STATUS("UPDATE finance SET balance = 0, income_total = 0 WHERE id_finance = ?\"")
     ;
     
 

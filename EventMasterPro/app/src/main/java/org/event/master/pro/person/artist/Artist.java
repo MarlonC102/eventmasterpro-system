@@ -16,10 +16,15 @@ public class Artist extends Person{
     private List<String> participationHistory;
     private boolean availability;
     private boolean type;
-    private String idArtist;
-    private static String id;
+    private int idArtist;
 
     public Artist(){}
+    
+    public Artist(int idArtist, double price, String artisticName){
+        this.idArtist = idArtist;
+        this.price = price;
+        this.artisticName = artisticName;
+    }
     
     public Artist(String documentType, String documenNumber, String name, String genre, double price, boolean availability){
         super(name, documentType, documenNumber);
@@ -28,7 +33,7 @@ public class Artist extends Person{
         this.availability = availability;
     }
     
-    public Artist(String documentType, String documenNumber, String name, String genre, double price, boolean availability, String idArtist){
+    public Artist(String documentType, String documenNumber, String name, String genre, double price, boolean availability, int idArtist){
         super(name, documentType, documenNumber);
         this.genre = genre;
         this.price = price;
@@ -107,11 +112,16 @@ public class Artist extends Person{
         this.type = type;
     }
     
-    public String getIdArtist() {
+    public int getIdArtist() {
         return idArtist;
     }
 
-    public void setIdLocation(String idArtist) {
+    public void setIdArtist(int idArtist) {
+        this.idArtist = idArtist;
+    }
+    
+
+    public void setIdLocation(int idArtist) {
         this.idArtist = idArtist;
     }
     
@@ -119,4 +129,6 @@ public class Artist extends Person{
     public String toString() {
         return artisticName;
     }
+    
+    
 }
