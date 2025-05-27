@@ -24,7 +24,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         getContentPane().setLayout(new BorderLayout());
         openAdminPanel();
 
-        
     }
 
     /**
@@ -176,19 +175,19 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_newSpeakerItemActionPerformed
 
     public static void openDashboard() {
-    java.awt.EventQueue.invokeLater(() -> {
-        AdminDashboard dash = new AdminDashboard();
-        dash.setTitle("Admin Dashboard");
-        dash.setSize(1000, 700);
-        dash.setLocationRelativeTo(null);
-        dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        dash.setVisible(true);
-        dash.setResizable(false);
-        ImageUtil.setIcon(dash);
-    });
-}
-    
-    public void openAdminPanel(){
+        java.awt.EventQueue.invokeLater(() -> {
+            AdminDashboard dash = new AdminDashboard();
+            dash.setTitle("Admin Dashboard");
+            dash.setSize(1000, 700);
+            dash.setLocationRelativeTo(null);
+            dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            dash.setVisible(true);
+            dash.setResizable(false);
+            ImageUtil.setIcon(dash);
+        });
+    }
+
+    public void openAdminPanel() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new AdminHomePanel(this), java.awt.BorderLayout.CENTER);
@@ -196,7 +195,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         mainPanel.revalidate();
         mainPanel.repaint();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu artistManagement;

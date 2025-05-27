@@ -1,6 +1,7 @@
 package org.event.master.pro.event.location;
 
 public class Location {
+
     private String name;
     private String address;
     private String type;
@@ -14,10 +15,9 @@ public class Location {
     private int idLocation;
     private static String id;
 
-
     public Location() {
     }
-    
+
     public Location(String name, int idLocation) {
         this.name = name;
         this.idLocation = idLocation;
@@ -47,7 +47,7 @@ public class Location {
         this.type = type;
         this.availability = availability;
     }
-    
+
     public Location(String name, String address, String city, String department, String type, int capacity, boolean availability, double price, String consideration, int idLocation) {
         this.name = name;
         this.address = address;
@@ -140,7 +140,6 @@ public class Location {
     public static void setId(String id) {
         Location.id = id;
     }
-    
 
     public boolean isAvailability() {
         return availability;
@@ -157,19 +156,10 @@ public class Location {
     public void setIdLocation(int idLocation) {
         this.idLocation = idLocation;
     }
-    
+
     @Override
     public String toString() {
         return name;
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
 }

@@ -15,7 +15,8 @@ import org.event.master.pro.util.Database;
 import static org.event.master.pro.util.Util.*;
 import org.event.master.pro.util.sql.Select;
 
-public class Concert extends Event{
+public class Concert extends Event {
+
     private Artist artist;
     private List<Artist> invitedArtist;
     private String genre;
@@ -33,10 +34,15 @@ public class Concert extends Event{
         //this.ticket = ticket;
 
     }
-    
-    public Concert(String name, String description, LocalDateTime date, String type, Location location, List<Artist>invitedArtist){
+
+    public Concert(String name, String description, LocalDateTime date, String type, Location location, List<Artist> invitedArtist) {
         super(name, description, date, type, location);
-        this.invitedArtist =  invitedArtist;
+        this.invitedArtist = invitedArtist;
+    }
+
+    public Concert(String name, String description, LocalDateTime date, int duration, String sponsor, String classification, List<Artist> invitedArtist, int idEvent) {
+        super(name, description, date, duration, sponsor, classification, idEvent);
+        this.invitedArtist = invitedArtist;
     }
 
     public Artist getArtist() {

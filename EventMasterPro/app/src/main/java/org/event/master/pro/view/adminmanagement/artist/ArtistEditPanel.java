@@ -19,11 +19,12 @@ import org.event.master.pro.util.UIUtil;
  * @author Luisa
  */
 public class ArtistEditPanel extends javax.swing.JPanel {
+
     Artist artist = new Artist();
     ArtistDAO adao = new ArtistDAO();
     private final JFrame container;
     private String doc;
-    
+
     public ArtistEditPanel(JFrame container, String document) {
         initComponents();
         this.container = container;
@@ -90,7 +91,7 @@ public class ArtistEditPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(238, 238, 238)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,7 +122,7 @@ public class ArtistEditPanel extends javax.swing.JPanel {
                         .addComponent(editArtistSaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(canelEditArtistButton)))
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,21 +163,21 @@ public class ArtistEditPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void propertiePlaceHolder(){
+    public void propertiePlaceHolder() {
         UIUtil.setPlaceHolder("Document number", artistDocumentNumber);
         UIUtil.setPlaceHolder("Name", artistName);
         UIUtil.setPlaceHolder("Musical genre", artistMusicalGenre);
         UIUtil.setPlaceHolder("Price", artistPrice);
         UIUtil.setPlaceHolder("Phone number", artistPhoneNumber);
         UIUtil.setPlaceHolder("Requeriments", artistRequirements);
-        UIUtil.propertiesText(artistDocumentNumber,Color.WHITE);
+        UIUtil.propertiesText(artistDocumentNumber, Color.WHITE);
     }
-    
-    public void artistData(){
+
+    public void artistData() {
         List<Artist> artistToEdit = adao.viewArtistDetail(doc);
         for (Artist a : artistToEdit) {
             artistDocumentNumber.setText(a.getDocumenNumber());
-            UIUtil.propertiesText(artistDocumentNumber,Color.WHITE);
+            UIUtil.propertiesText(artistDocumentNumber, Color.WHITE);
             artistName.setText(a.getName());
             artistEmail.setText(a.getMail());
             artistMusicalGenre.setText(a.getGenre());
@@ -185,9 +186,8 @@ public class ArtistEditPanel extends javax.swing.JPanel {
             artistRequirements.setText(a.getRequirements());
         }
     }
-    
-    
-    
+
+
     private void editArtistSaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editArtistSaveButtonActionPerformed
         List<Artist> artist = new ArrayList<Artist>();
         String documentNumber = artistDocumentNumber.getText();
@@ -198,7 +198,7 @@ public class ArtistEditPanel extends javax.swing.JPanel {
         double price = Double.parseDouble(artistPrice.getText().replace(".", ""));
         String requirements = artistRequirements.getText();
         boolean availability = true;
-        Artist a = new Artist(documentNumber, name, email, phone,requirements, price, genre, availability);
+        Artist a = new Artist(documentNumber, name, email, phone, requirements, price, genre, availability);
         artist.add(a);
         adao.editArtist(artist);
         showListArtistPanel(container);

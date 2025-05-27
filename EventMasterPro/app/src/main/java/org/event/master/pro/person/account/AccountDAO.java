@@ -15,7 +15,9 @@ import org.event.master.pro.util.sql.Select;
  * @author Luisa
  */
 public class AccountDAO {
+
     Account account;
+
     public Account login(String password, String userName) {
         String sql = Select.SELECT_ACCOUNT_BY_USERV2.getQuery();
         try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
@@ -30,7 +32,7 @@ public class AccountDAO {
                     account.setIsLoggedIn(true);
                     account.setName(rs.getString("name"));
                     Account.id = rs.getString("id_person");
-                }else {
+                } else {
                     Account.setIsLoggedIn(false);
                 }
             }

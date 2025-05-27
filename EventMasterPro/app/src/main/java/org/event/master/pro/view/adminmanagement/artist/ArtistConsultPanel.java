@@ -18,11 +18,12 @@ import org.event.master.pro.util.UIUtil;
  * @author Luisa
  */
 public class ArtistConsultPanel extends javax.swing.JPanel {
+
     Artist artist = new Artist();
     ArtistDAO adao = new ArtistDAO();
     private final JFrame container;
     private String doc;
-    
+
     /**
      * Creates new form SeeArtistPanel
      */
@@ -90,7 +91,7 @@ public class ArtistConsultPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(248, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,7 +120,7 @@ public class ArtistConsultPanel extends javax.swing.JPanel {
                                 .addComponent(artistEmail, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(artistPrice, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(artistPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(246, 246, 246))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,18 +163,17 @@ public class ArtistConsultPanel extends javax.swing.JPanel {
         ShowPanelUtil.showListArtistPanel(container);
     }//GEN-LAST:event_artistiListOkButtonActionPerformed
 
-    
-    public void propertiePlaceHolder(){
-        UIUtil.propertiesText(artistDocumentNumber,Color.WHITE);
-        UIUtil.propertiesText(artistName,Color.WHITE);
-        UIUtil.propertiesText(artistEmail,Color.WHITE);
-        UIUtil.propertiesText(artistMusicalGenre,Color.WHITE);
-        UIUtil.propertiesText(artistPhoneNumber,Color.WHITE);
-        UIUtil.propertiesText(artistPrice,Color.WHITE);
-        UIUtil.propertiesText(artistRequirements,Color.WHITE);
+    public void propertiePlaceHolder() {
+        UIUtil.propertiesText(artistDocumentNumber, Color.WHITE);
+        UIUtil.propertiesText(artistName, Color.WHITE);
+        UIUtil.propertiesText(artistEmail, Color.WHITE);
+        UIUtil.propertiesText(artistMusicalGenre, Color.WHITE);
+        UIUtil.propertiesText(artistPhoneNumber, Color.WHITE);
+        UIUtil.propertiesText(artistPrice, Color.WHITE);
+        UIUtil.propertiesText(artistRequirements, Color.WHITE);
     }
-    
-    public void artistData(){
+
+    public void artistData() {
         List<Artist> artistToEdit = adao.viewArtistDetail(doc);
         for (Artist a : artistToEdit) {
             artistDocumentNumber.setText(a.getDocumenNumber());

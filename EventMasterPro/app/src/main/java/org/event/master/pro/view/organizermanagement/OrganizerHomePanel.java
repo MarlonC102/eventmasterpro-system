@@ -4,7 +4,6 @@
  */
 package org.event.master.pro.view.organizermanagement;
 
-
 import javax.swing.JFrame;
 import org.event.master.pro.event.Event.EventDAO;
 import static org.event.master.pro.util.ShowPanelUtil.*;
@@ -27,7 +26,7 @@ public class OrganizerHomePanel extends javax.swing.JPanel {
         initComponents();
         showTotal();
         UIUtil.setPlaceHolder("Search by name", searchByName);
-        
+
     }
 
     /**
@@ -266,16 +265,16 @@ public class OrganizerHomePanel extends javax.swing.JPanel {
     public static void showAdminHome(JFrame container) {
         switchToPanel(container, new OrganizerHomePanel(container));
     }
-    
-    public static void showPanel(JFrame container){
-        
+
+    public static void showPanel(JFrame container) {
+
     }
-    
-    public static void lastArtist(){
-        
+
+    public static void lastArtist() {
+
     }
-    
-    public void showTotal(){
+
+    public void showTotal() {
         EventDAO dao = new EventDAO();
         nConcert.setText(String.valueOf(dao.countAllEventsInProgress(Select.SELECT_CONCERT_IN_PROGRESS.getQuery())));
         nConference.setText(String.valueOf(dao.countAllEventsInProgress(Select.SELECT_CONFERENCE_IN_PROGRESS.getQuery())));

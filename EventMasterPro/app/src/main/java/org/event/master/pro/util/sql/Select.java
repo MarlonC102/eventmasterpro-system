@@ -40,36 +40,72 @@ public enum Select {
             + "LEFT JOIN event_invited_artist ei ON ei.event_id = e.id_event LEFT JOIN artist ai ON ei.artist_id = ai.id_artist "
             + "LEFT JOIN person pi ON ai.person_id = pi.id_person WHERE e.status_event =  ? AND e.type = ? GROUP BY t.id_ticket "
             + "ORDER BY e.date_event DESC"),
-    SELECT_EVENT_BY_ID("SELECT t.id_ticket, t.price_ticket, t.seat_number, t.zone, t.description AS ticket_description," +
-        "e.id_event, e.name AS event_name, e.description AS event_description, e.date_event, e.status_event," +
-        "e.duration, e.sponsor, e.type, e.classification, e.participants_number," +
-        "ap.id_artist AS principal_artist_id, pp.name AS principal_artist_name, pp.email AS principal_artist_email," +
-        "l.id_location, l.name AS location_name, l.address AS location_address, l.city, l.department," +
-        "l.type_location, l.capacity, l.price_location, l.consideration," +
-        "GROUP_CONCAT(DISTINCT pi.name SEPARATOR ', ') AS invited_artists" +
-        "FROM ticket t" +
-        "JOIN event e ON t.event_id = e.id_event" +
-        "LEFT JOIN location l ON e.location_id = l.id_location "+
-        "LEFT JOIN artist ap ON e.principal_artist_id = ap.id_artist" +
-        "LEFT JOIN person pp ON ap.person_id = pp.id_person" +
-        "LEFT JOIN event_invited_artist ei ON ei.event_id = e.id_event" +
-        "LEFT JOIN artist ai ON ei.artist_id = ai.id_artist" +
-        "LEFT JOIN person pi ON ai.person_id = pi.id_person" +
-        "WHERE e.id_event = ?" +
-        "GROUP BY t.id_ticket" +
-        "ORDER BY e.date_event DESC"),
-    SELECT_TICKET_BY_EVENT("SELECT id_ticket, price, seat_number, zone, description, status FROM ticket WHERE event_id = ?"),
+    SELECT_EVENT_BY_ID("SELECT t.id_ticket, t.price_ticket, t.seat_number, t.zone, t.description AS ticket_description,"
+            + "e.id_event, e.name AS event_name, e.description AS event_description, e.date_event, e.status_event,"
+            + "e.duration, e.sponsor, e.type, e.classification, e.participants_number,"
+            + "ap.id_artist AS principal_artist_id, pp.name AS principal_artist_name, pp.email AS principal_artist_email,"
+            + "l.id_location, l.name AS location_name, l.address AS location_address, l.city, l.department,"
+            + "l.type_location, l.capacity, l.price_location, l.consideration,"
+            + "GROUP_CONCAT(DISTINCT pi.name SEPARATOR ', ') AS invited_artists"
+            + "FROM ticket t"
+            + "JOIN event e ON t.event_id = e.id_event"
+            + "LEFT JOIN location l ON e.location_id = l.id_location "
+            + "LEFT JOIN artist ap ON e.principal_artist_id = ap.id_artist"
+            + "LEFT JOIN person pp ON ap.person_id = pp.id_person"
+            + "LEFT JOIN event_invited_artist ei ON ei.event_id = e.id_event"
+            + "LEFT JOIN artist ai ON ei.artist_id = ai.id_artist"
+            + "LEFT JOIN person pi ON ai.person_id = pi.id_person"
+            + "WHERE e.id_event = ?"
+            + "GROUP BY t.id_ticket"
+            + "ORDER BY e.date_event DESC"),
+    SELECT_LOCATION_NOT_FINISHED_CANCELLED("SELECT COUNT(*) AS count FROM event WHERE location_id = ? AND status_event NOT IN ('Finished', 'Cancelled')"),
+    SELECT_TICKET_BY_EVENT("SELECT id_ticket, price_ticket, seat_number, zone, description, status_ticket FROM ticket WHERE event_id = ?"),
     SELECT_REVENUE("SELECT id_revenue, description, amount, date, source FROM revenue WHERE finance_id = ?"),
     SELECT_EXPENSE("SELECT id_expense, description, amount, date, category FROM expense WHERE finance_id = ?"),
     SELECT_TICKET("SELECT * FROM ticket WHERE id_ticket = ? AND status = ?"),
     ATTENDANCE("SELECT COUNT(*) FROM ticket WHERE event_id = ? AND status = ?"),
-    SELECT_EVENT("SELECT e.id_event AS id_event, e.name AS name, e.date_event AS date_event, e.description AS description, e.participants_number as participants_number, e.status_event AS status_event, l.type_location AS type_location, l.name AS location_name, l.id_location FROM event e JOIN location l ON e.location_id = l.id_location  WHERE status_event = ?"),
+    SELECT_EVENT("SELECT e.id_event AS id_event, e.name AS event_name, e.type AS event_type, e.date_event AS date_event, e.description AS description, e.participants_number as participants_number, e.status_event AS status_event, l.type_location AS type_location, l.name AS location_name, l.id_location AS id_location FROM event e JOIN location l ON e.location_id = l.id_location  WHERE status_event = ?"),
     //SELECT_EVENT("SELECT e.id_event AS id_event, e.name AS name, e.date_event AS date_event, e.description AS description, e.participants_number as participants_number, e.status_event AS status_event, l.type_location AS type_location, l.name AS location_name, l.id_location FROM event e JOIN location l ON e.location_id = l.id_location  WHERE status_event NOT IN ('Cancelled', 'Finished')"),
-    SELECT_INVITED_ARTIST("SELECT a.id_artist, a.genre_topic, a.requirements, a.price_artist, a.availability, a.type_person, a.person_id" +
-                     "FROM artist a INNER JOIN event_invited_artist eia ON a.id_artist = eia.artist_id" +
-                     "WHERE eia.event_id = ?"),
+    SELECT_INVITED_ARTIST("SELECT a.id_artist,a.genre_topic AS genre_topic,a.requirements,a.price_artist,a.availability,a.type_person,a.person_id,p.name FROM artist a INNER JOIN person p ON a.person_id = p.id_person INNER JOIN event_invited_artist eia ON a.id_artist = eia.artist_id WHERE eia.event_id = ?"),
     //    SELECT_INVITED_ARTIST("SELECT a.* FROM event_invited_artist eia JOIN artist a ON a.id_artist = eia.artist_id WHERE eia.event_id = ?")
-    SELECT_EVENT_SPECIFIC("SELECT e.*, c.genre_topic, a.*, l.* FROM event e JOIN concert c ON e.id_event = c.event_id JOIN artist a ON e.principal_artist_id = a.id_artist JOIN location l ON e.location_id = l.id_location WHERE e.id_event = ?");
+    SELECT_EVENT_SPECIFIC("SELECT \n"
+            + "    t.id_ticket, t.price_ticket, t.seat_number, t.zone, t.description AS ticket_description,\n"
+            + "    e.id_event, e.name AS event_name, e.description AS event_description, e.date_event, e.status_event,\n"
+            + "    e.duration, e.sponsor, e.type, e.classification, e.participants_number,\n"
+            + "    ap.id_artist AS principal_artist_id, pp.name AS principal_artist_name, ap.genre_topic, ap.price_artist, pp.email AS principal_artist_email,\n"
+            + "    l.id_location, l.name AS location_name, l.availability, l.address AS location_address, l.city, l.department,\n"
+            + "    l.type_location, l.capacity, l.price_location, l.consideration,\n"
+            + "    GROUP_CONCAT(DISTINCT pi.name SEPARATOR ', ') AS invited_artists\n"
+            + "FROM event e\n"
+            + "LEFT JOIN ticket t ON t.event_id = e.id_event\n"
+            + "LEFT JOIN location l ON e.location_id = l.id_location\n"
+            + "LEFT JOIN artist ap ON e.principal_artist_id = ap.id_artist\n"
+            + "LEFT JOIN person pp ON ap.person_id = pp.id_person\n"
+            + "LEFT JOIN event_invited_artist ei ON ei.event_id = e.id_event\n"
+            + "LEFT JOIN artist ai ON ei.artist_id = ai.id_artist\n"
+            + "LEFT JOIN person pi ON ai.person_id = pi.id_person\n"
+            + "WHERE e.id_event = ?\n"
+            + "GROUP BY e.id_event, t.id_ticket\n"
+            + "ORDER BY e.date_event DESC"),
+    SELECT_COUNT_MAIN_ARTIST("SELECT COUNT(*) AS count " +
+        "FROM event e " +
+        "JOIN artist a ON e.principal_artist_id = a.id_artist " +
+        "JOIN person p ON a.person_id = p.id_person " +
+        "WHERE p.document_number = ? " +
+        "AND e.status_event NOT IN ('Finished', 'Cancelled')"),
+    SELECT_COUNT_INVIDET_ARTIST("SELECT COUNT(*) AS count " +
+        "FROM event_invited_artist ei " +
+        "JOIN artist a ON ei.artist_id = a.id_artist " +
+        "JOIN person p ON a.person_id = p.id_person " +
+        "JOIN event e ON ei.event_id = e.id_event " +
+        "WHERE p.document_number = ? " +
+        "AND e.status_event NOT IN ('Finished', 'Cancelled')"),
+    SELECT_COUNT_LOCATION_OCCUPED("SELECT COUNT(*) AS count FROM event WHERE location_id = ? AND (" +
+                  "? BETWEEN date_event AND date_end_event OR " +
+                  "? BETWEEN date_event AND date_end_event OR " +
+                  "date_event BETWEEN ? AND ? OR " +
+                  "date_end_event BETWEEN ? AND ?)")
+    
     ;
     private final String query;
 

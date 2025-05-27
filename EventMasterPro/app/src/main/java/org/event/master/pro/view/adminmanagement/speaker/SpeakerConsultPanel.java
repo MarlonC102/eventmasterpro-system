@@ -18,10 +18,12 @@ import org.event.master.pro.util.UIUtil;
  * @author Luisa
  */
 public class SpeakerConsultPanel extends javax.swing.JPanel {
+
     Speaker speaker = new Speaker();
     SpeakerDAO sdao = new SpeakerDAO();
     private final JFrame container;
     private String doc;
+
     /**
      * Creates new form SeeSpeakerPanel
      */
@@ -89,7 +91,7 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(239, 239, 239)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,7 +120,7 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
                                 .addComponent(artistEmail, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(speakerPrice, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(artistPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,23 +160,22 @@ public class SpeakerConsultPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void artistListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_artistListButtonActionPerformed
-        System.out.println("yendo a "+container.getName());
+        System.out.println("yendo a " + container.getName());
         showListSpeakerPanel(container);
     }//GEN-LAST:event_artistListButtonActionPerformed
 
-    
-    public void propertiePlaceHolder(){
-        UIUtil.propertiesText(speakerDocumentNumber,Color.WHITE);
-        UIUtil.propertiesText(artistName,Color.WHITE);
-        UIUtil.propertiesText(artistEmail,Color.WHITE);
-        UIUtil.propertiesText(artistMusicalGenre,Color.WHITE);
-        UIUtil.propertiesText(artistPhoneNumber,Color.WHITE);
-        UIUtil.propertiesText(speakerPrice,Color.WHITE);
-        UIUtil.propertiesText(artistRequirements,Color.WHITE);
+    public void propertiePlaceHolder() {
+        UIUtil.propertiesText(speakerDocumentNumber, Color.WHITE);
+        UIUtil.propertiesText(artistName, Color.WHITE);
+        UIUtil.propertiesText(artistEmail, Color.WHITE);
+        UIUtil.propertiesText(artistMusicalGenre, Color.WHITE);
+        UIUtil.propertiesText(artistPhoneNumber, Color.WHITE);
+        UIUtil.propertiesText(speakerPrice, Color.WHITE);
+        UIUtil.propertiesText(artistRequirements, Color.WHITE);
     }
-    
-    public void artistData(){
-        List<Speaker> speakerToSee= sdao.viewSpeakerDetail(doc);
+
+    public void artistData() {
+        List<Speaker> speakerToSee = sdao.viewSpeakerDetail(doc);
         for (Speaker a : speakerToSee) {
             speakerDocumentNumber.setText(a.getDocumenNumber());
             artistName.setText(a.getName());

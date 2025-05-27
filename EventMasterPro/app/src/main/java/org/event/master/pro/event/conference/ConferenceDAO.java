@@ -9,5 +9,5 @@ package org.event.master.pro.event.conference;
  * @author Luisa
  */
 public class ConferenceDAO {
-    
+
 }

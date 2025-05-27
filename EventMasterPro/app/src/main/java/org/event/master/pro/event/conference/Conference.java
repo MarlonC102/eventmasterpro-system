@@ -11,22 +11,24 @@ import org.event.master.pro.event.ticket.Ticket;
 
 import static org.event.master.pro.util.Util.*;
 
-public class Conference extends Event{
+public class Conference extends Event {
+
     private String speaker;
     private String conferenceTopic;
     private int day;
     private List<Ticket> ticket;
 
-    public Conference(){}
+    public Conference() {
+    }
 
-   /* public Conference(String speaker, String conferenceTopic, int day, String name, String description, LocalDateTime dateTimeEvent,  String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, List<Ticket> ticket) {
+    /* public Conference(String speaker, String conferenceTopic, int day, String name, String description, LocalDateTime dateTimeEvent,  String statusEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, List<Ticket> ticket) {
         super(name, description, dateTimeEvent, statusEvent, location, duration, sponsor, classification, participantsNumbers);
         this.speaker = speaker;
         this.conferenceTopic = conferenceTopic;
         this.day = day;
         this.ticket = ticket;
     }
-*/
+     */
     public String getSpeaker() {
         return speaker;
     }

@@ -20,10 +20,12 @@ import org.event.master.pro.util.UIUtil;
  * @author Luisa
  */
 public class LocationListPanel extends javax.swing.JPanel {
+
     private final JFrame container;
     LocationDAO ldao = new LocationDAO();
     Account account = new Account();
     private static String id;
+
     /**
      * Creates new form LocationListPanel
      */
@@ -89,11 +91,11 @@ public class LocationListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableLocation(){
+    private void tableLocation() {
         List<Location> loc = ldao.consultLocation();
         DefaultTableModel modelTableArtist = (DefaultTableModel) locationTable.getModel();
         for (Location l : loc) {
-            modelTableArtist.addRow(new Object[]{ l.getName(), l.getAddress(), l.getCity(), l.getCapacity(), l.isAvailability(), "See", "Edit","Delete", l.getIdLocation()});
+            modelTableArtist.addRow(new Object[]{l.getName(), l.getAddress(), l.getCity(), l.getCapacity(), l.isAvailability(), "See", "Edit", "Delete", l.getIdLocation()});
         }
         buttonsEvent();
         locationTable.getColumnModel().getColumn(8).setMinWidth(0);
@@ -101,29 +103,38 @@ public class LocationListPanel extends javax.swing.JPanel {
         locationTable.getColumnModel().getColumn(8).setPreferredWidth(0);
         //UIUtil.hideButtons(account.getRol(), locationTable);
     }
-    
-     //Eventos para los botones Edit y Delete ya que fueron elementos añadidos manualmente a la tabla
-    private void buttonsEvent(){
+
+    //Eventos para los botones Edit y Delete ya que fueron elementos añadidos manualmente a la tabla
+    private void buttonsEvent() {
         locationTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = locationTable.rowAtPoint(evt.getPoint());
                 int column = locationTable.columnAtPoint(evt.getPoint());
-                id  = locationTable.getValueAt(row, 8).toString();
+                id = locationTable.getValueAt(row, 8).toString();
                 if (column == locationTable.getColumnModel().getColumnIndex("Edit")) {
                     showEditLocationPanel(container, id);
                 } else if (column == locationTable.getColumnModel().getColumnIndex("Delete")) {
                     int confirmado = JOptionPane.showConfirmDialog(
-                    null,
-                    "Are you sure you want to delete the location?",
-                    "Confirm",
-                    JOptionPane.YES_NO_OPTION
-                );
-                if (confirmado == JOptionPane.YES_OPTION) {
-                    ldao.changeStatusLocation(id);
-                    showListLocationPanel(container);
-                }
-                } else if(column == locationTable.getColumnModel().getColumnIndex("See")){
+                            null,
+                            "Are you sure you want to delete the location?",
+                            "Confirm",
+                            JOptionPane.YES_NO_OPTION
+                    );
+                    if (confirmado == JOptionPane.YES_OPTION) {
+                        try {
+                            ldao.changeStatusLocation(id);
+                            showListLocationPanel(container);
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(
+                                null,
+                                e.getMessage(),
+                                "Cannot eelete this location",
+                                JOptionPane.WARNING_MESSAGE
+            );
+                        }
+                    }
+                } else if (column == locationTable.getColumnModel().getColumnIndex("See")) {
                     showSeeLocationPanel(container, id);
                 }
             }

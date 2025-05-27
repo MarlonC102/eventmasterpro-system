@@ -1,4 +1,3 @@
-
 package org.event.master.pro.event.festival;
 
 import org.event.master.pro.event.Event.Event;
@@ -10,7 +9,8 @@ import org.event.master.pro.event.ticket.Ticket;
 
 import static org.event.master.pro.util.Util.*;
 
-public class Festival extends Event{
+public class Festival extends Event {
+
     private Set<String> stage = new HashSet<>();
     int numberOfStage;
     private int day;
@@ -27,7 +27,7 @@ public class Festival extends Event{
         this.numberOfStage = numberOfStage;
         this.ticket = ticket;
     }
-*/
+     */
     public Set<String> getStage() {
         return stage;
     }
@@ -50,6 +50,5 @@ public class Festival extends Event{
 
     public void setNumberOfStage(int numberOfStage) {
         this.numberOfStage = numberOfStage;
-    } 
+    }
 }
-

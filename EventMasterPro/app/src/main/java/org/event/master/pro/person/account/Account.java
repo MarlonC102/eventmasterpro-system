@@ -5,6 +5,7 @@ import org.event.master.pro.person.person.Person;
 import static org.event.master.pro.util.Util.printMessage;
 
 public class Account extends Person {
+
     private String password;
     private static String rol;
     private static boolean isLoggedIn;
@@ -59,7 +60,7 @@ public class Account extends Person {
 
     public static void setId(String id) {
         Account.id = id;
-    }    
+    }
 
     public static void logout() {
         if (isLoggedIn) {
@@ -79,6 +80,4 @@ public class Account extends Person {
             printMessage("The account is inactive.");
         }
     }*/
-
-    
 }

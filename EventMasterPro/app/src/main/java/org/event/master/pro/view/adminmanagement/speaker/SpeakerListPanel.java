@@ -10,21 +10,24 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.event.master.pro.person.account.Account;
+import org.event.master.pro.person.artist.ArtistDAO;
 import org.event.master.pro.person.speaker.Speaker;
 import org.event.master.pro.person.speaker.SpeakerDAO;
 import org.event.master.pro.util.FormatUtil;
 import static org.event.master.pro.util.ShowPanelUtil.*;
 import org.event.master.pro.util.UIUtil;
 
-
 /**
  *
  * @author Luisa
  */
 public class SpeakerListPanel extends javax.swing.JPanel {
+
     SpeakerDAO speaker = new SpeakerDAO();
+    ArtistDAO artist = new ArtistDAO();
     private final JFrame container;
     Account account = new Account();
+
     /**
      * Creates new form SpeakerListPanel
      */
@@ -90,19 +93,19 @@ public class SpeakerListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableSpeaker(){
+    private void tableSpeaker() {
         List<Speaker> speakers = speaker.consultSpeaker();
         DefaultTableModel modelTableArtist = (DefaultTableModel) speakerTable.getModel();
         for (Speaker s : speakers) {
             Object document = s.getDocumenNumber();
-            modelTableArtist.addRow(new Object[]{document, s.getName(), s.getSpeciality(), FormatUtil.formatNumber(s.getPrice()) , s.isAvailability(), "See", "Edit","Delete"});
+            modelTableArtist.addRow(new Object[]{document, s.getName(), s.getSpeciality(), FormatUtil.formatNumber(s.getPrice()), s.isAvailability(), "See", "Edit", "Delete"});
         }
         //UIUtil.hideButtons(account.getRol(), speakerTable);
         buttonsEvent();
     }
-    
+
     //Eventos para los botones Edit y Delete ya que fueron elementos añadidos manualmente a la tabla
-    private void buttonsEvent(){
+    private void buttonsEvent() {
         speakerTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -113,22 +116,26 @@ public class SpeakerListPanel extends javax.swing.JPanel {
                     showEditSpeakerPanel(container, document);
                 } else if (column == speakerTable.getColumnModel().getColumnIndex("Delete")) {
                     int confirmado = JOptionPane.showConfirmDialog(
-                    null,
-                    "Are you sure you want to delete the speaker?",
-                    "Confirm",
-                    JOptionPane.YES_NO_OPTION
-                );
-                if (confirmado == JOptionPane.YES_OPTION) {
-                    speaker.changeStatusSpeaker(document);
-                    showListSpeakerPanel(container);
-                }
-                } else if(column == speakerTable.getColumnModel().getColumnIndex("See")){
+                            null,
+                            "Are you sure you want to delete the speaker?",
+                            "Confirm",
+                            JOptionPane.YES_NO_OPTION
+                    );
+                    if (confirmado == JOptionPane.YES_OPTION) {
+                        try {
+                            artist.changeStatusArtist(document);
+                            showListSpeakerPanel(container);
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(SpeakerListPanel.this, e.getMessage(), "Cannot Deactivate Speaker", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
+                } else if (column == speakerTable.getColumnModel().getColumnIndex("See")) {
                     showSeeSpeakerPanel(container, document);
                 }
             }
         });
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable speakerTable;

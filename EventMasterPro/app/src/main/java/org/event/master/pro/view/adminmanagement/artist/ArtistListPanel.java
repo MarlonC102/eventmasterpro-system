@@ -21,9 +21,11 @@ import org.event.master.pro.util.UIUtil;
  * @author Luisa
  */
 public class ArtistListPanel extends javax.swing.JPanel {
+
     private final JFrame container;
     ArtistDAO artist = new ArtistDAO();
     Account account = new Account();
+
     /**
      * Creates new form ArtistListPanel
      */
@@ -90,19 +92,19 @@ public class ArtistListPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void tableArtist(){
+    private void tableArtist() {
         List<Artist> artists = artist.consultArtist();
         DefaultTableModel modelTableArtist = (DefaultTableModel) artistTable.getModel();
         for (Artist a : artists) {
             Object document = a.getDocumenNumber();
-            modelTableArtist.addRow(new Object[]{ document, a.getName(), a.getGenre(), FormatUtil.formatNumber(a.getPrice()) , a.isAvailability(), "See", "Edit","Delete"});
+            modelTableArtist.addRow(new Object[]{document, a.getName(), a.getGenre(), FormatUtil.formatNumber(a.getPrice()), a.isAvailability(), "See", "Edit", "Delete"});
         }
         //UIUtil.hideButtons(account.getRol(), artistTable);
         buttonsEvent();
     }
-    
+
     //Eventos para los botones Edit y Delete ya que fueron elementos añadidos manualmente a la tabla
-    private void buttonsEvent(){
+    private void buttonsEvent() {
         artistTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -110,27 +112,32 @@ public class ArtistListPanel extends javax.swing.JPanel {
             }
         });
     }
-    
-    public void buttonFunctional(java.awt.event.MouseEvent evt){
+
+    public void buttonFunctional(java.awt.event.MouseEvent evt) {
         int row = artistTable.rowAtPoint(evt.getPoint());
-                int column = artistTable.columnAtPoint(evt.getPoint());
-                String document = artistTable.getValueAt(row, 0).toString();
-                if (column == artistTable.getColumnModel().getColumnIndex("Edit")) {
-                    showEditArtistPanel(container, document);
-                } else if (column == artistTable.getColumnModel().getColumnIndex("Delete")) {
-                    int confirmado = JOptionPane.showConfirmDialog(
+        int column = artistTable.columnAtPoint(evt.getPoint());
+        String document = artistTable.getValueAt(row, 0).toString();
+        if (column == artistTable.getColumnModel().getColumnIndex("Edit")) {
+            showEditArtistPanel(container, document);
+        } else if (column == artistTable.getColumnModel().getColumnIndex("Delete")) {
+            int confirmado = JOptionPane.showConfirmDialog(
                     null,
                     "Are you sure you want to delete the artist?",
                     "Confirm",
                     JOptionPane.YES_NO_OPTION
-                );
-                if (confirmado == JOptionPane.YES_OPTION) {
+            );
+            if (confirmado == JOptionPane.YES_OPTION) {
+                try {
                     artist.changeStatusArtist(document);
                     switchToPanel(container, new ArtistListPanel(container));
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage(), "Cannot Deactivate Artist", JOptionPane.WARNING_MESSAGE);
+
                 }
-                } else if(column == artistTable.getColumnModel().getColumnIndex("See")){
-                    showSeeArtistPanel(container, document);
-                }
+            }
+        } else if (column == artistTable.getColumnModel().getColumnIndex("See")) {
+            showSeeArtistPanel(container, document);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,7 @@
  */
 package org.event.master.pro.view.organizermanagement.event;
 
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,17 +12,19 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.event.master.pro.event.Event.Event;
 import org.event.master.pro.event.Event.EventDAO;
-import org.event.master.pro.util.ShowPanelUtil;
-import static org.event.master.pro.util.ShowPanelUtil.showSeeArtistPanel;
+import static org.event.master.pro.util.ShowPanelUtil.showEditEventPanel;
+import static org.event.master.pro.util.ShowPanelUtil.showSeeEventPanel;
 
 /**
  *
  * @author Luisa
  */
 public class ListEventPanel extends javax.swing.JPanel {
+
     EventDAO edao = new EventDAO();
     private final JFrame container;
     private List<Event> events;
+
     /**
      * Creates new form EventListPanel
      */
@@ -53,14 +56,14 @@ public class ListEventPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "Date", "Status", "Quorum", "See", "Edit", "Delete"
+                "Name", "Date", "Status", "Quorum", "See", "Edit", "Cancel", "Type", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -121,17 +124,17 @@ public class ListEventPanel extends javax.swing.JPanel {
         tableEvent(statusCombobox.getSelectedItem().toString());
     }//GEN-LAST:event_jButton1ActionPerformed
 
-     private void tableEvent(String status){
+    private void tableEvent(String status) {
         events = edao.consultEvent(status);
         DefaultTableModel modelTableEvent = (DefaultTableModel) eventTable.getModel();
         for (Event e : events) {
-            modelTableEvent.addRow(new Object[]{e.getName(), e.getDateTimeEvent(), e.getStatusEvent(), e.getParticipantsNumbers(), "See", "Edit","Delete"});
+            modelTableEvent.addRow(new Object[]{e.getName(), e.getDateTimeEvent(), e.getStatusEvent(), e.getParticipantsNumbers(), "See", "Edit", "Cancel", e.getType(), e.getIdEvent()});
         }
         //UIUtil.hideButtons(account.getRol(), speakerTable);
         buttonsEvent();
     }
-     
-     private void buttonsEvent(){
+
+    private void buttonsEvent() {
         eventTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -139,31 +142,41 @@ public class ListEventPanel extends javax.swing.JPanel {
             }
         });
     }
-    
-    public void buttonFunctional(java.awt.event.MouseEvent evt){
+
+    public void buttonFunctional(java.awt.event.MouseEvent evt) {
         int row = eventTable.rowAtPoint(evt.getPoint());
-                int column = eventTable.columnAtPoint(evt.getPoint());
-                String document = eventTable.getValueAt(row, 0).toString();
-                if (column == eventTable.getColumnModel().getColumnIndex("Edit")) {
-                    //showEditArtistPanel(container, document);
-                } else if (column == eventTable.getColumnModel().getColumnIndex("Delete")) {
-                    int confirmado = JOptionPane.showConfirmDialog(
+        int column = eventTable.columnAtPoint(evt.getPoint());
+        String type = eventTable.getValueAt(row, 7).toString();
+        int idEvent = Integer.parseInt(eventTable.getValueAt(row, 8).toString());
+        if (column == eventTable.getColumnModel().getColumnIndex("Edit")) {
+            try {
+                showEditEventPanel(container, idEvent, type);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "SQL Error: " + e.getMessage());
+            }
+        } else if (column == eventTable.getColumnModel().getColumnIndex("Cancel")) {
+            int confirmado = JOptionPane.showConfirmDialog(
                     null,
-                    "Are you sure you want to delete the artist?",
+                    "Are you sure you want to cancel the event?",
                     "Confirm",
                     JOptionPane.YES_NO_OPTION
-                );
-                if (confirmado == JOptionPane.YES_OPTION) {
-                    //artist.changeStatusArtist(document);
-                    //switchToPanel(container, new ArtistListPanel(container));
-                }
-                } else if(column == eventTable.getColumnModel().getColumnIndex("See")){
-                    Event e = (Event) events;
-                    ShowPanelUtil.showSeeEventPanel(container, e);
-                }
+            );
+            if (confirmado == JOptionPane.YES_OPTION) {
+                //artist.changeStatusArtist(document);
+                //switchToPanel(container, new ArtistListPanel(container));
+            }
+        } else if (column == eventTable.getColumnModel().getColumnIndex("See")) {
+            try {
+                showSeeEventPanel(container, idEvent, type);
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "SQL Error: " + e.getMessage());
+            }
+        }
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable eventTable;
     private javax.swing.JButton jButton1;

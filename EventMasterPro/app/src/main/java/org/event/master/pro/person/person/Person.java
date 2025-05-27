@@ -1,6 +1,7 @@
 package org.event.master.pro.person.person;
 
 public class Person {
+
     private String documentType;
     private String documenNumber;
     private String name;
@@ -9,19 +10,19 @@ public class Person {
     private boolean status;
     private String idPerson;
     private static String id;
-    
+
     public Person() {
 
     }
 
-   /* public Person(String documentType, String documenNumber, String name, String mail, String phone) {
+    /* public Person(String documentType, String documenNumber, String name, String mail, String phone) {
         this.documentType = documentType;
         this.documenNumber = documenNumber;
         this.name = name;
         this.mail = mail;
         this.phone = phone;
     }
-    */
+     */
     public Person(String documenNumber, String name, String mail, String phone) {
         this.documenNumber = documenNumber;
         this.name = name;
@@ -29,18 +30,17 @@ public class Person {
         this.phone = phone;
     }
 
-    
-    public Person(String name, String documenNumber){
+    public Person(String name, String documenNumber) {
         this.name = name;
         this.documenNumber = documenNumber;
     }
-    
-    public Person(String name, String documenType, String documenNumber){
+
+    public Person(String name, String documenType, String documenNumber) {
         this.name = name;
         this.documentType = documenType;
         this.documenNumber = documenNumber;
     }
-    
+
     public Person(String documentType, String documenNumber, String name, String mail, String idPerson) {
         this.documentType = documentType;
         this.documenNumber = documenNumber;
@@ -49,8 +49,6 @@ public class Person {
         this.phone = phone;
         this.idPerson = idPerson;
     }
-    
-    
 
     public String getDocumentType() {
         return documentType;
@@ -99,7 +97,7 @@ public class Person {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
     public String getIdPerson() {
         return idPerson;
     }
@@ -107,19 +105,21 @@ public class Person {
     public void setIdLocation(String idPerson) {
         this.idPerson = idPerson;
     }
-    
+
     @Override
     public String toString() {
         return name;
     }
 
-    public void updatePerson(){
+    public void updatePerson() {
 
     }
-    public void changeStatusPerson(){
+
+    public void changeStatusPerson() {
         status = false;
     }
-    public void consultPerson(){
+
+    public void consultPerson() {
 
     }
 }

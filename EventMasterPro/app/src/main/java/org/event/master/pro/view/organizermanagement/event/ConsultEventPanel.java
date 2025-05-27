@@ -4,32 +4,41 @@
  */
 package org.event.master.pro.view.organizermanagement.event;
 
+import java.awt.Color;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import org.event.master.pro.event.Concert.Concert;
 import org.event.master.pro.event.Concert.ConcertDAO;
-import org.event.master.pro.event.Event.Event;
+import org.event.master.pro.event.conference.Conference;
+import org.event.master.pro.event.festival.Festival;
 import org.event.master.pro.event.ticket.Ticket;
-import org.event.master.pro.event.ticket.TicketDAO;
 import org.event.master.pro.person.artist.Artist;
+import static org.event.master.pro.util.ShowPanelUtil.*;
+import org.event.master.pro.util.UIUtil;
 
 /**
  *
  * @author Luisa
  */
 public class ConsultEventPanel extends javax.swing.JPanel {
+
+    ConcertDAO cdao = new ConcertDAO();
     private final JFrame container;
-    private Event event;
+    private int event;
+    private String type;
+
     /**
      * Creates new form EventListPanel
      */
-    public ConsultEventPanel(JFrame container, Event event) {
+    public ConsultEventPanel(JFrame container, int event, String type) throws SQLException {
         initComponents();
         this.container = container;
         this.event = event;
-        eventData();
+        eventData(event);
         disableAll();
+        propertiePlaceHolder();
     }
 
     /**
@@ -59,14 +68,14 @@ public class ConsultEventPanel extends javax.swing.JPanel {
         eventQuorum = new javax.swing.JTextField();
         eventLocation = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
-        eventDescription = new javax.swing.JTextPane();
         jLabel11 = new javax.swing.JLabel();
-        title = new javax.swing.JLabel();
         principalArtist = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
-        invitedArtist = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
-        ticketEvent = new javax.swing.JTextPane();
+        invitedArtist = new javax.swing.JTextField();
+        ticketEvent = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        eventDescription = new javax.swing.JTextPane();
 
         okButton.setText("Ok");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +98,11 @@ public class ConsultEventPanel extends javax.swing.JPanel {
         jLabel10.setText("Quorum");
 
         eventSponsor.setPreferredSize(null);
+        eventSponsor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eventSponsorActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Name");
 
@@ -124,10 +138,6 @@ public class ConsultEventPanel extends javax.swing.JPanel {
 
         jLabel11.setText("Principal Artist");
 
-        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Events");
-        title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         principalArtist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 principalArtistActionPerformed(evt);
@@ -138,132 +148,112 @@ public class ConsultEventPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Tickets");
 
+        jScrollPane1.setViewportView(eventDescription);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(170, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(eventDurationTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateTimePicker, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                    .addComponent(eventClassification, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(eventDuration)
-                    .addComponent(eventName)
-                    .addComponent(eventSponsor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(eventQuorum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(invitedArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(ticketEvent, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(264, 264, 264)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(50, 50, 50))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(eventType, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(principalArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(eventLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(eventDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(okButton)
-                .addGap(316, 316, 316))
+                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventDurationTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventClassification, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventName, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventSponsor, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventQuorum, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(invitedArtist, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(eventType, 0, 300, Short.MAX_VALUE)
+                    .addComponent(principalArtist, 0, 300, Short.MAX_VALUE)
+                    .addComponent(eventLocation, 0, 300, Short.MAX_VALUE)
+                    .addComponent(ticketEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {eventDurationTitle, jLabel1, jLabel10, jLabel11, jLabel12, jLabel14, jLabel2, jLabel3, jLabel6, jLabel7, jLabel8, jLabel9});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dateTimePicker, eventClassification, eventDuration, eventLocation, eventName, eventQuorum, eventSponsor, eventType, invitedArtist, principalArtist, ticketEvent});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(eventName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(eventType, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel7))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(dateTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(eventLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel11))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(eventSponsor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(principalArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel12)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(156, 156, 156)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(eventClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(eventDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(eventQuorum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(ticketEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(eventDurationTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel14)))
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eventName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventType, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateTimePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(eventLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eventSponsor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(principalArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eventClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ticketEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(invitedArtist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(eventDuration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(eventQuorum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(eventDurationTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(eventDuration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(invitedArtist, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addComponent(okButton)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        
-
+        showListEventPanel(container);
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void eventClassificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventClassificationActionPerformed
@@ -278,63 +268,127 @@ public class ConsultEventPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_eventLocationActionPerformed
 
-    private void principalArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalArtistActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_principalArtistActionPerformed
-
     private void eventTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventTypeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_eventTypeActionPerformed
 
-    public void eventData(){
-        eventName.setText(event.getName());
-        dateTimePicker.setDateTimePermissive(event.getDateTimeEvent());
-        eventSponsor.setText(event.getSponsor());
-        eventClassification.setSelectedItem(event.getClassification());
-        eventQuorum.setText(String.valueOf(event.getParticipantsNumbers()));
-        eventDuration.setText(String.valueOf(event.getDuration()));
-        eventType.setSelectedItem(event.getType());
-        eventLocation.setSelectedItem(event.getLocation().getName());
-        eventDescription.setText(event.getDescription());
-        switch (event.getType()) {
-        case "Concert" -> {
-            try{
-                ConcertDAO cdao = new ConcertDAO();
-                Concert concert = cdao.consultConcertById(event.getIdEvent());
-                TicketDAO tdao = new TicketDAO();
-                List<Ticket> tickets = tdao.ticketByEvent(event.getIdEvent());
+    private void principalArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_principalArtistActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_principalArtistActionPerformed
 
-                if (concert.getArtist() != null) {
-                    principalArtist.setSelectedItem(concert.getArtist().getName());
-                } else {
-                    principalArtist.setSelectedItem("No artist");
-                }
-                if (concert.getInvitedArtist() != null && !concert.getInvitedArtist().isEmpty()) {
-                    StringBuilder sb = new StringBuilder();
-                    for (Artist a : concert.getInvitedArtist()) {
-                        sb.append(a.getName()).append("\n");
-                    }
-                    invitedArtist.setText(sb.toString());
-                } else {
-                    invitedArtist.setText("No invited artists");
-                }
-                if (tickets != null && !tickets.isEmpty()) {
-                    ticketEvent.setText("Total tickets: " + tickets.size());
-                } else {
-                    ticketEvent.setText("No tickets");
-                }
-                 
-            }catch (SQLException e) {
-            e.printStackTrace();
-            principalArtist.setSelectedItem("Error loading artist");
-            invitedArtist.setText("Error loading artists");
-            ticketEvent.setText("Error loading tickets");
+    private void eventSponsorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventSponsorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eventSponsorActionPerformed
+
+    public void propertiePlaceHolder() {
+        UIUtil.propertiesText(eventName, Color.WHITE);
+        UIUtil.propertiesText(dateTimePicker, Color.WHITE);
+        UIUtil.propertiesText(eventSponsor, Color.WHITE);
+        UIUtil.propertiesText(eventClassification, Color.WHITE);
+        UIUtil.propertiesText(principalArtist, Color.WHITE);
+        UIUtil.propertiesText(eventQuorum, Color.WHITE);
+        UIUtil.propertiesText(eventDuration, Color.WHITE);
+        UIUtil.propertiesText(eventType, Color.WHITE);
+        UIUtil.propertiesText(eventLocation, Color.WHITE);
+        UIUtil.propertiesText(eventDescription, Color.WHITE);
+        UIUtil.propertiesText(ticketEvent, Color.WHITE);
+        UIUtil.propertiesText(invitedArtist, Color.WHITE);
+    }
+
+    public void concertData(int c) throws SQLException {
+        List<Artist> invited;
+        List<Ticket> ticket;
+        Concert concert = cdao.consultConcertById(c);
+        type = concert.getType();
+        eventName.setText(concert.getName());
+        dateTimePicker.setDateTimePermissive(concert.getDateTimeEvent());
+        eventSponsor.setText(concert.getSponsor());
+        eventClassification.setSelectedItem(concert.getClassification());
+        principalArtist.addItem(concert.getArtist().getArtisticName());
+        eventQuorum.setText(String.valueOf(concert.getParticipantsNumbers()));
+        eventDuration.setText(String.valueOf(concert.getDuration()));
+        eventType.setSelectedItem(concert.getType());
+        eventLocation.addItem(concert.getLocation().getName());
+        eventDescription.setText(concert.getDescription());
+        eventDurationTitle.setText("Concert duration in hours");
+        invited = concert.getInvitedArtist();
+        ticket = concert.getTickets();
+        ticketData(ticket);
+        invitedArtistData(invited);
+
+    }
+
+    public void invitedArtistData(List<Artist> invited) {
+        List<String> art = new ArrayList<>();
+        for (Artist artist : invited) {
+            if (artist != null) {
+                art.add(artist.getName());
             }
         }
+        if (invited != null && !invited.isEmpty()) {
+            invitedArtist.setText(String.join(", ", art));
+        } else {
+            invitedArtist.setText("Without guest artists.");
+        }
     }
-}
-    public void disableAll(){}
     
+    public void ticketData(List<Ticket> ticket){
+        List<String> listTicket = new ArrayList<>();
+        for (Ticket t : ticket) {
+            if (ticket != null) {
+                listTicket.add("Zone: " + t.getZone() + ", quantity: " + t.getSeatNumber());
+            }
+        }
+        if (ticket != null && !ticket.isEmpty()) {
+            ticketEvent.setText(String.join("\n", listTicket));
+        } else {
+            ticketEvent.setText("Tickets not found.");
+        }
+    }
+
+    public void conferenceData(Conference c) {
+
+    }
+
+    public void festivalData(Festival f) {
+    }
+
+    public void eventData(int eventId) throws SQLException {
+        concertData(eventId);
+
+//        switch (type) {
+//        case "Concert" -> {
+//            ConcertDAO cdao = new ConcertDAO();
+//            Concert concert = cdao.consultConcertById(ev.getIdEvent());
+//            TicketDAO tdao = new TicketDAO();
+//            List<Ticket> tickets = tdao.ticketByEvent(ev.getIdEvent());
+//            if (concert.getArtist() != null) {
+//                principalArtist.setSelectedItem(concert.getArtist().getName());
+//            } else {
+//                principalArtist.setSelectedItem("No artist");
+//            }
+//            if (concert.getInvitedArtist() != null && !concert.getInvitedArtist().isEmpty()) {
+//                StringBuilder sb = new StringBuilder();
+//                for (Artist a : concert.getInvitedArtist()) {
+//                    sb.append(a.getName()).append("\n");
+//                }
+//                invitedArtist.setText(sb.toString());
+//            } else {
+//                invitedArtist.setText("No invited artists");
+//            }
+//            if (tickets != null && !tickets.isEmpty()) {
+//                ticketEvent.setText("Total tickets: " + tickets.size());
+//            } else {
+//                ticketEvent.setText("No tickets");
+//            }
+//        }
+//
+//    }
+    }
+
+    public void disableAll() {
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker;
@@ -347,7 +401,7 @@ public class ConsultEventPanel extends javax.swing.JPanel {
     private javax.swing.JTextField eventQuorum;
     private javax.swing.JTextField eventSponsor;
     private javax.swing.JComboBox<String> eventType;
-    private javax.swing.JTextPane invitedArtist;
+    private javax.swing.JTextField invitedArtist;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -359,9 +413,9 @@ public class ConsultEventPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton okButton;
     private javax.swing.JComboBox<String> principalArtist;
-    private javax.swing.JTextPane ticketEvent;
-    private javax.swing.JLabel title;
+    private javax.swing.JTextField ticketEvent;
     // End of variables declaration//GEN-END:variables
 }

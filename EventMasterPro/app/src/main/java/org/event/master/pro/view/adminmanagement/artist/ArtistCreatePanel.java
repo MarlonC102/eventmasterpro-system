@@ -98,30 +98,33 @@ public class ArtistCreatePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(309, 309, 309)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(documentTypeArtist, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
-                    .addComponent(artistDocumentNumber)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(artistName)
                     .addComponent(jLabel4)
-                    .addComponent(artistMusicalGenre)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(artistPrice)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(artistEmail)
-                    .addComponent(artistPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
                         .addComponent(saveArtist, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelButton)))
-                .addGap(339, 339, 339))
+                        .addComponent(cancelButton))
+                    .addComponent(artistPhoneNumber, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(artistEmail, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(artistPrice, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(artistMusicalGenre, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(artistName, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(artistDocumentNumber, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(documentTypeArtist, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {artistDocumentNumber, artistEmail, artistMusicalGenre, artistName, artistPhoneNumber, artistPrice, documentTypeArtist, jScrollPane1});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -176,6 +179,32 @@ public class ArtistCreatePanel extends javax.swing.JPanel {
     }
     
     private void saveArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveArtistActionPerformed
+        
+        if (artistDocumentNumber.getText() == null || artistDocumentNumber.getText().isEmpty() ||
+            documentTypeArtist.getSelectedItem() == null ||
+            artistName.getText() == null || artistName.getText().isEmpty() ||
+            artistEmail.getText() == null || artistEmail.getText().isEmpty() ||
+            artistPrice.getText() == null || artistPrice.getText().isEmpty() ||    
+            artistRequirements.getText() == null || artistRequirements.getText().isEmpty() ||
+            artistMusicalGenre.getText() == null || artistMusicalGenre.getText().isEmpty() ||
+            artistPhoneNumber.getText() == null || artistPhoneNumber.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "All required fields must be filled in.");
+            return;
+        }
+        
+        if (!artistPrice.getText().matches("\\d+(\\.\\d+)?")) {
+            JOptionPane.showMessageDialog(this, "The price must be a valid numeric value.");
+            return;
+        }
+        if (!artistDocumentNumber.getText().matches("\\d+(\\.\\d+)?")) {
+            JOptionPane.showMessageDialog(this, "The document number must be a valid numeric value.");
+            return;
+        }
+
+        if (!artistPhoneNumber.getText().matches("\\d+(\\.\\d+)?")) {
+            JOptionPane.showMessageDialog(this, "The phone number must be a valid numeric value.");
+            return;
+        }
         String aDocumentType, aDocumentNumber, aName, aMail, aMusicalGenre, aPhoneNumber, aRequirements;
         double aPrice;
         aDocumentType = String.valueOf(documentTypeArtist.getSelectedItem());

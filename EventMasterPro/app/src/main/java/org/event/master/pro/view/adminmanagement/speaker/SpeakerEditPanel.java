@@ -19,10 +19,12 @@ import org.event.master.pro.util.UIUtil;
  * @author Luisa
  */
 public class SpeakerEditPanel extends javax.swing.JPanel {
+
     Speaker speaker = new Speaker();
     SpeakerDAO sdao = new SpeakerDAO();
     private final JFrame container;
     private String doc;
+
     /**
      * Creates new form EditSpeakerPanel
      */
@@ -98,7 +100,7 @@ public class SpeakerEditPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(241, 241, 241)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -129,7 +131,7 @@ public class SpeakerEditPanel extends javax.swing.JPanel {
                         .addComponent(editSpeakerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelEditSpeakerButton)))
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +182,7 @@ public class SpeakerEditPanel extends javax.swing.JPanel {
         double price = Double.parseDouble(speakerPrice.getText().replace(".", ""));
         String requirements = speakerRequirements.getText();
         boolean availability = true;
-        Speaker a = new Speaker(documentNumber, name, email, phone,requirements, price, genre, availability);
+        Speaker a = new Speaker(documentNumber, name, email, phone, requirements, price, genre, availability);
         artist.add(a);
         sdao.editSpeaker(artist);
         showListSpeakerPanel(container);
@@ -190,8 +192,7 @@ public class SpeakerEditPanel extends javax.swing.JPanel {
         showListSpeakerPanel(container);
     }//GEN-LAST:event_cancelEditSpeakerButtonActionPerformed
 
-    
-    public void propertiePlaceHolder(){
+    public void propertiePlaceHolder() {
         UIUtil.setPlaceHolder("Document number", speakerDocumentNumber);
         UIUtil.setPlaceHolder("Name", speakerName);
         UIUtil.setPlaceHolder("Speciality", speakerMusicalGenre);
@@ -199,10 +200,10 @@ public class SpeakerEditPanel extends javax.swing.JPanel {
         UIUtil.setPlaceHolder("Phone number", speakerPhoneNumber);
         UIUtil.setPlaceHolder("Requeriments", speakerRequirements);
         UIUtil.setPlaceHolder("Mail", speakerEmail);
-        UIUtil.propertiesText(speakerDocumentNumber,Color.WHITE);
+        UIUtil.propertiesText(speakerDocumentNumber, Color.WHITE);
     }
-    
-    public void artistData(){
+
+    public void artistData() {
         List<Speaker> speakerToEdit = sdao.viewSpeakerDetail(doc);
         for (Speaker a : speakerToEdit) {
             speakerDocumentNumber.setText(a.getDocumenNumber());

@@ -23,6 +23,7 @@ public class LocationConsultPanel extends javax.swing.JPanel {
     LocationDAO ldao = new LocationDAO();
     private String id;
     private final JFrame container;
+
     /**
      * Creates new form LocationConsultPanel
      */
@@ -112,32 +113,31 @@ public class LocationConsultPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(152, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(locationPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(locationCity, javax.swing.GroupLayout.Alignment.LEADING, 0, 300, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(locationName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(locationAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(97, 97, 97)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(locationType, 0, 300, Short.MAX_VALUE)
-                            .addComponent(locationCapacity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(locationDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(additionalConsideration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(151, 151, 151))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(OkButton)
-                        .addGap(460, 460, 460))))
+                .addContainerGap(50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(locationPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(locationCity, javax.swing.GroupLayout.Alignment.LEADING, 0, 300, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(locationName, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(locationAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2)
+                    .addComponent(locationType, 0, 300, Short.MAX_VALUE)
+                    .addComponent(locationCapacity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(locationDepartment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(additionalConsideration, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(316, 316, 316)
+                .addComponent(OkButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,9 +177,9 @@ public class LocationConsultPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(locationCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(additionalConsideration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(OkButton)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -191,31 +191,31 @@ public class LocationConsultPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_locationCityActionPerformed
 
-     public void propertiePlaceHolder(){
-        UIUtil.propertiesText(locationName,Color.WHITE);
-        UIUtil.propertiesText(locationType,Color.WHITE);
-        UIUtil.propertiesText(locationAddress,Color.WHITE);
-        UIUtil.propertiesText(locationCapacity,Color.WHITE);
-        UIUtil.propertiesText(locationPrice,Color.WHITE);
-        UIUtil.propertiesText(locationDepartment,Color.WHITE);
-        UIUtil.propertiesText(locationCity,Color.WHITE);
-        UIUtil.propertiesText(additionalConsideration,Color.WHITE);
+    public void propertiePlaceHolder() {
+        UIUtil.propertiesText(locationName, Color.WHITE);
+        UIUtil.propertiesText(locationType, Color.WHITE);
+        UIUtil.propertiesText(locationAddress, Color.WHITE);
+        UIUtil.propertiesText(locationCapacity, Color.WHITE);
+        UIUtil.propertiesText(locationPrice, Color.WHITE);
+        UIUtil.propertiesText(locationDepartment, Color.WHITE);
+        UIUtil.propertiesText(locationCity, Color.WHITE);
+        UIUtil.propertiesText(additionalConsideration, Color.WHITE);
     }
-    
-    public void locationData(){
+
+    public void locationData() {
         Location l = ldao.viewLocationDetail(id);
-            locationName.setText(l.getName());
-            locationType.setSelectedItem(l.getType());
-            locationAddress.setText(l.getAddress());
-            locationCapacity.setText(String.valueOf(l.getCapacity()));
-            locationPrice.setText(String.valueOf(l.getPrice()));
-            locationDepartment.setSelectedItem(l.getDepartment());
-            locationCity.setSelectedItem(l.getCity());
-            additionalConsideration.setText(l.getConsideration());
-        
+        locationName.setText(l.getName());
+        locationType.setSelectedItem(l.getType());
+        locationAddress.setText(l.getAddress());
+        locationCapacity.setText(String.valueOf(l.getCapacity()));
+        locationPrice.setText(String.valueOf(l.getPrice()));
+        locationDepartment.setSelectedItem(l.getDepartment());
+        locationCity.setSelectedItem(l.getCity());
+        additionalConsideration.setText(l.getConsideration());
+
     }
-    
-    public void selectCity(){
+
+    public void selectCity() {
         FileUtil.uploadCity(locationDepartment);
         String departmentSelected = locationDepartment.getSelectedItem().toString();
         locationCity.removeAllItems();
@@ -225,7 +225,7 @@ public class LocationConsultPanel extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkButtonActionPerformed
         showListLocationPanel(container);
     }//GEN-LAST:event_OkButtonActionPerformed

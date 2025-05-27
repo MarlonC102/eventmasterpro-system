@@ -20,10 +20,12 @@ import org.event.master.pro.util.UIUtil;
  * @author Luisa
  */
 public class LocationEditPanel extends javax.swing.JPanel {
+
     Location location = new Location();
     LocationDAO ldao = new LocationDAO();
     private String id;
     private final JFrame container;
+
     /**
      * Creates new form LocationEditPanel
      */
@@ -197,27 +199,27 @@ public class LocationEditPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         showListLocationPanel(container);
     }//GEN-LAST:event_cancelButtonActionPerformed
-    
-    public void propertiePlaceHolder(){
+
+    public void propertiePlaceHolder() {
         UIUtil.setPlaceHolder("Name", locationName);
         UIUtil.setPlaceHolder("Address", locationAddress);
         UIUtil.setPlaceHolder("Capacity", locationCapacity);
         UIUtil.setPlaceHolder("Price", locationPrice);
     }
-    
-    public void locationData(){
+
+    public void locationData() {
         Location l = ldao.viewLocationDetail(id);
-            locationName.setText(l.getName());
-            locationType.setSelectedItem(l.getType());
-            locationAddress.setText(l.getAddress());
-            locationCapacity.setText(String.valueOf(l.getCapacity()));
-            locationPrice.setText(String.valueOf(l.getPrice()));
-            locationDepartment.setSelectedItem(l.getDepartment());
-            locationCity.setSelectedItem(l.getCity());
-            additionalConsideration.setText(l.getConsideration());
-        
+        locationName.setText(l.getName());
+        locationType.setSelectedItem(l.getType());
+        locationAddress.setText(l.getAddress());
+        locationCapacity.setText(String.valueOf(l.getCapacity()));
+        locationPrice.setText(String.valueOf(l.getPrice()));
+        locationDepartment.setSelectedItem(l.getDepartment());
+        locationCity.setSelectedItem(l.getCity());
+        additionalConsideration.setText(l.getConsideration());
+
     }
-    
+
     private void editLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editLocationActionPerformed
         List<Location> location = new ArrayList<Location>();
         String name, address, city, department, type, consideration = "No aplica";
@@ -229,7 +231,7 @@ public class LocationEditPanel extends javax.swing.JPanel {
         department = locationDepartment.getSelectedItem().toString();
         capacity = Integer.parseInt(locationCapacity.getText());
         type = locationType.getSelectedItem().toString();
-        if(!additionalConsideration.getText().isBlank()){
+        if (!additionalConsideration.getText().isBlank()) {
             consideration = additionalConsideration.getText();
         }
         price = Double.parseDouble(locationPrice.getText());
@@ -237,7 +239,7 @@ public class LocationEditPanel extends javax.swing.JPanel {
         location.add(l);
         ldao.editLocation(location, id);
         showListLocationPanel(container);
-        
+
     }//GEN-LAST:event_editLocationActionPerformed
 
     private void locationCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationCityActionPerformed
@@ -248,7 +250,7 @@ public class LocationEditPanel extends javax.swing.JPanel {
         selectCity();
     }//GEN-LAST:event_locationDepartmentActionPerformed
 
-    public void selectCity(){
+    public void selectCity() {
         FileUtil.uploadCity(locationDepartment);
         String departmentSelected = locationDepartment.getSelectedItem().toString();
         locationCity.removeAllItems();

@@ -2,7 +2,9 @@ package org.event.master.pro.person.speaker;
 
 import java.util.List;
 import org.event.master.pro.person.person.Person;
-public class Speaker extends Person{
+
+public class Speaker extends Person {
+
     private String speciality;
     private List<String> topic;
     private String requirements;
@@ -10,9 +12,10 @@ public class Speaker extends Person{
     boolean availability;
     private int idSpeaker;
 
-    public Speaker(){}
-    
-    public Speaker (String documenNumber, String name, double price, boolean availability, String speciality, int idSpeaker){
+    public Speaker() {
+    }
+
+    public Speaker(String documenNumber, String name, double price, boolean availability, String speciality, int idSpeaker) {
         super(name, documenNumber);
         this.speciality = speciality;
         this.price = price;
@@ -21,15 +24,15 @@ public class Speaker extends Person{
     }
 
     public Speaker(String documenNumber, String name, String mail, String phone, String requirements, double price, String speciality, boolean availability) {
-        super( documenNumber, name, mail, phone);
+        super(documenNumber, name, mail, phone);
         this.requirements = requirements;
         this.price = price;
         this.speciality = speciality;
         this.availability = availability;
     }
-    
+
     public Speaker(String documenNumber, String name, String mail, String phone, String requirements, double price, String speciality, boolean availability, int idSpeaker) {
-        super( documenNumber, name, mail, phone);
+        super(documenNumber, name, mail, phone);
         this.requirements = requirements;
         this.price = price;
         this.speciality = speciality;
@@ -84,11 +87,5 @@ public class Speaker extends Person{
     public void setIdSpeaker(int idSpeaker) {
         this.idSpeaker = idSpeaker;
     }
-    
-    
-    
-    
-
-    
 
 }
