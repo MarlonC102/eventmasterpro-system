@@ -4,14 +4,18 @@
  */
 package org.event.master.pro.event.Event;
 
-
+import java.sql.SQLException;
+import java.util.List;
+import org.event.master.pro.enums.EventStatus;
 
 /**
  *
  * @author Luisa
  */
 public interface IEvent {
-    
-    int countAllEventsInProgress(String query);
-    
+
+    int countAllEventsInProgress(String query) throws SQLException;
+
+    void updateEventStatus(int eventId, EventStatus status) throws SQLException;
+    //List<Event> getAllEventNotCancelledOrFinished() throws SQLException;
 }

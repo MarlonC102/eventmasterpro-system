@@ -25,7 +25,6 @@ public class OrganizerDashboard extends javax.swing.JFrame {
         getContentPane().setLayout(new BorderLayout());
         openOrganizerPanel();
 
-        
     }
 
     /**
@@ -161,7 +160,7 @@ public class OrganizerDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_showAllLocationItemActionPerformed
 
     private void showAllEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllEventActionPerformed
-        // TODO add your handling code here:
+        showListEventPanel(this);
     }//GEN-LAST:event_showAllEventActionPerformed
 
     private void createEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createEventActionPerformed
@@ -169,19 +168,19 @@ public class OrganizerDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_createEventActionPerformed
 
     public static void openDashboard() {
-    java.awt.EventQueue.invokeLater(() -> {
-        OrganizerDashboard dash = new OrganizerDashboard();
-        dash.setTitle("Organizer Dashboard");
-        dash.setSize(1000, 700);
-        dash.setLocationRelativeTo(null);
-        dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ImageUtil.setIcon(dash);
-        dash.setVisible(true);
-        dash.setResizable(false);
-    });
-}
-    
-    public void openOrganizerPanel(){
+        java.awt.EventQueue.invokeLater(() -> {
+            OrganizerDashboard dash = new OrganizerDashboard();
+            dash.setTitle("Organizer Dashboard");
+            dash.setSize(1000, 700);
+            dash.setLocationRelativeTo(null);
+            dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ImageUtil.setIcon(dash);
+            dash.setVisible(true);
+            dash.setResizable(false);
+        });
+    }
+
+    public void openOrganizerPanel() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(new OrganizerHomePanel(this), java.awt.BorderLayout.CENTER);
@@ -189,7 +188,7 @@ public class OrganizerDashboard extends javax.swing.JFrame {
         mainPanel.revalidate();
         mainPanel.repaint();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu artistManagement;

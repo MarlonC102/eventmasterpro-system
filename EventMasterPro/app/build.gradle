@@ -19,6 +19,7 @@ dependencies {
     implementation 'com.formdev:flatlaf:3.6'
     implementation 'org.json:json:20240303'
     implementation("com.github.lgooddatepicker:LGoodDatePicker:11.2.1")
+    implementation 'com.github.weisj:darklaf-core:2.7.3'
 }
 
 test {

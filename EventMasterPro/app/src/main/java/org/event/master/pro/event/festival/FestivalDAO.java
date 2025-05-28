@@ -9,5 +9,5 @@ package org.event.master.pro.event.festival;
  * @author Luisa
  */
 public class FestivalDAO {
-    
+
 }

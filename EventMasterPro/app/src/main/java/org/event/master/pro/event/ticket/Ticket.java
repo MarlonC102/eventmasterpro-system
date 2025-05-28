@@ -7,10 +7,8 @@ import org.event.master.pro.person.customer.Customer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.event.master.pro.util.Util.intInput;
-import static org.event.master.pro.util.Util.printMessage;
-
 public class Ticket {
+
     private int idTicket;
     private double price;
     private TicketStatus status;
@@ -21,26 +19,26 @@ public class Ticket {
     private static int maxTickets;
     private static int id;
     private String description;
-    private List<Ticket>tikets;
+    private List<Ticket> tikets;
 
     public Ticket() {
         //this.status = TicketStatus.AVAILABLE.getEventStatus();
     }
 
-    public Ticket(double price, TicketStatus tatus, String event, int seatNumber, String zone) {
+    public Ticket(double price, TicketStatus status, String event, int seatNumber, String zone) {
         this.price = price;
         this.status = status;
         this.event = event;
         this.seatNumber = seatNumber;
         this.zone = zone;
     }
-    
-    public Ticket(double price, int seatNumber, String zone, String description){
+
+    public Ticket(double price, int seatNumber, String zone, String description) {
         this.price = price;
         this.seatNumber = seatNumber;
         this.zone = zone;
         this.description = description;
-        
+        this.status = TicketStatus.AVAILABLE;
     }
 
     public int getIdTicket() {
@@ -50,8 +48,6 @@ public class Ticket {
     public void setIdTicket(int idTicket) {
         this.idTicket = idTicket;
     }
-    
-    
 
     public double getPrice() {
         return price;
@@ -124,14 +120,12 @@ public class Ticket {
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
 
-    public List<Ticket> createEntry(Event event, String zone, int count,double price) {
+    public List<Ticket> createEntry(Event event, String zone, int count, double price) {
         List<Ticket> tickets = new ArrayList<>();
         Ticket ticket;
         for (int i = 0; i < count; i++) {
-            ticket = new Ticket(price,TicketStatus.AVAILABLE,event.getName(),(i+1),zone);
+            ticket = new Ticket(price, TicketStatus.AVAILABLE, event.getName(), (i + 1), zone);
             tickets.add(ticket);
         }
         return tickets;
@@ -147,18 +141,14 @@ public class Ticket {
     }
 
     public void changeStatus() {
-       
-    }
 
+    }
 
     public void queryTicket() {
     }
 
-
     public void availability() {
     }
-    
-    
 
     @Override
     public String toString() {
@@ -166,6 +156,6 @@ public class Ticket {
                 Ticket
                 Price: %s
                 Seat number: %s
-                Zone: %s""",price,seatNumber,zone);
+                Zone: %s""", price, seatNumber, zone);
     }
 }

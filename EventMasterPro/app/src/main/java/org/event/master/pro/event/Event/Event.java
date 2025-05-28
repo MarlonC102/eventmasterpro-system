@@ -1,44 +1,61 @@
 package org.event.master.pro.event.Event;
 
-import org.event.master.pro.enums.EventStatus;
-import org.event.master.pro.enums.EventZone;
-import org.event.master.pro.util.Util;
-
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.event.master.pro.event.location.Location;
 import org.event.master.pro.event.ticket.Ticket;
+import org.event.master.pro.person.artist.Artist;
 
-import static org.event.master.pro.util.Util.*;
+public class Event {
 
-public abstract class Event{
     private int idEvent;
     private static String id;
     private String name;
     private String description;
     private LocalDateTime dateTimeEvent;
+    private LocalDateTime dateTimeEndEvent;
     private String statusEvent;
-    private String type; 
+    private String type;
     private Location location;
     private int duration;
     private String sponsor;
     private String classification;
     private int participantsNumbers;
     private int currentParticipants;
+    private Artist mainArtist;
     private List<Ticket> tickets = new ArrayList<>();
 
     public Event() {
     }
     
-    public Event(String name, String description, LocalDateTime dateTimeEvent, String type, Location location){
+    public Event(String name, String description, LocalDateTime dateTimeEvent, int duration, String sponsor, String classification, int idEvent){
+        this.name = name;
+        this.description = description;
+        this.dateTimeEvent = dateTimeEvent;
+        this.duration = duration;
+        this.sponsor = sponsor;
+        this.classification = classification;
+        this.idEvent = idEvent;
+        
+    }
+
+    public Event(String name, String description, LocalDateTime dateTimeEvent, String type, Location location) {
         this.name = name;
         this.description = description;
         this.dateTimeEvent = dateTimeEvent;
         this.type = type;
         this.location = location;
+    }
+
+    public Event(int idEvent, String name, String description, LocalDateTime dateTimeEvent, String type, Location location, int participantsNumbers) {
+        this.name = name;
+        this.description = description;
+        this.dateTimeEvent = dateTimeEvent;
+        this.type = type;
+        this.location = location;
+        this.idEvent = idEvent;
+        this.participantsNumbers = participantsNumbers;
     }
 
     public Event(String name, String description, LocalDateTime dateTimeEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, String type) {
@@ -51,12 +68,26 @@ public abstract class Event{
         this.classification = classification;
         this.participantsNumbers = participantsNumbers;
         this.type = type;
+        this.dateTimeEndEvent = this.dateTimeEvent.plusHours(this.duration);
 
+    }
+
+    public LocalDateTime getDateTimeEndEvent() {
+        return dateTimeEndEvent;
+    }
+
+    public void setDateTimeEndEvent(LocalDateTime dateTimeEndEvent) {
+        this.dateTimeEndEvent = dateTimeEndEvent;
+    }
+      
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
+
     public int getIdEvent() {
         return idEvent;
     }
@@ -88,6 +119,7 @@ public abstract class Event{
     public void setDateTimeEvent(LocalDateTime dateTimeEvent) {
         this.dateTimeEvent = dateTimeEvent;
     }
+
     public String getStatusEvent() {
         return statusEvent;
     }
@@ -147,8 +179,4 @@ public abstract class Event{
     public void setType(String type) {
         this.type = type;
     }
-    
-    
 }
-
-

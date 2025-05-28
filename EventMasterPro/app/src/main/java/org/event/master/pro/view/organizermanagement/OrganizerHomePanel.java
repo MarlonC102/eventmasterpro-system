@@ -4,7 +4,6 @@
  */
 package org.event.master.pro.view.organizermanagement;
 
-
 import javax.swing.JFrame;
 import org.event.master.pro.event.Event.EventDAO;
 import static org.event.master.pro.util.ShowPanelUtil.*;
@@ -27,7 +26,7 @@ public class OrganizerHomePanel extends javax.swing.JPanel {
         initComponents();
         showTotal();
         UIUtil.setPlaceHolder("Search by name", searchByName);
-        
+
     }
 
     /**
@@ -176,11 +175,11 @@ public class OrganizerHomePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,7 +190,7 @@ public class OrganizerHomePanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -230,9 +229,9 @@ public class OrganizerHomePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
                 .addComponent(jLabel6)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(16, 16, 16)
@@ -266,16 +265,16 @@ public class OrganizerHomePanel extends javax.swing.JPanel {
     public static void showAdminHome(JFrame container) {
         switchToPanel(container, new OrganizerHomePanel(container));
     }
-    
-    public static void showPanel(JFrame container){
-        
+
+    public static void showPanel(JFrame container) {
+
     }
-    
-    public static void lastArtist(){
-        
+
+    public static void lastArtist() {
+
     }
-    
-    public void showTotal(){
+
+    public void showTotal() {
         EventDAO dao = new EventDAO();
         nConcert.setText(String.valueOf(dao.countAllEventsInProgress(Select.SELECT_CONCERT_IN_PROGRESS.getQuery())));
         nConference.setText(String.valueOf(dao.countAllEventsInProgress(Select.SELECT_CONFERENCE_IN_PROGRESS.getQuery())));

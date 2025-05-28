@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import static org.event.master.pro.util.Util.*;
 
 public class Menu {
-    private static int option = -1;
+   /* private static int option = -1;
     public static void showMenu(String title, String optionsText, Consumer<Integer> action) {
         int selectedOption;
         do {
@@ -17,7 +17,7 @@ public class Menu {
             action.accept(selectedOption);
         } while (selectedOption != 0);
     }
-    /* public static void login(Account account) {
+     public static void login(Account account) {
          showMenu(
              "------ Select an option ------",
              """

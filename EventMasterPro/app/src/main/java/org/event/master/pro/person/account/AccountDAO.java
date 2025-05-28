@@ -15,7 +15,9 @@ import org.event.master.pro.util.sql.Select;
  * @author Luisa
  */
 public class AccountDAO {
+
     Account account;
+
     public Account login(String password, String userName) {
         String sql = Select.SELECT_ACCOUNT_BY_USERV2.getQuery();
         try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
@@ -29,14 +31,14 @@ public class AccountDAO {
                     account.setRol(rs.getString("role"));
                     account.setIsLoggedIn(true);
                     account.setName(rs.getString("name"));
-                    account.setId(rs.getString("id_person"));
-                }else {
+                    Account.id = rs.getString("id_person");
+                } else {
                     Account.setIsLoggedIn(false);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            throw new RuntimeException("Error SQL: " + e.getMessage());
+            throw new RuntimeException("SQL Error: " + e.getMessage());
         }
         /*if (isStatus()){
             if (documenNumbert.equals(getDocumenNumbert()) && password.equals(this.password)){

@@ -1,6 +1,6 @@
 #FileLock
-#Fri May 23 12:24:57 COT 2025
-server=192.168.68.104\:52445
-hostName=LAPTOP-RGPM0R8N
+#Tue May 27 22:30:01 COT 2025
+server=192.168.1.16\:55774
+hostName=LAPTOP-RGPM0R8N.bbrouter
 method=file
-id=196fe2d34c8bcdaa99a51e620c3664a77b247e72b6a
+id=19714f097d79605b6ac215464f799ce601d479d88f7

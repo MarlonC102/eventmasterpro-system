@@ -11,7 +11,8 @@ import java.text.DecimalFormat;
  * @author Luisa
  */
 public class FormatUtil {
-    public static String formatNumber(Double number){
+
+    public static String formatNumber(Double number) {
         DecimalFormat formatter = new DecimalFormat("#,###.##");
         return formatter.format(number);
     }

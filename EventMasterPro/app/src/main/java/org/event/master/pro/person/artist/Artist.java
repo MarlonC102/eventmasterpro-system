@@ -8,7 +8,8 @@ import org.event.master.pro.util.sql.Insert;
 import org.event.master.pro.util.sql.Select;
 import org.event.master.pro.util.sql.Update;
 
-public class Artist extends Person{
+public class Artist extends Person {
+
     private String artisticName;
     private String requirements;
     private double price;
@@ -16,19 +17,25 @@ public class Artist extends Person{
     private List<String> participationHistory;
     private boolean availability;
     private boolean type;
-    private String idArtist;
-    private static String id;
+    private int idArtist;
 
-    public Artist(){}
-    
-    public Artist(String documentType, String documenNumber, String name, String genre, double price, boolean availability){
+    public Artist() {
+    }
+
+    public Artist(int idArtist, double price, String artisticName) {
+        this.idArtist = idArtist;
+        this.price = price;
+        this.artisticName = artisticName;
+    }
+
+    public Artist(String documentType, String documenNumber, String name, String genre, double price, boolean availability) {
         super(name, documentType, documenNumber);
         this.genre = genre;
         this.price = price;
         this.availability = availability;
     }
-    
-    public Artist(String documentType, String documenNumber, String name, String genre, double price, boolean availability, String idArtist){
+
+    public Artist(String documentType, String documenNumber, String name, String genre, double price, boolean availability, int idArtist) {
         super(name, documentType, documenNumber);
         this.genre = genre;
         this.price = price;
@@ -36,23 +43,23 @@ public class Artist extends Person{
         this.idArtist = idArtist;
         this.artisticName = name;
     }
-    
+
     public Artist(String documenNumber, String name, String mail, String phone, String requirements, double price, String genre, boolean availability) {
-        super( documenNumber, name, mail, phone);
+        super(documenNumber, name, mail, phone);
         this.requirements = requirements;
         this.price = price;
         this.genre = genre;
         this.availability = availability;
     }
-    
+
     public Artist(String documenNumber, String name, String mail, String phone, String requirements, double price, String genre, boolean availability, String id) {
-        super( documenNumber, name, mail, phone, id);
+        super(documenNumber, name, mail, phone, id);
         this.requirements = requirements;
         this.price = price;
         this.genre = genre;
         this.availability = availability;
     }
-    
+
     public String getArtisticName() {
         return artisticName;
     }
@@ -84,11 +91,13 @@ public class Artist extends Person{
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
     public void addParticipation(String eventName) {
         participationHistory.add(eventName);
     }
-    public void getTechRequirements(){
-        printMessage(String.format("Technical Requirements for %s : %s",artisticName,requirements));
+
+    public void getTechRequirements() {
+        printMessage(String.format("Technical Requirements for %s : %s", artisticName, requirements));
     }
 
     public boolean isAvailability() {
@@ -106,17 +115,22 @@ public class Artist extends Person{
     public void setType(boolean type) {
         this.type = type;
     }
-    
-    public String getIdArtist() {
+
+    public int getIdArtist() {
         return idArtist;
     }
 
-    public void setIdLocation(String idArtist) {
+    public void setIdArtist(int idArtist) {
         this.idArtist = idArtist;
     }
-    
+
+    public void setIdLocation(int idArtist) {
+        this.idArtist = idArtist;
+    }
+
     @Override
     public String toString() {
         return artisticName;
     }
+
 }
