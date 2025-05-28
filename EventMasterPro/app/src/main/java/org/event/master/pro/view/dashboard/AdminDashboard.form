@@ -84,6 +84,34 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="simulationManagement">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Simulation"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="simulatePurchase">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Simulate Purchase"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simulatePurchaseActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="simulateReturn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Simulate return"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="simulateAssitance">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Simulate Assistance"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simulateAssitanceActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="logoutButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Log out"/>

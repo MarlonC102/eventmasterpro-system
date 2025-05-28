@@ -46,6 +46,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         speakerManagement = new javax.swing.JMenu();
         newSpeakerItem = new javax.swing.JMenuItem();
         showAllSpeakerItem = new javax.swing.JMenuItem();
+        simulationManagement = new javax.swing.JMenu();
+        simulatePurchase = new javax.swing.JMenuItem();
+        simulateReturn = new javax.swing.JMenuItem();
+        simulateAssitance = new javax.swing.JMenuItem();
         logoutButton = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -123,6 +127,29 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jMenuBar1.add(speakerManagement);
 
+        simulationManagement.setText("Simulation");
+
+        simulatePurchase.setText("Simulate Purchase");
+        simulatePurchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulatePurchaseActionPerformed(evt);
+            }
+        });
+        simulationManagement.add(simulatePurchase);
+
+        simulateReturn.setText("Simulate return");
+        simulationManagement.add(simulateReturn);
+
+        simulateAssitance.setText("Simulate Assistance");
+        simulateAssitance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simulateAssitanceActionPerformed(evt);
+            }
+        });
+        simulationManagement.add(simulateAssitance);
+
+        jMenuBar1.add(simulationManagement);
+
         logoutButton.setText("Log out");
         logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -174,6 +201,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         showNewSpeakerPanel(this);
     }//GEN-LAST:event_newSpeakerItemActionPerformed
 
+    private void simulatePurchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulatePurchaseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_simulatePurchaseActionPerformed
+
+    private void simulateAssitanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulateAssitanceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_simulateAssitanceActionPerformed
+
     public static void openDashboard() {
         java.awt.EventQueue.invokeLater(() -> {
             AdminDashboard dash = new AdminDashboard();
@@ -209,6 +244,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JMenuItem newSpeakerItem;
     private javax.swing.JMenuItem showAllLocationItem;
     private javax.swing.JMenuItem showAllSpeakerItem;
+    private javax.swing.JMenuItem simulateAssitance;
+    private javax.swing.JMenuItem simulatePurchase;
+    private javax.swing.JMenuItem simulateReturn;
+    private javax.swing.JMenu simulationManagement;
     private javax.swing.JMenu speakerManagement;
     // End of variables declaration//GEN-END:variables
 }

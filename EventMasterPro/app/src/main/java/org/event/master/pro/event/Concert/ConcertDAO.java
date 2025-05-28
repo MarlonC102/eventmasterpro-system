@@ -41,12 +41,12 @@ public class ConcertDAO {
 
         try (PreparedStatement checkStmt = Database.connection().prepareStatement(checkLocation)) {
             checkStmt.setInt(1, concert.getLocation().getIdLocation());
-            checkStmt.setTimestamp(2, Timestamp.valueOf(concert.getDateTimeEvent()));      // new start
-            checkStmt.setTimestamp(3, Timestamp.valueOf(concert.getDateTimeEndEvent()));   // new end
-            checkStmt.setTimestamp(4, Timestamp.valueOf(concert.getDateTimeEvent()));      // new start
-            checkStmt.setTimestamp(5, Timestamp.valueOf(concert.getDateTimeEndEvent()));   // new end
-            checkStmt.setTimestamp(6, Timestamp.valueOf(concert.getDateTimeEvent()));      // new start
-            checkStmt.setTimestamp(7, Timestamp.valueOf(concert.getDateTimeEndEvent()));   // new end
+            checkStmt.setTimestamp(2, Timestamp.valueOf(concert.getDateTimeEvent()));      
+            checkStmt.setTimestamp(3, Timestamp.valueOf(concert.getDateTimeEndEvent()));   
+            checkStmt.setTimestamp(4, Timestamp.valueOf(concert.getDateTimeEvent()));      
+            checkStmt.setTimestamp(5, Timestamp.valueOf(concert.getDateTimeEndEvent()));   
+            checkStmt.setTimestamp(6, Timestamp.valueOf(concert.getDateTimeEvent()));      
+            checkStmt.setTimestamp(7, Timestamp.valueOf(concert.getDateTimeEndEvent()));   
 
             ResultSet rs = checkStmt.executeQuery();
             if (rs.next() && rs.getInt("count") > 0) {
