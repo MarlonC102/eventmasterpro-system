@@ -23,13 +23,15 @@ public class Event {
     private String classification;
     private int participantsNumbers;
     private int currentParticipants;
-    private Artist mainArtist;
     private List<Ticket> tickets = new ArrayList<>();
+    private Artist artist;
+    private List<Artist> invitedArtist;
+    private String genre;
 
     public Event() {
     }
-    
-    public Event(String name, String description, LocalDateTime dateTimeEvent, int duration, String sponsor, String classification, int idEvent){
+
+    public Event(String name, String description, LocalDateTime dateTimeEvent, int duration, String sponsor, String classification, int idEvent) {
         this.name = name;
         this.description = description;
         this.dateTimeEvent = dateTimeEvent;
@@ -37,7 +39,7 @@ public class Event {
         this.sponsor = sponsor;
         this.classification = classification;
         this.idEvent = idEvent;
-        
+
     }
 
     public Event(String name, String description, LocalDateTime dateTimeEvent, String type, Location location) {
@@ -58,8 +60,9 @@ public class Event {
         this.participantsNumbers = participantsNumbers;
     }
 
-    public Event(String name, String description, LocalDateTime dateTimeEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, String type) {
+    public Event(String name, String description, LocalDateTime dateTimeEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, Artist artist, List<Artist> invitedArtist, String type, String status) {
         this.name = name;
+        this.artist = artist;
         this.description = description;
         this.dateTimeEvent = dateTimeEvent;
         this.location = location;
@@ -69,23 +72,79 @@ public class Event {
         this.participantsNumbers = participantsNumbers;
         this.type = type;
         this.dateTimeEndEvent = this.dateTimeEvent.plusHours(this.duration);
+        this.invitedArtist = invitedArtist;
+        this.statusEvent = status;
 
     }
 
-    public LocalDateTime getDateTimeEndEvent() {
-        return dateTimeEndEvent;
+    public Event(String name, String description, LocalDateTime dateTimeEvent, Location location, int duration, String sponsor, String classification, int participantsNumbers, Artist artist, List<Artist> invitedArtist, String type) {
+        this.name = name;
+        this.artist = artist;
+        this.description = description;
+        this.dateTimeEvent = dateTimeEvent;
+        this.location = location;
+        this.duration = duration;
+        this.sponsor = sponsor;
+        this.classification = classification;
+        this.participantsNumbers = participantsNumbers;
+        this.type = type;
+        this.dateTimeEndEvent = this.dateTimeEvent.plusHours(this.duration);
+        this.invitedArtist = invitedArtist;
+
     }
 
-    public void setDateTimeEndEvent(LocalDateTime dateTimeEndEvent) {
+    public Event(String name, String description, LocalDateTime date, String type, Location location, List<Artist> invitedArtist) {
+        this.name = name;
+        this.description = description;
+        this.dateTimeEvent = date;
+        this.location = location;
+        this.type = type;
+        this.dateTimeEndEvent = this.dateTimeEvent.plusHours(this.duration);
+        this.invitedArtist = invitedArtist;
+    }
+
+    public Event(String name, String description, LocalDateTime date, int duration, String sponsor, String classification, List<Artist> invitedArtist, int idEvent) {
+        this.name = name;
+        this.description = description;
+        this.dateTimeEvent = date;
+        this.duration = duration;
+        this.sponsor = sponsor;
+        this.classification = classification;
+        this.dateTimeEndEvent = this.dateTimeEvent.plusHours(this.duration);
+        this.invitedArtist = invitedArtist;
+    }
+
+    public Event(int idEvent, String name, String description,
+            LocalDateTime dateTimeEvent, LocalDateTime dateTimeEndEvent,
+            String statusEvent, String type, String classification, int quorum,
+            String sponsor, Location location, Artist artist,
+            List<Artist> invitedArtist, String genre, List<Ticket> tickets) {
+        this.idEvent = idEvent;
+        this.name = name;
+        this.description = description;
+        this.dateTimeEvent = dateTimeEvent;
         this.dateTimeEndEvent = dateTimeEndEvent;
-    }
-      
-    public List<Ticket> getTickets() {
-        return tickets;
+        this.statusEvent = statusEvent;
+        this.type = type;
+        this.classification = classification;
+        this.participantsNumbers = quorum;
+        this.sponsor = sponsor;
+        this.location = location;
+        this.artist = artist;
+        this.invitedArtist = invitedArtist;
+        this.genre = genre;
+        this.tickets = tickets;
     }
 
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
+    public Event(String name, String descriptionEvent, LocalDateTime dateTime, int duration, String sponsorEvent, String classificationEvent, List<Artist> invited) {
+        this.name = name;
+        this.description = descriptionEvent;
+        this.dateTimeEvent = dateTime;
+        this.duration = duration;
+        this.sponsor = sponsorEvent;
+        this.classification = classificationEvent;
+        this.invitedArtist = invited;
+
     }
 
     public int getIdEvent() {
@@ -94,6 +153,14 @@ public class Event {
 
     public void setIdEvent(int idEvent) {
         this.idEvent = idEvent;
+    }
+
+    public static String getId() {
+        return id;
+    }
+
+    public static void setId(String id) {
+        Event.id = id;
     }
 
     public String getName() {
@@ -120,6 +187,14 @@ public class Event {
         this.dateTimeEvent = dateTimeEvent;
     }
 
+    public LocalDateTime getDateTimeEndEvent() {
+        return dateTimeEndEvent;
+    }
+
+    public void setDateTimeEndEvent(LocalDateTime dateTimeEndEvent) {
+        this.dateTimeEndEvent = dateTimeEndEvent;
+    }
+
     public String getStatusEvent() {
         return statusEvent;
     }
@@ -128,28 +203,12 @@ public class Event {
         this.statusEvent = statusEvent;
     }
 
-    public Location getLocation() {
-        return location;
+    public String getType() {
+        return type;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getSponsor() {
-        return sponsor;
-    }
-
-    public void setSponsor(String sponsor) {
-        this.sponsor = sponsor;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getClassification() {
@@ -164,19 +223,64 @@ public class Event {
         return participantsNumbers;
     }
 
-    public void setParticipantsNumbers(int participantsNumbers) {
-        this.participantsNumbers = participantsNumbers;
+    public void setParticipantsNumbers(int quorum) {
+        this.participantsNumbers = quorum;
     }
 
-    public int getCurrentParticipants() {
-        return currentParticipants;
+    public String getSponsor() {
+        return sponsor;
     }
 
-    public String getType() {
-        return type;
+    public void setSponsor(String sponsor) {
+        this.sponsor = sponsor;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public Location getLocation() {
+        return location;
     }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public List<Artist> getInvitedArtist() {
+        return invitedArtist;
+    }
+
+    public void setInvitedArtist(List<Artist> invitedArtist) {
+        this.invitedArtist = invitedArtist;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
 }

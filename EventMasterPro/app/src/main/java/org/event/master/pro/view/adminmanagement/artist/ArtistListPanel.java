@@ -14,7 +14,6 @@ import org.event.master.pro.person.artist.Artist;
 import org.event.master.pro.person.artist.ArtistDAO;
 import org.event.master.pro.util.FormatUtil;
 import static org.event.master.pro.util.ShowPanelUtil.*;
-import org.event.master.pro.util.UIUtil;
 
 /**
  *

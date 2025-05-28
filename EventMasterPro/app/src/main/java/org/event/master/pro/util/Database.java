@@ -5,8 +5,6 @@ import org.h2.tools.Server;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,7 +15,6 @@ public class Database {
 
     public static void upDatabase() {
         try {
-            Files.deleteIfExists(Paths.get("./.db/event_master_pro.mv.db"));
             Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8085").start();
             printMessage("H2 console started at http://localhost:8085");
             try (Connection connection = getConnection()) {

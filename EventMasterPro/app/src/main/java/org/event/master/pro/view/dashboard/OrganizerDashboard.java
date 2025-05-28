@@ -38,15 +38,15 @@ public class OrganizerDashboard extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         home = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        showAllEvent = new javax.swing.JMenuItem();
+        createEvent = new javax.swing.JMenuItem();
         locationManagement = new javax.swing.JMenu();
         showAllLocationItem = new javax.swing.JMenuItem();
         artistManagement = new javax.swing.JMenu();
         consultAllArtist = new javax.swing.JMenuItem();
         speakerManagement = new javax.swing.JMenu();
         showAllSpeakerItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        showAllEvent = new javax.swing.JMenuItem();
-        createEvent = new javax.swing.JMenuItem();
         logoutButton = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,6 +58,26 @@ public class OrganizerDashboard extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(home);
+
+        jMenu1.setText("Events");
+
+        showAllEvent.setText("Show Events");
+        showAllEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showAllEventActionPerformed(evt);
+            }
+        });
+        jMenu1.add(showAllEvent);
+
+        createEvent.setText("Create Event");
+        createEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createEventActionPerformed(evt);
+            }
+        });
+        jMenu1.add(createEvent);
+
+        jMenuBar1.add(jMenu1);
 
         locationManagement.setText("Location");
         locationManagement.addActionListener(new java.awt.event.ActionListener() {
@@ -99,26 +119,6 @@ public class OrganizerDashboard extends javax.swing.JFrame {
         speakerManagement.add(showAllSpeakerItem);
 
         jMenuBar1.add(speakerManagement);
-
-        jMenu1.setText("Events");
-
-        showAllEvent.setText("Show Events");
-        showAllEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showAllEventActionPerformed(evt);
-            }
-        });
-        jMenu1.add(showAllEvent);
-
-        createEvent.setText("Create Event");
-        createEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createEventActionPerformed(evt);
-            }
-        });
-        jMenu1.add(createEvent);
-
-        jMenuBar1.add(jMenu1);
 
         logoutButton.setText("Log out");
         logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {

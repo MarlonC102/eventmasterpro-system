@@ -13,6 +13,8 @@ import org.event.master.pro.person.account.Account;
 import org.event.master.pro.person.account.AccountDAO;
 import org.event.master.pro.util.UIUtil;
 import org.event.master.pro.view.dashboard.AdminDashboard;
+import org.event.master.pro.view.dashboard.ClientDashboard;
+import org.event.master.pro.view.dashboard.CounterDashboard;
 import org.event.master.pro.view.dashboard.OrganizerDashboard;
 
 /**
@@ -180,11 +182,13 @@ public class Login extends javax.swing.JPanel {
                 AdminDashboard.openDashboard();
             }
             case "customer" -> {
+                ClientDashboard.openDashboard();
             }
             case "organizer" -> {
                 OrganizerDashboard.openDashboard();
             }
             case "counter" -> {
+                CounterDashboard.openDashboard();
             }
         }
     }

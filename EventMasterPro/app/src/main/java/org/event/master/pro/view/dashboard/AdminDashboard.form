@@ -84,30 +84,17 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="simulationManagement">
+        <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Simulation"/>
+            <Property name="text" type="java.lang.String" value="Events"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="simulatePurchase">
+            <MenuItem class="javax.swing.JMenuItem" name="showAllEvent">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Simulate Purchase"/>
+                <Property name="text" type="java.lang.String" value="Show Events"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simulatePurchaseActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="simulateReturn">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Simulate return"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="simulateAssitance">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Simulate Assistance"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="simulateAssitanceActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showAllEventActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

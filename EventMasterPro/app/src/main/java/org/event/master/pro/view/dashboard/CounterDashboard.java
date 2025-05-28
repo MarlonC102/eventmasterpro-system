@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import org.event.master.pro.person.account.Account;
 import org.event.master.pro.util.ImageUtil;
 import static org.event.master.pro.util.ShowPanelUtil.*;
-import org.event.master.pro.view.adminmanagement.AdminHomePanel;
 import org.event.master.pro.view.Login;
+import org.event.master.pro.view.organizermanagement.eventManagement.ListEventPanel;
 
 /**
  *
@@ -22,7 +22,7 @@ public class CounterDashboard extends javax.swing.JFrame {
     public CounterDashboard() {
         initComponents();
         getContentPane().setLayout(new BorderLayout());
-        openAdminPanel();
+        openCounterPanel();
 
     }
 
@@ -111,7 +111,7 @@ public class CounterDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutButtonMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
-        showAdminHome(this);
+        showListEventPanel(this);
     }//GEN-LAST:event_homeMouseClicked
 
     private void showAllSpeakerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllSpeakerItemActionPerformed
@@ -129,7 +129,7 @@ public class CounterDashboard extends javax.swing.JFrame {
     public static void openDashboard() {
         java.awt.EventQueue.invokeLater(() -> {
             CounterDashboard dash = new CounterDashboard();
-            dash.setTitle("Admin Dashboard");
+            dash.setTitle("Counter Dashboard");
             dash.setSize(1000, 700);
             dash.setLocationRelativeTo(null);
             dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -139,10 +139,10 @@ public class CounterDashboard extends javax.swing.JFrame {
         });
     }
 
-    public void openAdminPanel() {
+    public void openCounterPanel() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.add(new AdminHomePanel(this), java.awt.BorderLayout.CENTER);
+        mainPanel.add(new ListEventPanel(this), java.awt.BorderLayout.CENTER);
         getContentPane().add(mainPanel, BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();

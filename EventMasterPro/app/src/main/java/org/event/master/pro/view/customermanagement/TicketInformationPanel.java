@@ -4,6 +4,13 @@
  */
 package org.event.master.pro.view.customermanagement;
 
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.event.master.pro.event.ticket.Ticket;
+import org.event.master.pro.event.ticket.TicketDAO;
+
 /**
  *
  * @author Luisa
@@ -15,7 +22,62 @@ public class TicketInformationPanel extends javax.swing.JPanel {
      */
     public TicketInformationPanel() {
         initComponents();
+        loadTicket(2);
+        buttonValidate();
     }
+
+    void loadTicket(int personId) {
+        try {
+            TicketDAO dao = new TicketDAO();
+            List<Ticket> tickets = dao.getTicketsByPersonId(personId); // Este método lo creamos abajo
+
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            for (Ticket t : tickets) {
+                model.addRow(new Object[]{
+                    t.getIdTicket(),
+                    "Validate"
+                });
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error");
+            ex.printStackTrace();
+        }
+    }
+
+    public void buttonValidate() {
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int column = jTable1.getColumnModel().getColumnIndex("Validate");
+                int row = jTable1.rowAtPoint(evt.getPoint());
+
+                if (column == jTable1.columnAtPoint(evt.getPoint())) {
+                    int ticketId = (int) jTable1.getValueAt(row, 0);
+                    validateTicket(ticketId);
+                }
+            }
+        });
+    }
+    
+    private void validateTicket(int ticketId) {
+    try {
+        TicketDAO dao = new TicketDAO();
+        Ticket t = dao.validateTicket(ticketId);
+
+        if (t != null) {
+            dao.ticketUser(ticketId);
+            JOptionPane.showMessageDialog(this, "Validated");
+            loadTicket(2); 
+        } else {
+            JOptionPane.showMessageDialog(this, "Not valid");
+        }
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error.");
+        ex.printStackTrace();
+    }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,19 +88,59 @@ public class TicketInformationPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ticket", "Validate"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(120, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

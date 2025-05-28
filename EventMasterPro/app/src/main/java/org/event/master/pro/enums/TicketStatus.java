@@ -2,13 +2,9 @@ package org.event.master.pro.enums;
 
 public enum TicketStatus {
     AVAILABLE("Available"),
-    RESERVED("Reserved"),
     SOLD("Sold"),
-    CANCELLED("Cancelled"),
-    REFUNDED("Refunded"),
-    ACTIVE("Active"),
     USED("Used"),
-    RESCHEDULED("Rescheduled");
+    CANCELLED("Cancelled");
 
     private final String status;
 

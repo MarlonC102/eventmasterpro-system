@@ -1,11 +1,9 @@
 package org.event.master.pro.util;
 
 import java.sql.SQLException;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import org.event.master.pro.event.Event.Event;
 import org.event.master.pro.view.adminmanagement.AdminHomePanel;
 import org.event.master.pro.view.adminmanagement.artist.ArtistListPanel;
 import org.event.master.pro.view.adminmanagement.artist.ArtistEditPanel;
@@ -19,12 +17,12 @@ import org.event.master.pro.view.adminmanagement.speaker.SpeakerConsultPanel;
 import org.event.master.pro.view.adminmanagement.speaker.SpeakerEditPanel;
 import org.event.master.pro.view.adminmanagement.speaker.SpeakerCreatePanel;
 import org.event.master.pro.view.adminmanagement.speaker.SpeakerListPanel;
-import org.event.master.pro.view.organizermanagement.event.TicketCreatePanel;
-import org.event.master.pro.view.organizermanagement.event.CreateEventPanel;
+import org.event.master.pro.view.countermanagement.CounterViewFinancePanel;
+import org.event.master.pro.view.organizermanagement.eventManagement.CreateEventPanel;
 import org.event.master.pro.view.organizermanagement.OrganizerHomePanel;
-import org.event.master.pro.view.organizermanagement.event.ConsultEventPanel;
-import org.event.master.pro.view.organizermanagement.event.EditEventPanel;
-import org.event.master.pro.view.organizermanagement.event.ListEventPanel;
+import org.event.master.pro.view.organizermanagement.eventManagement.ConsultEventPanel;
+import org.event.master.pro.view.organizermanagement.eventManagement.EditEventPanel;
+import org.event.master.pro.view.organizermanagement.eventManagement.ListEventPanel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -124,12 +122,25 @@ public class ShowPanelUtil {
         switchToPanel(container, new ListEventPanel(container));
     }
 
-    public static void showEditEventPanel(JFrame container, int event, String type) throws SQLException {
-        switchToPanel(container, new EditEventPanel(container, event, type));
+    public static void showEditEventPanel(JFrame container, int event) throws SQLException {
+        switchToPanel(container, new EditEventPanel(container, event));
     }
 
     public static void showSeeEventPanel(JFrame container, int event, String type) throws SQLException {
         switchToPanel(container, new ConsultEventPanel(container, event, type));
     }
+    
+    public static void showEventFinance(JFrame container, int event){
+        switchToPanel(container, new CounterViewFinancePanel(container, event));
+    }
+    
+    
+    //Client panel
+    
+    public static void showHomeCustomer(JFrame container){
+        switchToPanel(container, new ListEventPanel(container));
+    }
+    
+    public static void showBuyTicketPanel(){}
 
 }
