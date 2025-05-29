@@ -76,11 +76,13 @@ public class UIUtil {
             table.getColumnModel().getColumn(9).setMinWidth(0);
             table.getColumnModel().getColumn(9).setMaxWidth(0);
             table.getColumnModel().getColumn(9).setPreferredWidth(0);
+        }if (!account.equals("customer")) {
+            table.getColumnModel().getColumn(10).setMinWidth(0);
+            table.getColumnModel().getColumn(10).setMaxWidth(0);
+            table.getColumnModel().getColumn(10).setPreferredWidth(0);
         }
     }
-    //}
-
-    //public static void hideButtonsCounter(String account, JTable table){
+    
     public static void hideButtonNotsCounter(String account, JTable table) {
         if (!account.equals("counter")) {
             table.getColumnModel().getColumn(8).setMinWidth(0);

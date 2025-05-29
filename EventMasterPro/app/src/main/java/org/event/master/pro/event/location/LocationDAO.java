@@ -142,10 +142,6 @@ public class LocationDAO {
         }
     }
 
-    //Por ahora no se usará este método, se reemplazará por changeAvailable, ya que harían lo mismo
-    public void assignEvent() {
-    }
-
     public void changeStatusLocation(String id) {
         String checkEvent = Select.SELECT_LOCATION_NOT_FINISHED_CANCELLED.getQuery(); 
         String sql = Update.CHANGE_STATUS_LOCATION.getQuery();

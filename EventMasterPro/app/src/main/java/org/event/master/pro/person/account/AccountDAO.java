@@ -40,18 +40,6 @@ public class AccountDAO {
             e.printStackTrace();
             throw new RuntimeException("SQL Error: " + e.getMessage());
         }
-        /*if (isStatus()){
-            if (documenNumbert.equals(getDocumenNumbert()) && password.equals(this.password)){
-                printMessage(String.format("Successful login. Welcome, %s",getName()));
-                isLoggedIn = true;
-            }else{
-                printMessage("Incorrect document or password.");
-                isLoggedIn = false;
-            }
-        }else{
-            printMessage("The account is inactive.");
-            isLoggedIn=false;
-        }*/
         return account;
     }
 }
