@@ -6,24 +6,26 @@ package org.event.master.pro.view.dashboard;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.event.master.pro.person.account.Account;
 import org.event.master.pro.util.ImageUtil;
 import static org.event.master.pro.util.ShowPanelUtil.*;
-import org.event.master.pro.view.adminmanagement.AdminHomePanel;
 import org.event.master.pro.view.Login;
+import org.event.master.pro.view.customermanagement.TicketInformationPanel;
+import org.event.master.pro.view.organizermanagement.eventManagement.ListEventPanel;
 
 /**
  *
  * @author Luisa
  */
 public class ClientDashboard extends javax.swing.JFrame {
-
+    
     public ClientDashboard() {
         initComponents();
         getContentPane().setLayout(new BorderLayout());
-        openAdminPanel();
-
+        openCustomerPanel();
+        
     }
 
     /**
@@ -38,14 +40,7 @@ public class ClientDashboard extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         home = new javax.swing.JMenu();
         locationManagement = new javax.swing.JMenu();
-        newLocationItem = new javax.swing.JMenuItem();
-        showAllLocationItem = new javax.swing.JMenuItem();
-        artistManagement = new javax.swing.JMenu();
-        newArtistItem = new javax.swing.JMenuItem();
-        consultAllArtist = new javax.swing.JMenuItem();
-        speakerManagement = new javax.swing.JMenu();
-        newSpeakerItem = new javax.swing.JMenuItem();
-        showAllSpeakerItem = new javax.swing.JMenuItem();
+        showTicket = new javax.swing.JMenuItem();
         logoutButton = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,63 +60,15 @@ public class ClientDashboard extends javax.swing.JFrame {
             }
         });
 
-        newLocationItem.setText("Buy Ticket");
-        newLocationItem.addActionListener(new java.awt.event.ActionListener() {
+        showTicket.setText("View");
+        showTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newLocationItemActionPerformed(evt);
+                showTicketActionPerformed(evt);
             }
         });
-        locationManagement.add(newLocationItem);
-
-        showAllLocationItem.setText("View");
-        showAllLocationItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showAllLocationItemActionPerformed(evt);
-            }
-        });
-        locationManagement.add(showAllLocationItem);
+        locationManagement.add(showTicket);
 
         jMenuBar1.add(locationManagement);
-
-        artistManagement.setText("Artist");
-
-        newArtistItem.setText("New Artist");
-        newArtistItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newArtistItemActionPerformed(evt);
-            }
-        });
-        artistManagement.add(newArtistItem);
-
-        consultAllArtist.setText("Show All Artists");
-        consultAllArtist.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                consultAllArtistActionPerformed(evt);
-            }
-        });
-        artistManagement.add(consultAllArtist);
-
-        jMenuBar1.add(artistManagement);
-
-        speakerManagement.setText("Speaker");
-
-        newSpeakerItem.setText("New Speaker");
-        newSpeakerItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newSpeakerItemActionPerformed(evt);
-            }
-        });
-        speakerManagement.add(newSpeakerItem);
-
-        showAllSpeakerItem.setText("Show All Speakers");
-        showAllSpeakerItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showAllSpeakerItemActionPerformed(evt);
-            }
-        });
-        speakerManagement.add(showAllSpeakerItem);
-
-        jMenuBar1.add(speakerManagement);
 
         logoutButton.setText("Log out");
         logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,41 +90,32 @@ public class ClientDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutButtonMouseClicked
 
     private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
-        showAdminHome(this);
+        showHomeCustomer(this);
     }//GEN-LAST:event_homeMouseClicked
-
-    private void showAllSpeakerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllSpeakerItemActionPerformed
-        showListSpeakerPanel(this);
-    }//GEN-LAST:event_showAllSpeakerItemActionPerformed
-
-    private void consultAllArtistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultAllArtistActionPerformed
-        showListArtistPanel(this);
-    }//GEN-LAST:event_consultAllArtistActionPerformed
-
-    private void newSpeakerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSpeakerItemActionPerformed
-        showNewSpeakerPanel(this);
-    }//GEN-LAST:event_newSpeakerItemActionPerformed
-
-    private void newArtistItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newArtistItemActionPerformed
-        showNewArtistPanel(this);
-    }//GEN-LAST:event_newArtistItemActionPerformed
 
     private void locationManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationManagementActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_locationManagementActionPerformed
 
-    private void showAllLocationItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllLocationItemActionPerformed
-        showListLocationPanel(this);
-    }//GEN-LAST:event_showAllLocationItemActionPerformed
-
-    private void newLocationItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newLocationItemActionPerformed
-        showNewLocationPanel(this);
-    }//GEN-LAST:event_newLocationItemActionPerformed
-
+    private void showTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showTicketActionPerformed
+        TicketInformationPanel panel = new TicketInformationPanel();
+        int option = JOptionPane.showConfirmDialog(
+                null,
+                panel,
+                "Ticket Validation",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
+        );
+        
+        if (option == JOptionPane.OK_OPTION) {
+            
+        }
+    }//GEN-LAST:event_showTicketActionPerformed
+    
     public static void openDashboard() {
         java.awt.EventQueue.invokeLater(() -> {
             ClientDashboard dash = new ClientDashboard();
-            dash.setTitle("Admin Dashboard");
+            dash.setTitle("Customer Dashboard");
             dash.setSize(1000, 700);
             dash.setLocationRelativeTo(null);
             dash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -186,11 +124,11 @@ public class ClientDashboard extends javax.swing.JFrame {
             ImageUtil.setIcon(dash);
         });
     }
-
-    public void openAdminPanel() {
+    
+    public void openCustomerPanel() {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
-        mainPanel.add(new AdminHomePanel(this), java.awt.BorderLayout.CENTER);
+        mainPanel.add(new ListEventPanel(this), java.awt.BorderLayout.CENTER);
         getContentPane().add(mainPanel, BorderLayout.CENTER);
         mainPanel.revalidate();
         mainPanel.repaint();
@@ -198,17 +136,10 @@ public class ClientDashboard extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu artistManagement;
-    private javax.swing.JMenuItem consultAllArtist;
     private javax.swing.JMenu home;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu locationManagement;
     private javax.swing.JMenu logoutButton;
-    private javax.swing.JMenuItem newArtistItem;
-    private javax.swing.JMenuItem newLocationItem;
-    private javax.swing.JMenuItem newSpeakerItem;
-    private javax.swing.JMenuItem showAllLocationItem;
-    private javax.swing.JMenuItem showAllSpeakerItem;
-    private javax.swing.JMenu speakerManagement;
+    private javax.swing.JMenuItem showTicket;
     // End of variables declaration//GEN-END:variables
 }

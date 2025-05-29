@@ -4,16 +4,42 @@
  */
 package org.event.master.pro.view.customermanagement;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.event.master.pro.event.Event.Event;
+import org.event.master.pro.event.Event.EventDAO;
+import org.event.master.pro.event.ticket.Ticket;
+import org.event.master.pro.event.ticket.TicketDAO;
+import org.event.master.pro.finance.FinanceDAO;
+import org.event.master.pro.person.customer.Customer;
+import org.event.master.pro.person.person.Person;
+
 /**
  *
  * @author Luisa
  */
 public class BuyTicketPanel extends javax.swing.JPanel {
 
+    private List<Ticket> selectedTickets = new ArrayList<>();
+    private Map<String, Integer> zoneCounter = new HashMap<>();
+    Customer c = new Customer();
+    //JFrame container;
+    private int idEvent;
+
     /**
      * Creates new form BuyTicketPanel
      */
-    public BuyTicketPanel() {
+    public BuyTicketPanel(int idEvent) {
+        this.idEvent = idEvent;
         initComponents();
     }
 
@@ -26,19 +52,90 @@ public class BuyTicketPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ticketTable = new javax.swing.JTable();
+        BuyTicket = new javax.swing.JButton();
+
+        ticketTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "UUID", "Zone/Cstegory", "Quantity", "Delete"
+            }
+        ));
+        jScrollPane1.setViewportView(ticketTable);
+
+        BuyTicket.setText("Buy Ticket");
+        BuyTicket.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuyTicketActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BuyTicket))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BuyTicket)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BuyTicketActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuyTicketActionPerformed
+        try {
+            TicketDAO ticketDAO = new TicketDAO();
+            FinanceDAO financeDAO = new FinanceDAO();
+
+            Ticket ticket = ticketDAO.randomTicket(idEvent);
+            if (ticket == null) {
+                JOptionPane.showMessageDialog(this, "Dont have tickets available.");
+                return;
+            }
+
+            int currentSold = ticketDAO.countTicketDetailsByTicketId(ticket.getIdTicket());
+
+            if (currentSold >= ticket.getSeatNumber()) {
+                JOptionPane.showMessageDialog(this, "Dont have more tickets" + ticket.getZone());
+                return;
+            }
+            int customerId = 1;
+            ticketDAO.insertTicketDetail(ticket.getIdTicket(), customerId);
+
+            financeDAO.updateFinanceWithRevenue(idEvent, ticket.getPrice());
+
+            JOptionPane.showMessageDialog(this, "Successful purchase");
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error " + ex.getMessage());
+        }
+    }//GEN-LAST:event_BuyTicketActionPerformed
+
+    public void saveTicket() {
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BuyTicket;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable ticketTable;
     // End of variables declaration//GEN-END:variables
 }

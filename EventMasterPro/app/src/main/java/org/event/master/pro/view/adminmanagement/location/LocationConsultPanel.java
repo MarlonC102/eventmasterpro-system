@@ -5,7 +5,6 @@
 package org.event.master.pro.view.adminmanagement.location;
 
 import java.awt.Color;
-import java.util.List;
 import javax.swing.JFrame;
 import org.event.master.pro.event.location.Location;
 import org.event.master.pro.event.location.LocationDAO;

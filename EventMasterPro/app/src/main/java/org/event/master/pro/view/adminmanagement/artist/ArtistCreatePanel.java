@@ -6,7 +6,6 @@ package org.event.master.pro.view.adminmanagement.artist;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import org.event.master.pro.person.artist.Artist;
 import org.event.master.pro.person.artist.ArtistDAO;
 import static org.event.master.pro.util.ShowPanelUtil.*;
 import org.event.master.pro.util.UIUtil;

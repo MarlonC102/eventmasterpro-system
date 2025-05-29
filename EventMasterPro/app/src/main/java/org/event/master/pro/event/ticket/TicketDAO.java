@@ -112,18 +112,16 @@ public class TicketDAO {
     }
 
     public Ticket validateTicket(int ticketId) throws SQLException {
-        String sql = Select.SELECT_TICKET.getQuery();
+        String sql = "SELECT * FROM ticket_detail WHERE ticket_id = ? AND status = 'SOLD'";
         try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
             stmt.setInt(1, ticketId);
-            stmt.setString(2, TicketStatus.SOLD.name());
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
                 Ticket t = new Ticket();
-                t.setIdTicket(rs.getInt("id_ticket"));
+                t.setIdTicket(ticketId);
                 return t;
             }
-        } catch (Exception e) {
+            ticketUser(ticketId);
         }
         return null;
     }
@@ -131,7 +129,7 @@ public class TicketDAO {
     public void ticketUser(int ticketId) {
         String sql = Update.TICKET_USED.getQuery();
         try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
-            stmt.setString(1, TicketStatus.USED.name());
+            stmt.setString(1, "USED");
             stmt.setInt(2, ticketId);
             stmt.executeUpdate();
         } catch (Exception e) {
@@ -151,4 +149,82 @@ public class TicketDAO {
         }
         return 0;
     }
+
+    public Ticket randomTicket(int eventId) throws SQLException {
+        String sql = """
+        SELECT t.* FROM ticket t
+        LEFT JOIN (
+            SELECT ticket_id, COUNT(*) AS sold
+            FROM ticket_detail
+            GROUP BY ticket_id
+        ) d ON t.id_ticket = d.ticket_id
+        WHERE t.event_id = ? AND (d.sold IS NULL OR d.sold < t.seat_number)
+        ORDER BY RAND()
+        LIMIT 1
+    """;
+
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+            stmt.setInt(1, eventId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                TicketStatus status = TicketStatus.valueOf(rs.getString("status_ticket").toUpperCase());
+                return new Ticket(
+                        rs.getInt("id_ticket"),
+                        rs.getString("description"),
+                        rs.getDouble("price_ticket"),
+                        status,
+                        rs.getInt("seat_number"),
+                        rs.getString("zone"),
+                        rs.getInt("event_id")
+                );
+            }
+        }
+        return null;
+    }
+
+    public int countTicketDetailsByTicketId(int ticketId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM ticket_detail WHERE ticket_id = ?";
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+            stmt.setInt(1, ticketId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        }
+        return 0;
+    }
+
+    public void insertTicketDetail(int ticketId, int customerId) throws SQLException {
+        String sql = "INSERT INTO ticket_detail (ticket_id, customer_id) VALUES (?, ?)";
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+            stmt.setInt(1, ticketId);
+            stmt.setInt(2, customerId);
+            stmt.executeUpdate();
+        }
+    }
+
+    public List<Ticket> getTicketsByPersonId(int personId) throws SQLException {
+        List<Ticket> tickets = new ArrayList<>();
+        String sql = """
+        SELECT t.id_ticket, t.status_ticket
+        FROM ticket t
+        JOIN ticket_detail td ON t.id_ticket = td.ticket_id
+        JOIN customer c ON td.customer_id = c.id_customer
+        WHERE c.person_id = ?
+    """;
+        try (PreparedStatement stmt = Database.connection().prepareStatement(sql)) {
+            stmt.setInt(1, personId);
+            ResultSet rs = stmt.executeQuery();
+            System.out.println(stmt);
+            while (rs.next()) {
+                Ticket t = new Ticket();
+                t.setIdTicket(rs.getInt("id_ticket"));
+                t.setStatus(TicketStatus.valueOf(rs.getString("status_ticket").toUpperCase()));
+                tickets.add(t);
+            }
+        }
+        return tickets;
+
+    }
+
 }

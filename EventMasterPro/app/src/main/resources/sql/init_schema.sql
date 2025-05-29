@@ -81,11 +81,6 @@ CREATE TABLE IF NOT EXISTS event_invited_artist (
     FOREIGN KEY (artist_id) REFERENCES artist(id_artist)
 );
 
-
-
---ALTER TABLE ticket DROP FOREIGN KEY customer;
---ALTER TABLE ticket DROP COLUMN type;
---ALTER TABLE ticket ALTER COLUMN status_ticket VARCHAR(20);
 CREATE TABLE IF NOT EXISTS ticket (
     id_ticket INT AUTO_INCREMENT PRIMARY KEY,
     type VARCHAR(20),
@@ -102,6 +97,8 @@ CREATE TABLE IF NOT EXISTS ticket_detail (
     id_ticket_detail INT AUTO_INCREMENT PRIMARY KEY,
     ticket_id INT,
     customer_id INT,
+    uuid CHAR(36) NOT NULL UNIQUE,
+    status VARCHAR(20) DEFAULT 'Sold',
     FOREIGN KEY (ticket_id) REFERENCES ticket(id_ticket),
     FOREIGN KEY (customer_id) REFERENCES customer(id_customer)
 );
@@ -116,32 +113,6 @@ CREATE TABLE IF NOT EXISTS history (
     FOREIGN KEY (event_id) REFERENCES event(id_event),
     FOREIGN KEY (ticket_id) REFERENCES ticket(id_ticket),
     FOREIGN KEY (customer_id) REFERENCES customer(id_customer)
-);
-
-CREATE TABLE IF NOT EXISTS payment_method (
-    id_payment_method INT AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(50),
-    provider VARCHAR(50),
-    last_four_digits CHAR(4)
-);
-
-CREATE TABLE IF NOT EXISTS payment (
-    id_payment INT AUTO_INCREMENT PRIMARY KEY,
-    payment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    amount DECIMAL(10, 2),
-    status VARCHAR(20) DEFAULT 'in progress',
-    payment_method_id INT,
-    FOREIGN KEY (payment_method_id) REFERENCES payment_method(id_payment_method)
-);
-
-CREATE TABLE IF NOT EXISTS purchase (
-    id_purchase INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT,
-    payment_id INT,
-    purchase_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10, 2),
-    FOREIGN KEY (customer_id) REFERENCES customer(id_customer),
-    FOREIGN KEY (payment_id) REFERENCES payment(id_payment)
 );
 
 CREATE TABLE IF NOT EXISTS finance (
@@ -184,4 +155,5 @@ CREATE TABLE IF NOT EXISTS attendance (
     FOREIGN KEY (ticket_id) REFERENCES ticket(id_ticket)
 );
 
---ALTER TABLE event ALTER COLUMN status_event SET DEFAULT 'Created';
+--ALTER TABLE finance ALTER COLUMN id_finance RESTART WITH 1;
+--ALTER TABLE finance ALTER COLUMN id_finance INT AUTO_INCREMENT;

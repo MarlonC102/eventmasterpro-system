@@ -1,7 +1,5 @@
 package org.event.master.pro.person.customer;
 
-import org.event.master.pro.event.Concert.Concert;
-import org.event.master.pro.event.Event.Event;
 import org.event.master.pro.event.ticket.Ticket;
 
 import java.util.ArrayList;

@@ -16,7 +16,6 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
-import org.event.master.pro.person.account.Account;
 
 /**
  *
@@ -63,13 +62,32 @@ public class UIUtil {
     }
 
     public static void hideButtons(String account, JTable table) {
-        if (!account.equals("admin")) {
+            table.getColumnModel().getColumn(8).setMinWidth(0);
+            table.getColumnModel().getColumn(8).setMaxWidth(0);
+            table.getColumnModel().getColumn(8).setPreferredWidth(0);
+        if (!account.equals("organizer")) {
             table.getColumnModel().getColumn(6).setMinWidth(0);
             table.getColumnModel().getColumn(6).setMaxWidth(0);
             table.getColumnModel().getColumn(6).setPreferredWidth(0);
             table.getColumnModel().getColumn(7).setMinWidth(0);
             table.getColumnModel().getColumn(7).setMaxWidth(0);
             table.getColumnModel().getColumn(7).setPreferredWidth(0);
+        } if (!account.equals("counter")) {
+            table.getColumnModel().getColumn(9).setMinWidth(0);
+            table.getColumnModel().getColumn(9).setMaxWidth(0);
+            table.getColumnModel().getColumn(9).setPreferredWidth(0);
+        }if (!account.equals("customer")) {
+            table.getColumnModel().getColumn(10).setMinWidth(0);
+            table.getColumnModel().getColumn(10).setMaxWidth(0);
+            table.getColumnModel().getColumn(10).setPreferredWidth(0);
+        }
+    }
+    
+    public static void hideButtonNotsCounter(String account, JTable table) {
+        if (!account.equals("counter")) {
+            table.getColumnModel().getColumn(8).setMinWidth(0);
+            table.getColumnModel().getColumn(8).setMaxWidth(0);
+            table.getColumnModel().getColumn(8).setPreferredWidth(0);
         }
     }
 
@@ -92,4 +110,5 @@ public class UIUtil {
         textPane.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
         textPane.setSize(textPane.getParent().getWidth(), Short.MAX_VALUE);
     }
+
 }

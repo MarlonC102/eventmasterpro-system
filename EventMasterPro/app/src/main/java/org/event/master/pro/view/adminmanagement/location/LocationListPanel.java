@@ -13,7 +13,6 @@ import org.event.master.pro.event.location.Location;
 import org.event.master.pro.event.location.LocationDAO;
 import org.event.master.pro.person.account.Account;
 import static org.event.master.pro.util.ShowPanelUtil.*;
-import org.event.master.pro.util.UIUtil;
 
 /**
  *

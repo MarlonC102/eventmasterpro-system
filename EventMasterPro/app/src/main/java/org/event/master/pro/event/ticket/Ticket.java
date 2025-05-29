@@ -41,6 +41,16 @@ public class Ticket {
         this.status = TicketStatus.AVAILABLE;
     }
 
+    public Ticket(int idTicket, String description, double price, TicketStatus status, int seatNumber, String zone, int eventId) {
+    this.idTicket = idTicket;
+    this.description = description;
+    this.price = price;
+    this.status = status;
+    this.seatNumber = seatNumber;
+    this.zone = zone;
+    this.event = String.valueOf(eventId); 
+}
+
     public int getIdTicket() {
         return idTicket;
     }

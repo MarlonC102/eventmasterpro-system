@@ -4,8 +4,6 @@
  */
 package org.event.master.pro.view.adminmanagement.location;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.event.master.pro.event.location.LocationDAO;

@@ -15,7 +15,6 @@ import org.event.master.pro.person.speaker.Speaker;
 import org.event.master.pro.person.speaker.SpeakerDAO;
 import org.event.master.pro.util.FormatUtil;
 import static org.event.master.pro.util.ShowPanelUtil.*;
-import org.event.master.pro.util.UIUtil;
 
 /**
  *
